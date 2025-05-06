@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEVIS Fee Payment - Multinational Educational Consulting</title>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+
+    <!-- Bootstrap CSS CDN -->
+    <link href="bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome CSS CDN -->
+    <link rel="stylesheet" href="all.min.css">
+    <style>
+        :root {
+            --mec-red: #d32f2f;
+            --mec-yellow: #f9a825;
+            --mec-green: #2e8540;
+            --mec-dark: #2d2d2d;
+            --mec-light: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            line-height: 1.6;
+            color: var(--mec-dark);
+            padding-top: 140px;
+            background-color: #f9f9f9;
+        }
+
+        /* Contact Info Bar */
+        .contact-bar {
+            background: var(--mec-green);
+            color: white;
+            font-size: 0.9rem;
+            padding: 8px 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 2000;
+        }
+
+        .contact-bar a {
+            color: white;
+            margin: 0 8px;
+            transition: opacity 0.3s;
+        }
+
+        .contact-bar a:hover {
+            opacity: 0.8;
+        }
+
+        /* Main Header */
+        .main-header {
+            background: white;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 40px;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .header-container {
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            margin-right: 15px;
+        }
+
+        .main-logo {
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .accreditation-badge {
+            border-left: 2px solid var(--mec-yellow);
+            padding-left: 8px;
+            font-size: 0.75rem;
+            line-height: 1.2;
+            color: var(--mec-red);
+        }
+
+        .tagline {
+            font-size: 0.85rem;
+            color: var(--mec-green);
+            font-weight: 600;
+            margin-top: 3px;
+            white-space: nowrap;
+        }
+
+        .navbar-nav {
+            gap: 12px;
+        }
+
+        .nav-link {
+            color: var(--mec-dark);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.95rem;
+            padding: 8px 12px !important;
+            white-space: nowrap;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--mec-red);
+        }
+
+        /* Dropdown menu styles */
+        .dropdown-menu {
+            border: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        /* Services dropdown menu - fixed height with scroll */
+        #servicesDropdownMenu {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        
+        /* Study abroad dropdown menu - scrollable */
+        #studyAbroadDropdownMenu {
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        /* SEVIS Hero Section */
+        .sevis-hero {
+            height: 50vh;
+            min-height: 300px;
+            background: linear-gradient(rgba(0,0,0,0.0), rgba(0,0,0,0.0)), 
+                        url('images/sevis.jpg') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            color: white;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .sevis-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+        .sevis-hero .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .content-section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+            color: var(--mec-dark);
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--mec-red);
+            margin: 20px auto 0;
+        }
+
+        .step-card {
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+            background: white;
+            border-left: 5px solid var(--mec-green);
+        }
+
+        .step-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: var(--mec-red);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .pricing-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+        }
+
+        .pricing-table th, 
+        .pricing-table td {
+            padding: 12px 15px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        .pricing-table th {
+            background-color: var(--mec-green);
+            color: white;
+            font-weight: 600;
+        }
+
+        .pricing-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .pricing-table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .note-box {
+            background-color: #fff8e1;
+            border-left: 4px solid var(--mec-yellow);
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .office-card {
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            background: white;
+            border-top: 4px solid var(--mec-red);
+        }
+
+        .office-card h4 {
+            color: var(--mec-red);
+            margin-bottom: 15px;
+        }
+
+        .faq-item {
+            margin-bottom: 15px;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .faq-question {
+            padding: 20px;
+            background: var(--mec-light);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--mec-dark);
+        }
+
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-answer.show {
+            padding: 20px;
+            max-height: 500px;
+        }
+
+        .contact-cta {
+            background: linear-gradient(rgba(45, 45, 45, 0.9), rgba(45, 45, 45, 0.9)), url('https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80');
+            background-size: cover;
+            color: white;
+            padding: 60px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 40px;
+            position: relative;
+        }
+
+        .contact-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(45, 45, 45, 0.8);
+            border-radius: 8px;
+            z-index: 1;
+        }
+
+        .contact-cta .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--mec-red) !important;
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        footer a:hover {
+            opacity: 0.8;
+        }
+
+        .social-icons {
+            margin-top: 15px;
+        }
+
+        .social-icons a {
+            display: inline-block;
+            margin-right: 15px;
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding-top: 120px;
+            }
+            
+            .navbar-nav {
+                gap: 8px;
+            }
+            
+            .nav-link {
+                font-size: 0.9rem;
+                padding: 6px 10px !important;
+            }
+            
+            .main-logo {
+                height: 40px;
+            }
+            
+            .accreditation-badge {
+                font-size: 0.65rem;
+            }
+            
+            .contact-bar .d-flex {
+                flex-direction: column;
+                text-align: center;
+                gap: 5px;
+            }
+            
+            .contact-bar span {
+                display: block;
+                margin: 0 !important;
+            }
+
+            .sevis-hero {
+                height: 40vh;
+            }
+            
+            .content-section {
+                padding: 60px 0;
+            }
+            
+            .contact-cta {
+                padding: 40px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Contact Info Bar -->
+    <div class="contact-bar">
+        <div class="header-container">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <span><img src="images/phone-icon.png" alt="Phone" class="icon me-2" style="width:16px;"> +234 806 058 1501</span>
+                <span class="ms-3"><img src="images/email-icon.png" alt="Email" class="icon me-2" style="width:16px;"> info@mecconsulting.com</span>
+            </div>
+            <div>
+                <a href="#"><img src="images/facebook-icon.png" alt="Facebook" class="icon" style="width:18px;"></a>
+                <a href="#"><img src="images/twitter-icon.png" alt="Twitter" class="icon" style="width:18px;"></a>
+                <a href="#"><img src="images/linkedin-icon.png" alt="LinkedIn" class="icon" style="width:18px;"></a>
+                <a href="#"><img src="images/instagram-icon.png" alt="Instagram" class="icon" style="width:18px;"></a>                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Header -->
+    <header class="main-header">
+        <div class="header-container">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="logo-container">
+                    <img src="images/logo.png" alt="MEC Logo" class="main-logo">
+                    <div class="accreditation-badge">
+                        <div>An Accredited</div>
+                        <div>Educational Agent</div>
+                        <div>Home & Abroad</div>
+                    </div>
+                </div>
+                <div class="tagline d-none d-xl-block">...your direct pathway to quality education</div>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">HOME</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="about.html">ABOUT US</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="services.html" id="servicesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                OUR SERVICES
+                            </a>
+                            <ul class="dropdown-menu" id="servicesDropdownMenu" aria-labelledby="servicesDropdown">
+                                <li><a class="dropdown-item" href="admission-processing.html">Admission Processing</a></li>
+                                <li><a class="dropdown-item" href="foreign-exam-registration.html">Foreign Exam Registration & Coaching</a></li>
+                                <li><a class="dropdown-item" href="local-exam-registration.html">Local Exam Registration & Coaching</a></li>
+                                <li><a class="dropdown-item" href="resource-platform.html">Resource Platform</a></li>
+                                <li><a class="dropdown-item" href="visa-guidance.html">Visa Guidance and Application</a></li>
+                                <li><a class="dropdown-item active" href="sevis-payment.html">SEVIS Fee Payment</a></li>
+                                <li><a class="dropdown-item" href="scratch-cards.html">Sales of WAEC, NECO, JAMB Scratch Cards</a></li>
+                                <li><a class="dropdown-item" href="foreign-textbooks.html">Sales of Foreign Exam Textbooks</a></li>
+                                <li><a class="dropdown-item" href="private-coaching.html">Private Coaching</a></li>
+                                <li><a class="dropdown-item" href="fund-transfer.html">Fund Transfer</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="destinations.html" id="studyAbroadDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                STUDY ABROAD
+                            </a>
+                            <ul class="dropdown-menu" id="studyAbroadDropdownMenu" aria-labelledby="studyAbroadDropdown">
+                                <li><a class="dropdown-item" href="#canada">Canada</a></li>
+                                <li><a class="dropdown-item" href="#uk">United Kingdom</a></li>
+                                <li><a class="dropdown-item" href="#usa">United States</a></li>
+                                <li><a class="dropdown-item" href="#cyprus">Cyprus</a></li>
+                                <li><a class="dropdown-item" href="#australia">Australia</a></li>
+                                <li><a class="dropdown-item" href="#austria">Austria</a></li>
+                                <li><a class="dropdown-item" href="#india">India</a></li>
+                                <li><a class="dropdown-item" href="#ireland">Ireland</a></li>
+                                <li><a class="dropdown-item" href="#germany">Germany</a></li>
+                                <li><a class="dropdown-item" href="#france">France</a></li>
+                                <li><a class="dropdown-item" href="#mauritius">Mauritius</a></li>
+                                <li><a class="dropdown-item" href="#lithuania">Lithuania</a></li>
+                                <li><a class="dropdown-item" href="#uae">Dubai, UAE</a></li>
+                                <li><a class="dropdown-item" href="#netherlands">Netherlands</a></li>
+                                <li><a class="dropdown-item" href="#poland">Poland</a></li>
+                                <li><a class="dropdown-item" href="#belgium">Belgium</a></li>
+                                <li><a class="dropdown-item" href="#greece">Greece</a></li>
+                                <li><a class="dropdown-item" href="#turkey">Turkey</a></li>
+                                <li><a class="dropdown-item" href="#malaysia">Malaysia</a></li>
+                                <li><a class="dropdown-item" href="#malta">Malta</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="gallery.html">GALLERY</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">CONTACT</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="tagline d-xl-none text-center mt-2">...your direct pathway to quality education</div>
+        </div>
+    </header>
+
+    <!-- SEVIS Hero Section -->
+    <section class="sevis-hero">
+        <div class="container text-center">
+            <h1 class="display-4 fw-bold mb-4">SEVIS FEE PAYMENT</h1>
+            <p class="lead">WE ASSIST IN MAKING SEVIS PAYMENT WITH EASE</p>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 mx-auto text-center">
+                    <p class="lead">PAYING SEVIS FEE IN NIGERIA, BENIN REPUBLIC, GAMBIA, SENEGAL, KENYA TOGO, SOUTH AFRICA, GHANA, ZAMBIA, IVORY COAST, CAMEROON, MALI AND ANY OTHER PART OF THE WORLD IN ONLY FEW MINUTES AT THE CHEAPEST POSSIBLE RATE EVER</p>
+                    <p>PAY YOUR SEVIS FEE THROUGH US AND ENJOY ABSOLUTE PEACE OF MIND</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section bg-light">
+        <div class="container">
+            <h2 class="section-title">HOW CAN I PAY MY SEVIS FEE THROUGH MEC?</h2>
+            <p class="text-center mb-5">If you are interested in paying SEVIS fee through us, please follow the Six (6) simple steps below:</p>
+            
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <h3>CONFIRM THE AMOUNT IN NAIRA</h3>
+                        <p>Irrespective of what is published here, if you want to make your payment in Naira, kindly CALL or WHATSAPP us directly to ascertain the exact NAIRA amount for your visa category Ã¢â‚¬â€œ F, M or J.</p>
+                        <p>You can also visit any of our office with details below to make face Ã¢â‚¬â€œ to Ã¢â‚¬â€œ face enquiries:</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <h3>PAY INTO OUR ACCOUNT</h3>
+                        <p>After confirming the amount you are to pay in Naira, depending on the visa category, make appropriate payment into any of the accounts below. You can either pay in Naira or US dollar, subject to what is convenient for you.</p>
+                        <p><strong>Bank:</strong> GTBank<br>
+                        <strong>Account Name:</strong> MEC EXPRESS<br>
+                        <strong>Account No:</strong> 0461352866 (NAIRA ACCOUNT)</p>
+                        <p>OR</p>
+                        <p><strong>Bank:</strong> GTBank<br>
+                        <strong>Account Name:</strong> MEC EXPRESS<br>
+                        <strong>Account No:</strong> 0461352873 (USD ACCOUNT)</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <h3>SEND DOCUMENTS TO US</h3>
+                        <p><strong>If you have completed and submitted the SEVIS form I Ã¢â‚¬â€œ 901 online:</strong> send the requested items listed below to the following emails:</p>
+                        <p>Ã¢â‚¬Â¢ sevis@mecnigeria.com<br>
+                        CC: COPY<br>
+                        ÃƒËœ Festac@mecnigeria.com (FESTAC PAYMENTS)<br>
+                        ÃƒËœ Okota@mecnigeria.com (OKOTA PAYMENTS)</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="step-card">
+                        <div class="step-number">4</div>
+                        <h3>CONFIRMATION OF RECEIVED DOCUMENTS</h3>
+                        <p>After sending your documents listed on step 3 above, please give us up to an hour to confirm your payment and the received documents. Please note that in some cases, especially when network is bad, your payment may take a longer time to be confirmed.</p>
+                        <p>Be rest assured we will get back to you (via email, call or text) as soon as we are able to confirm it.</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="step-card">
+                        <div class="step-number">5</div>
+                        <h3>PAYMENT REMITTANCE TO SEVIS</h3>
+                        <p>After receiving your documents and have confirmed your payment into our designated account, we will now process your SEVIS payment accordingly.</p>
+                        <p>The waiting time here is either 2-3 working days (for option 1 or urgent payments) or 7-8 working days (for option 2 or non Ã¢â‚¬â€œ urgent payments).</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="step-card">
+                        <div class="step-number">6</div>
+                        <h3>PRINTING YOUR SEVIS RECEIPT</h3>
+                        <p>Immediately you receive the payment notification email from SEVIS or after we have confirmed that your SEVIS payment has been made, go ahead and print off your SEVIS fee payment receipt.</p>
+                        <p>You can do that by visiting SEVIS official page at <a href="https://www.fmjfee.com" target="_blank">https://www.fmjfee.com</a> and enter your SEVIS ID NUMBER, SURNAME/LAST NAME and DATE OF BIRTH.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+            <h2 class="section-title">OUR CURRENT SEVIS AMOUNT</h2>
+            
+            <div class="table-responsive">
+                <table class="pricing-table">
+                    <thead>
+                        <tr>
+                            <th>VISA CATEGORIES</th>
+                            <th>AMOUNT (OPTION 1 - Urgent)</th>
+                            <th>AMOUNT (OPTION 2 - Non-Urgent)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>F-1/M-1</td>
+                            <td>$425 USD</td>
+                            <td>$410 USD</td>
+                        </tr>
+                        <tr>
+                            <td>J-1 (FULL PAYMENT)</td>
+                            <td>$295 USD</td>
+                            <td>$280 USD</td>
+                        </tr>
+                        <tr>
+                            <td>J-1 (SUBSIDIZED)</td>
+                            <td>$120 USD</td>
+                            <td>$100 USD</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="note-box">
+                <h4>SOME EXPLANATIONS:</h4>
+                <p><strong>OPTION 1 Ã¢â‚¬â€œ Urgent Payments</strong><br>
+                This payment takes between 2 to 3 working days to clear. Here you make payment to us today and check your SEVIS FEE status page to print payment receipt after 2-3 working days.</p>
+                <p><strong>NOTE:</strong> The day you made payment to us is not counted in the 2 to 3 working days calendar.</p>
+                <ul>
+                    <li>F-1/M-1 Visas = $350 (Actual Fee) + $75 (other charges + MEC charge) = $425 USD</li>
+                    <li>J-1 Visa (full payment) = $220 (Actual Fee) + $75 (other charges + MEC charge) = $295 USD</li>
+                    <li>J-1 Visa (Subsidized) = $35 (Actual Fee) + $85 (other charges + MEC charge) = $120 USD</li>
+                </ul>
+                
+                <p><strong>OPTION 2 Ã¢â‚¬â€œ Non - Urgent Payments</strong><br>
+                This payment takes between 7 to 8 working days to clear. Here you make payment to us today and check your SEVIS FEE status page to print payment receipt after 7-8 working days.</p>
+                <p><strong>NOTE:</strong> The day you made payment to us is not counted in the 7 to 8 working days calendar.</p>
+                <ul>
+                    <li>F-1/M-1 Visas = $350 (Actual Fee) + $60 (other charges + MEC charge) = $410 USD</li>
+                    <li>J-1 Visa (full payment) = $220 (Actual Fee) + $60 (other charges + MEC charge) = $280 USD</li>
+                    <li>J-1 Visa (Subsidized) = $35 (Actual Fee) + $65 (other charges + MEC charge) = $100 USD</li>
+                </ul>
+            </div>
+            
+            <div class="alert alert-danger mt-4">
+                <strong>IMPORTANT NOTE:</strong> Do not pay money into a staff personal account for any reason. All payments should be lodged directly into the above designated accounts. We will not be held liable for any personal transaction done with a MEC staff member while engaging the company services.
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section bg-light">
+        <div class="container">
+            <h2 class="section-title">OUR OFFICE LOCATIONS</h2>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="office-card">
+                        <h4>FESTAC OFFICE</h4>
+                        <p>Multinational Educational Consulting (MEC)<br>
+                        Plot 925 Ã¢â‚¬â€œ 926, 13th Cavera Road, Beside MRS Filling Station,<br>
+                        Off 6th Avenue Road, Festac Town, Lagos Ã¢â‚¬â€œ Nigeria.</p>
+                        <p><strong>Direct calls:</strong> 08060581501/07032835643<br>
+                        <strong>Whatsapp (text/calls):</strong> 08060581501</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="office-card">
+                        <h4>OKOTA OFFICE</h4>
+                        <p>Multinational Educational Consulting (MEC)<br>
+                        27, Ago Palace Way, Opposite Shadia Memorial School,<br>
+                        By Ali Dada Bus Stop, Okota, Lagos Ã¢â‚¬â€œ Nigeria.</p>
+                        <p><strong>Direct calls:</strong> 07046736448/07077975931<br>
+                        <strong>Whatsapp (text & calls):</strong> 07046736448<br>
+                        <strong>Whatsapp (text only):</strong> 07077975931</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+            <h2 class="section-title">HOW CAN I TRUST MEC WITH MY SEVIS FEE PAYMENT?</h2>
+            
+            <div class="row">
+                <div class="col-lg-10 mx-auto">
+                    <p>Paying SEVIS fee through us is absolutely safe, faster and a lot easier. One good thing about our service is that we keep our words and operate with high level integrity. We have been paying SEVIS fee for students consistently since November 2010. As a matter of fact each year we pay SEVIS fee for not less than 700 applicants across our network. MEC has never failed nor disappointed anyone as far as this payment is concerned. We have made SEVIS payment in less 15 minutes at a time after receiving applicant's documents and payment, although at extra charges.</p>
+                    
+                    <p>If you are in doubt about our payment platform in any way, please feel free to visit us at the office and ask for proof of at least 100 SEVIS fee payments already made by us before making your payment. We are not proofing with documents already held on our file; rather all past SEVIS payment would be proven directly from the SEVIS fee payment portal so you can confirm all payments directly from its source.</p>
+                    
+                    <p>How easy can we get this information from SEVIS if we haven't made the payments in the first place? We are very confident at any given time to deliver our promises.</p>
+                    
+                    <p class="note-box"><strong>NOTE:</strong> Data protection policy applies here</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section bg-light">
+        <div class="container">
+            <h2 class="section-title">WHEN IS THE BEST TIME TO CONTACT MEC FOR MY SEVIS PAYMENT?</h2>
+            
+            <div class="row">
+                <div class="col-lg-10 mx-auto">
+                    <p>The best time to contact us for your SEVIS payment is between 10am to 4pm Monday to Friday. We do not make SEVIS payment on weekends and even Nigeria & USA public holidays. All payments received after 4pm (Nigeria time) on a working day would be assumed to have been made the following working day and treated accordingly. If your payment is very urgent, you can contact us to give it a trial, although this would definitely attract extra charges.</p>
+                    
+                    <p>We are known for our prompt service delivery and integrity. We do not entice clients with words; as long as we promise it, we are able to deliver it. You can try us today in order to make future referrals.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+            <h2 class="section-title">Frequently Asked Questions (FAQ) On SEVIS FEE</h2>
+            
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>What is SEVIS?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>It stands for:<br>
+                            S - Student<br>
+                            and<br>
+                            E Ã¢â‚¬â€œ Exchange<br>
+                            V - Visitor<br>
+                            I Ã¢â‚¬â€œ Information<br>
+                            S Ã¢â‚¬â€œ System</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Who Should Pay the I Ã¢â‚¬â€œ 901 SEVIS Fee?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <ul>
+                                <li>All student or exchange visitor issued with an initial form I Ã¢â‚¬â€œ 20 or DS Ã¢â‚¬â€œ 2019 to study in United States.</li>
+                                <li>Visa exempt and applying for entry to the US in F-1 status at a Port of Entry (PoE).</li>
+                                <li>Applying for a change of status to F-1, M-1 or J-1 from another student visa status.</li>
+                                <li>A current F-1, M-1 or J-1 students who have fallen out of status and are applying for reinstatement after more than 5 months.</li>
+                                <li>A current F-1, M-1 or J-1 students who have been outside the U.S. for more than 5 months and are returning to resume a degree program or begin a new degree program.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>What is the difference between I Ã¢â‚¬â€œ 901 SEVIS Fee and a School SEVIS administration fee?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Some schools charge a fee per year or semester to support their foreign student/exchange visitor office and automated systems. These fees neither mandated nor collected by the U.S. government.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Who is SEVIS fee paid to or who receives SEVIS fee payments?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>The U.S. Immigration and Customs Enforcement (ICE) receives SEVIS fee payments</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>What is the importance of SEVIS fee payment to the US government?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>The payment helps to keep track of students and exchange visitors and ensures that they maintain their status while in the United States.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Does the I Ã¢â‚¬â€œ 901 SEVIS Fee replaces the visa fee?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>No. I Ã¢â‚¬â€œ 901 SEVIS Fee is paid to Student and Exchange Visitor Program (SEVP) while visa fee is paid to the US Consulates in the country where you are applying for visa or attending visa interview.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Do I need to pay the SEVIS fee before receiving a Form I Ã¢â‚¬â€œ 20 or DS Ã¢â‚¬â€œ 2019?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>No, you must have received your Form I Ã¢â‚¬â€œ 20 or DS Ã¢â‚¬â€œ 2019 before contacting us for SEVIS payment. By this we can retrieve your SEVIS ID number and School Code in order to complete the SEVIS form I Ã¢â‚¬â€œ 901.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Do I pay SEVIS fee for every Form I Ã¢â‚¬â€œ 20 or DS Ã¢â‚¬â€œ 2019 I receive?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>You only need to pay the fee for one Form I-20 or DS-2019, except in the case of a person who is applying to enter the United States to participate in more than one exchange visitor program. Pay the I-901 SEVIS Fee using the information from the Form I-20 or DS-2019 issued by the school or exchange visitor program(s) you wish to attend.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Do I have to pay the SEVIS fee every time I apply for a student or exchange visitor visa?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Not necessarily. If you are a continuing student or continuing to participate in the same exchange visitor program, you have continued to maintain your status, and you have the same SEVIS ID you do not need to pay the SEVIS I-901 fee before applying for a new visa.</p>
+                            <p>However, you do need to pay the fee if you are starting a new program or course of study (excluding F students who are transferring schools or changing program levels).</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Do I need to pay for SEVIS before scheduling visa appointment at the embassy?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>No. You only need to have made the payment before attending the visa interview. For F, M & J visa applicants No SEVIS payment equals no interview. Visa appointment does not affect SEVIS fee payment in any way. However, ensure that your SEVIS Fee payment is made at least 3 business days before your interview at the US Consulate.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Does SEVIS fee payment guarantee a student visa to US?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>No. The Visa Officer at the US Consulate where you are attending your visa interview determines your eligibility to obtain a student visa.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Will there be a refund of my SEVIS fee payment if I am denied a visa?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>No refund. Although your initial payment for SEVIS was made through MEC; we also process all payment to the Department of Homeland Security through Student and Exchange Visitor Program (SEVP).</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+            <div class="contact-cta">
+                <h2 class="mb-4">Need Help With Your SEVIS Fee Payment?</h2>
+                <p class="mb-4">Contact us today for a smooth and hassle-free SEVIS fee payment experience</p>
+                <div class="d-flex justify-content-center gap-4 flex-wrap">
+                    <a href="contact.html" class="btn btn-primary btn-lg"><i class="fas fa-envelope me-2"></i> Contact Us</a>
+                    <a href="tel:+2348060581501" class="btn btn-outline-light btn-lg"><i class="fas fa-phone-alt me-2"></i> Call Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <img src="images/logo.png" alt="MEC Logo" class="mb-3" height="50">
+                    <p>Multinational Educational Consulting (MEC) is dedicated to helping students achieve their academic dreams through expert guidance and personalized support.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="index.html">Home</a></li>
+                        <li class="mb-2"><a href="about.html">About Us</a></li>
+                        <li class="mb-2"><a href="services.html">Services</a></li>
+                        <li class="mb-2"><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5>Services</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="admission-processing.html">University Admissions</a></li>
+                        <li class="mb-2"><a href="resource-platform.html">Resource Platform</a></li>
+                        <li class="mb-2"><a href="visa-guidance.html">Visa Assistance</a></li>
+                        <li class="mb-2"><a href="foreign-exam-registration.html">Exam Preparation</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5>Contact Us</h5>
+                    <ul class="list-unstyled">
+                         <li class="mb-3">
+            <img src="images/address-icon.png" alt="Address" class="footer-icon me-2">
+            123 Education Ave, Lagos, Nigeria
+        </li>
+        <li class="mb-3">
+            <img src="images/phone-icon.png" alt="Phone" class="footer-icon me-2">
+            +234 806 058 1501
+        </li>
+        <li class="mb-3">
+            <img src="images/email-icon.png" alt="Email" class="footer-icon me-2">
+            info@mecconsulting.com
+        </li>                     </ul>
+                </div>
+            </div>
+            <hr class="my-4 bg-light opacity-25">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0">&copy; 2023 Multinational Educational Consulting. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="privacy-policy.html">Privacy Policy</a>
+                    <span class="mx-2">|</span>
+                    <a href="terms.html">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle with Popper CDN -->
+    <script src="bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // FAQ Toggle Functionality
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const icon = question.querySelector('i.fa-chevron-down, i.fa-chevron-up');
+                
+                // Toggle answer visibility
+                answer.classList.toggle('show');
+                
+                // Toggle icon
+                if (icon.classList.contains('fa-chevron-down')) {
+                    icon.classList.remove('fa-chevron-down');
+                    icon.classList.add('fa-chevron-up');
+                } else {
+                    icon.classList.remove('fa-chevron-up');
+                    icon.classList.add('fa-chevron-down');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

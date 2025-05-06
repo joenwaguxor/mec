@@ -1,0 +1,2036 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Abroad - Multinational Educational Consulting</title>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+
+    <!-- Bootstrap CSS CDN -->
+    <link href="bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome CSS CDN -->
+    <link rel="stylesheet" href="all.min.css">
+    <style>
+        :root {
+            --mec-red: #d32f2f;
+            --mec-yellow: #f9a825;
+            --mec-green: #2e8540;
+            --mec-dark: #2d2d2d;
+            --mec-light: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            line-height: 1.6;
+            color: var(--mec-dark);
+            padding-top: 140px;
+            background-color: #f9f9f9;
+        }
+
+        /* Contact Info Bar */
+        .contact-bar {
+            background: var(--mec-green);
+            color: white;
+            font-size: 0.9rem;
+            padding: 8px 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 2000;
+        }
+
+        .contact-bar a {
+            color: white;
+            margin: 0 8px;
+            transition: opacity 0.3s;
+        }
+
+        .contact-bar a:hover {
+            opacity: 0.8;
+        }
+
+        /* Main Header with Menu Styling */
+        .main-header {
+            background: white;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 40px;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .header-container {
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            margin-right: 15px;
+        }
+
+        .main-logo {
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .accreditation-badge {
+            border-left: 2px solid var(--mec-yellow);
+            padding-left: 8px;
+            font-size: 0.75rem;
+            line-height: 1.2;
+            color: var(--mec-red);
+        }
+
+        .tagline {
+            font-size: 0.85rem;
+            color: var(--mec-green);
+            font-weight: 600;
+            margin-top: 3px;
+            white-space: nowrap;
+        }
+
+        /* Navigation */
+        .navbar-nav {
+            gap: 12px;
+        }
+
+        .nav-link {
+            color: var(--mec-dark);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.95rem;
+            padding: 8px 12px !important;
+            white-space: nowrap;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--mec-red);
+        }
+
+        /* Dropdown Menu */
+        .dropdown-menu {
+            border: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .dropdown-item {
+            font-weight: 500;
+            padding: 8px 20px;
+        }
+
+        .dropdown-item:hover {
+            background-color: var(--mec-green);
+            color: white;
+        }
+
+        /* Hero Section */
+        .abroad-hero {
+            height: 60vh;
+            min-height: 400px;
+            background: url('images/study-abroad-hero.jpg') center/cover no-repeat;
+            position: relative;
+            display: flex;
+            align-items: center;
+            color: white;
+            margin-bottom: 60px;
+        }
+
+        .abroad-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+        }
+
+        .abroad-hero .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Country Submenu */
+        .country-submenu {
+            background: var(--mec-light);
+            padding: 20px 0;
+            position: sticky;
+            top: 140px;
+            z-index: 900;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+        }
+
+        .country-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .country-item {
+            padding: 8px 15px;
+            background: white;
+            border-radius: 20px;
+            font-weight: 600;
+            color: var(--mec-dark);
+            transition: all 0.3s ease;
+            border: 1px solid var(--mec-green);
+        }
+
+        .country-item:hover,
+        .country-item.active {
+            background: var(--mec-green);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .country-item a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* Country Sections */
+        .country-section {
+            padding: 60px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .country-section:last-child {
+            border-bottom: none;
+        }
+
+        .country-flag {
+            width: 80px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-right: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .country-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .education-system {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+
+        .university-card {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            height: 100%;
+            margin-bottom: 30px;
+        }
+
+        .university-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .university-logo {
+            height: 60px;
+            margin-bottom: 15px;
+            object-fit: contain;
+        }
+
+        /* Benefits Section */
+        .benefits-section {
+            background-color: var(--mec-green);
+            color: white;
+            padding: 80px 0;
+        }
+
+        .benefit-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .benefit-card:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-5px);
+        }
+
+        .benefit-icon {
+            font-size: 2.5rem;
+            color: var(--mec-yellow);
+            margin-bottom: 20px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--mec-red) !important;
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        footer a:hover {
+            opacity: 0.8;
+        }
+
+        .social-icons {
+            margin-top: 15px;
+        }
+
+        .social-icons a {
+            display: inline-block;
+            margin-right: 15px;
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        @media (max-width: 992px) {
+            .country-list {
+                gap: 8px;
+            }
+            
+            .country-item {
+                padding: 6px 12px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .country-submenu {
+                top: 120px;
+            }
+            
+            .country-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .country-flag {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+            
+            .country-list {
+                overflow-x: auto;
+                flex-wrap: nowrap;
+                justify-content: flex-start;
+                padding-bottom: 10px;
+            }
+            
+            /* Mobile menu adjustments */
+            .navbar-nav {
+                gap: 8px;
+            }
+            .nav-link {
+                font-size: 0.9rem;
+                padding: 6px 10px !important;
+            }
+            .main-logo {
+                height: 40px;
+            }
+            .accreditation-badge {
+                font-size: 0.65rem;
+            }
+
+            .contact-bar .d-flex {
+                flex-direction: column;
+                text-align: center;
+                gap: 5px;
+            }
+            
+            .contact-bar span {
+                display: block;
+                margin: 0 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Contact Info Bar -->
+    <div class="contact-bar">
+        <div class="header-container">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <span><img src="images/phone-icon.png" alt="Phone" class="icon me-2" style="width:16px;"> +234 806 058 1501</span>
+                <span class="ms-3"><img src="images/email-icon.png" alt="Email" class="icon me-2" style="width:16px;"> info@mecconsulting.com</span>
+            </div>
+            <div>
+                <a href="#"><img src="images/facebook-icon.png" alt="Facebook" class="icon" style="width:18px;"></a>
+                <a href="#"><img src="images/twitter-icon.png" alt="Twitter" class="icon" style="width:18px;"></a>
+                <a href="#"><img src="images/linkedin-icon.png" alt="LinkedIn" class="icon" style="width:18px;"></a>
+                <a href="#"><img src="images/instagram-icon.png" alt="Instagram" class="icon" style="width:18px;"></a>                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Header with Menu -->
+    <header class="main-header">
+        <div class="header-container">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="logo-container">
+                    <img src="images/logo.png" alt="MEC Logo" class="main-logo">
+                    <div class="accreditation-badge">
+                        <div>An Accredited</div>
+                        <div>Educational Agent</div>
+                        <div>Home & Abroad</div>
+                    </div>
+                </div>
+                <div class="tagline d-none d-xl-block">...your direct pathway to quality education</div>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">HOME</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="about.html">ABOUT US</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="services.html">OUR SERVICES</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link active dropdown-toggle" href="destinations.html" id="studyAbroadDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                STUDY ABROAD
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="studyAbroadDropdown">
+                                <li><a class="dropdown-item" href="#canada">Canada</a></li>
+                                <li><a class="dropdown-item" href="#uk">United Kingdom</a></li>
+                                <li><a class="dropdown-item" href="#usa">United States</a></li>
+                                <li><a class="dropdown-item" href="#cyprus">Cyprus</a></li>
+                                <li><a class="dropdown-item" href="#australia">Australia</a></li>
+                                <li><a class="dropdown-item" href="#austria">Austria</a></li>
+                                <li><a class="dropdown-item" href="#india">India</a></li>
+                                <li><a class="dropdown-item" href="#ireland">Ireland</a></li>
+                                <li><a class="dropdown-item" href="#germany">Germany</a></li>
+                                <li><a class="dropdown-item" href="#france">France</a></li>
+                                <li><a class="dropdown-item" href="#mauritius">Mauritius</a></li>
+                                <li><a class="dropdown-item" href="#lithuania">Lithuania</a></li>
+                                <li><a class="dropdown-item" href="#uae">Dubai, UAE</a></li>
+                                <li><a class="dropdown-item" href="#netherlands">Netherlands</a></li>
+                                <li><a class="dropdown-item" href="#poland">Poland</a></li>
+                                <li><a class="dropdown-item" href="#belgium">Belgium</a></li>
+                                <li><a class="dropdown-item" href="#greece">Greece</a></li>
+                                <li><a class="dropdown-item" href="#turkey">Turkey</a></li>
+                                <li><a class="dropdown-item" href="#malaysia">Malaysia</a></li>
+                                <li><a class="dropdown-item" href="#malta">Malta</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="gallery.html">GALLERY</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">CONTACT</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="tagline d-xl-none text-center mt-2">...your direct pathway to quality education</div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="abroad-hero">
+        <div class="container text-center">
+            <h1 class="display-4 fw-bold mb-4">Study Abroad Opportunities</h1>
+            <p class="lead">Discover world-class education in top destinations across the globe</p>
+            <a href="#countries" class="btn btn-primary btn-lg mt-3">Explore Countries</a>
+        </div>
+    </section>
+
+    <!-- Country Submenu -->
+    <section id="countries" class="country-submenu">
+        <div class="container">
+            <div class="country-list">
+                <div class="country-item"><a href="#canada">Canada</a></div>
+                <div class="country-item"><a href="#uk">United Kingdom</a></div>
+                <div class="country-item"><a href="#usa">USA</a></div>
+                <div class="country-item"><a href="#cyprus">Cyprus</a></div>
+                <div class="country-item"><a href="#australia">Australia</a></div>
+                <div class="country-item"><a href="#austria">Austria</a></div>
+                <div class="country-item"><a href="#india">India</a></div>
+                <div class="country-item"><a href="#ireland">Ireland</a></div>
+                <div class="country-item"><a href="#germany">Germany</a></div>
+                <div class="country-item"><a href="#france">France</a></div>
+                <div class="country-item"><a href="#mauritius">Mauritius</a></div>
+                <div class="country-item"><a href="#lithuania">Lithuania</a></div>
+                <div class="country-item"><a href="#uae">Dubai, UAE</a></div>
+                <div class="country-item"><a href="#netherlands">Netherlands</a></div>
+                <div class="country-item"><a href="#poland">Poland</a></div>
+                <div class="country-item"><a href="#belgium">Belgium</a></div>
+                <div class="country-item"><a href="#greece">Greece</a></div>
+                <div class="country-item"><a href="#turkey">Turkey</a></div>
+                <div class="country-item"><a href="#malaysia">Malaysia</a></div>
+                <div class="country-item"><a href="#malta">Malta</a></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Canada Section -->
+    <section id="canada" class="country-section">
+        <div class="container">
+            <div class="country-header">
+                <img src="images/flags/canada.jpg" alt="Canada Flag" class="country-flag">
+                <div>
+                    <h2>Study in Canada</h2>
+                    <p class="lead">World-class education in one of the world's most livable countries</p>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="education-system">
+                        <h3><i class="fas fa-graduation-cap text-primary me-2"></i> Education System</h3>
+                        <p>Canada's education system is ranked among the best in the world, offering internationally recognized degrees and diplomas. The country has over 100 public and private universities offering undergraduate, graduate and doctoral programs.</p>
+                        <ul>
+                            <li>Bachelor's degrees typically take 3-4 years</li>
+                            <li>Master's programs usually 1-2 years</li>
+                            <li>PhD programs typically 3-5 years</li>
+                            <li>Two official languages: English and French</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="education-system">
+                        <h3><i class="fas fa-dollar-sign text-primary me-2"></i> Tuition & Living Costs</h3>
+                        <p>While costs vary by institution and program, Canada offers more affordable tuition compared to other top study destinations.</p>
+                        <ul>
+                            <li>Undergraduate tuition: CAD$15,000 - $30,000/year</li>
+                            <li>Graduate tuition: CAD$10,000 - $25,000/year</li>
+                            <li>Living expenses: CAD$10,000 - $15,000/year</li>
+                            <li>Work opportunities for students available</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <h3 class="mt-5 mb-4">Featured Universities</h3>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="university-card">
+                        <img src="images/universities/toronto.jpg" alt="University of Toronto" class="university-logo">
+                        <h4>University of Toronto</h4>
+                        <p>Ranked #1 in Canada, offering diverse programs across three campuses in Toronto.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="university-card">
+                        <img src="images/universities/ubc.jpg" alt="University of British Columbia" class="university-logo">
+                        <h4>University of British Columbia</h4>
+                        <p>Global leader in research and teaching with stunning campuses in Vancouver.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="university-card">
+                        <img src="images/universities/mcgill.jpg" alt="McGill University" class="university-logo">
+                        <h4>McGill University</h4>
+                        <p>Internationally renowned institution located in the bilingual city of Montreal.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- UK Section -->
+    <section id="uk" class="country-section">
+        <div class="container">
+            <div class="country-header">
+                <img src="images/flags/uk.jpg" alt="UK Flag" class="country-flag">
+                <div>
+                    <h2>Study in United Kingdom</h2>
+                    <p class="lead">Home to some of the world's oldest and most prestigious universities</p>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="education-system">
+                        <h3><i class="fas fa-graduation-cap text-primary me-2"></i> Education System</h3>
+                        <p>The UK education system is globally respected for its high standards and rigorous quality controls. Degrees from UK universities are recognized worldwide.</p>
+                        <ul>
+                            <li>Bachelor's degrees typically take 3 years (4 in Scotland)</li>
+                            <li>Master's programs usually 1 year</li>
+                            <li>PhD programs typically 3-4 years</li>
+                            <li>Wide range of specialized courses available</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="education-system">
+                        <h3><i class="fas fa-dollar-sign text-primary me-2"></i> Tuition & Living Costs</h3>
+                        <p>Costs vary depending on the institution, location and course of study.</p>
+                        <ul>
+                            <li>Undergraduate tuition: £10,000 - £30,000/year</li>
+                            <li>Graduate tuition: £12,000 - £35,000/year</li>
+                            <li>Living expenses: £12,000 - £15,000/year</li>
+                            <li>Scholarships and financial aid available</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <h3 class="mt-5 mb-4">Featured Universities</h3>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="university-card">
+                        <img src="images/universities/oxford.jpg" alt="University of Oxford" class="university-logo">
+                        <h4>University of Oxford</h4>
+                        <p>The oldest university in the English-speaking world, renowned for its tutorial system.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="university-card">
+                        <img src="images/universities/cambridge.jpg" alt="University of Cambridge" class="university-logo">
+                        <h4>University of Cambridge</h4>
+                        <p>Collegiate university with 31 autonomous colleges and outstanding research output.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="university-card">
+                        <img src="images/universities/imperial.jpg" alt="Imperial College London" class="university-logo">
+                        <h4>Imperial College London</h4>
+                        <p>World leader in science, engineering, medicine and business.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- USA Section -->
+    <section id="usa" class="country-section">
+        <div class="container">
+            <div class="country-header">
+                <img src="images/flags/usa.jpg" alt="USA Flag" class="country-flag">
+                <div>
+                    <h2>Study in United States</h2>
+                    <p class="lead">Home to the largest number of top-ranked universities in the world</p>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="education-system">
+                        <h3><i class="fas fa-graduation-cap text-primary me-2"></i> Education System</h3>
+                        <p>The US higher education system offers unparalleled choice and flexibility with over 4,000 accredited institutions.</p>
+                        <ul>
+                            <li>Bachelor's degrees typically take 4 years</li>
+                            <li>Master's programs usually 1-2 years</li>
+                            <li>PhD programs typically 4-6 years</li>
+                            <li>Liberal arts approach with major/minor options</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="education-system">
+                        <h3><i class="fas fa-dollar-sign text-primary me-2"></i> Tuition & Living Costs</h3>
+                        <p>Costs vary significantly between public and private institutions and by location.</p>
+                        <ul>
+                            <li>Public universities: $20,000 - $40,000/year</li>
+                            <li>Private universities: $30,000 - $60,000/year</li>
+                            <li>Living expenses: $12,000 - $20,000/year</li>
+                            <li>Generous scholarship opportunities available</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <h3 class="mt-5 mb-4">Featured Universities</h3>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="university-card">
+                        <img src="images/universities/harvard.jpg" alt="Harvard University" class="university-logo">
+                        <h4>Harvard University</h4>
+                        <p>Ivy League institution and the oldest higher education institution in the US.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="university-card">
+                        <img src="images/universities/stanford.jpg" alt="Stanford University" class="university-logo">
+                        <h4>Stanford University</h4>
+                        <p>Located in Silicon Valley, known for entrepreneurship and innovation.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="university-card">
+                        <img src="images/universities/mit.jpg" alt="Massachusetts Institute of Technology" class="university-logo">
+                        <h4>Massachusetts Institute of Technology</h4>
+                        <p>World leader in science and technology education and research.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cyprus Section -->
+    <section id="cyprus" class="country-section">
+        <div class="container">
+            <div class="country-header">
+                <img src="images/flags/cyprus.jpg" alt="Cyprus Flag" class="country-flag">
+                <div>
+                    <h2>Study in Cyprus</h2>
+                    <p class="lead">Affordable European education in a Mediterranean paradise</p>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="education-system">
+                        <h3><i class="fas fa-graduation-cap text-primary me-2"></i> Education System</h3>
+                        <p>Cyprus offers high-quality education following the European system, with many programs taught in English.</p>
+                        <ul>
+                            <li>Bachelor's degrees typically take 4 years</li>
+                            <li>Master's programs usually 1-2 years</li>
+                            <li>PhD programs typically 3 years</li>
+                            <li>Growing number of international students</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="education-system">
+                        <h3><i class="fas fa-dollar-sign text-primary me-2"></i> Tuition & Living Costs</h3>
+                        <p>Cyprus offers relatively affordable education compared to other European destinations.</p>
+                        <ul>
+                            <li>Undergraduate tuition: €3,000 - €8,000/year</li>
+                            <li>Graduate tuition: €5,000 - €10,000/year</li>
+                            <li>Living expenses: €6,000 - €9,000/year</li>
+                            <li>Lower cost of living than Western Europe</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <h3 class="mt-5 mb-4">Featured Universities</h3>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="university-card">
+                        <img src="images/universities/ucy.jpg" alt="University of Cyprus" class="university-logo">
+                        <h4>University of Cyprus</h4>
+                        <p>The leading public university with strong research programs.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="university-card">
+                        <img src="images/universities/euc.jpg" alt="European University Cyprus" class="university-logo">
+                        <h4>European University Cyprus</h4>
+                        <p>Offers American-style education with programs in English.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="university-card">
+                        <img src="images/universities/unic.jpg" alt="University of Nicosia" class="university-logo">
+                        <h4>University of Nicosia</h4>
+                        <p>Largest university in Cyprus with diverse international programs.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Australia Section -->
+    <section id="australia" class="country-section">
+        <div class="container">
+            <div class="country-header">
+                <img src="images/flags/australia.jpg" alt="Australia Flag" class="country-flag">
+                <div>
+                    <h2>Study in Australia</h2>
+                    <p class="lead">World-class education in a vibrant, multicultural environment</p>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="education-system">
+                        <h3><i class="fas fa-graduation-cap text-primary me-2"></i> Education System</h3>
+                        <p>Australia's education system is internationally recognized for its high standards and innovative teaching methods.</p>
+                        <ul>
+                            <li>Bachelor's degrees typically take 3-4 years</li>
+                            <li>Master's programs usually 1-2 years</li>
+                            <li>PhD programs typically 3-4 years</li>
+                            <li>Strong focus on research and practical skills</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="education-system">
+                        <h3><i class="fas fa-dollar-sign text-primary me-2"></i> Tuition & Living Costs</h3>
+                        <p>While Australia is not the cheapest option, it offers excellent value for money.</p>
+                        <ul>
+                            <li>Undergraduate tuition: AUD$20,000 - $45,000/year</li>
+                            <li>Graduate tuition: AUD$22,000 - $50,000/year</li>
+                            <li>Living expenses: AUD$15,000 - $21,000/year</li>
+                            <li>Post-study work opportunities available</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <h3 class="mt-5 mb-4">Featured Universities</h3>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="university-card">
+                        <img src="images/universities/anu.jpg" alt="Australian National University" class="university-logo">
+                        <h4>Australian National University</h4>
+                        <p>Consistently ranked as Australia's top university with strong research focus.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="university-card">
+                        <img src="images/universities/melbourne.jpg" alt="University of Melbourne" class="university-logo">
+                        <h4>University of Melbourne</h4>
+                        <p>Australia's leading comprehensive research-intensive university.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="university-card">
+                        <img src="images/universities/sydney.jpg" alt="University of Sydney" class="university-logo">
+                        <h4>University of Sydney</h4>
+                        <p>Australia's first university with outstanding global reputation.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Austria Section -->
+    <section id="austria" class="country-section">
+        <div class="container">
+            <div class="country-header">
+                <img src="images/flags/austria.jpg" alt="Austria Flag" class="country-flag">
+                <div>
+                    <h2>Study in Austria</h2>
+                    <p class="lead">High-quality education in the heart of Europe with affordable costs</p>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="education-system">
+                        <h3><i class="fas fa-graduation-cap text-primary me-2"></i> Education System</h3>
+                        <p>Austria's higher education system combines long-standing academic tradition with innovative approaches.</p>
+                        <ul>
+                            <li>Bachelor's degrees typically take 3 years</li>
+                            <li>Master's programs usually 2 years</li>
+                            <li>PhD programs typically 3-4 years</li>
+                            <li>Many programs available in English</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="education-system">
+                        <h3><i class="fas fa-dollar-sign text-primary me-2"></i> Tuition & Living Costs</h3>
+                        <p>Austria offers relatively low tuition fees compared to other Western European countries.</p>
+                        <ul>
+                            <li>Tuition for EU students: €363 per semester</li>
+                            <li>Tuition for non-EU students: €726 per semester</li>
+                            <li>Living expenses: €10,000 - €12,000/year</li>
+                            <li>Affordable healthcare and transportation</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <h3 class="mt-5 mb-4">Featured Universities</h3>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="university-card">
+                        <img src="images/universities/vienna.jpg" alt="University of Vienna" class="university-logo">
+                        <h4>University of Vienna</h4>
+                        <p>One of Europe's oldest universities with comprehensive course offerings.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="university-card">
+                        <img src="images/universities/tuwien.jpg" alt="Vienna University of Technology" class="university-logo">
+                        <h4>Vienna University of Technology</h4>
+                        <p>Leading institution for engineering and natural sciences.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="university-card">
+                        <img src="images/universities/salzburg.jpg" alt="University of Salzburg" class="university-logo">
+                        <h4>University of Salzburg</h4>
+                        <p>Renowned for humanities, social sciences and natural sciences.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- India Section -->
+    <section id="india" class="country-section">
+        <div class="container">
+            <div class="country-header">
+                <img src="images/flags/india.jpg" alt="India Flag" class="country-flag">
+                <div>
+                    <h2>Study in India</h2>
+                    <p class="lead">Affordable quality education in a rapidly developing economy</p>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="education-system">
+                        <h3><i class="fas fa-graduation-cap text-primary me-2"></i> Education System</h3>
+                        <p>India's higher education system is one of the largest in the world, with institutions offering programs in diverse fields.</p>
+                        <ul>
+                            <li>Bachelor's degrees typically take 3-4 years</li>
+                            <li>Master's programs usually 2 years</li>
+                            <li>PhD programs typically 3-5 years</li>
+                            <li>Growing number of international collaborations</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="education-system">
+                        <h3><i class="fas fa-dollar-sign text-primary me-2"></i> Tuition & Living Costs</h3>
+                        <p>India offers some of the most affordable higher education options globally.</p>
+                        <ul>
+                            <li>Public universities: $1,000 - $5,000/year</li>
+                            <li>Private universities: $3,000 - $10,000/year</li>
+                            <li>Living expenses: $2,000 - $4,000/year</li>
+                            <li>Very affordable cost of living</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <h3 class="mt-5 mb-4">Featured Universities</h3>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="university-card">
+                        <img src="images/universities/iitb.jpg" alt="Indian Institute of Technology Bombay" class="university-logo">
+                        <h4>IIT Bombay</h4>
+                        <p>Premier institution for engineering and technology education.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="university-card">
+                        <img src="images/universities/du.jpg" alt="University of Delhi" class="university-logo">
+                        <h4>University of Delhi</h4>
+                        <p>One of India's largest and most prestigious universities.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="university-card">
+                        <img src="images/universities/manipal.jpg" alt="Manipal Academy of Higher Education" class="university-logo">
+                        <h4>Manipal University</h4>
+                        <p>Leading private university with international collaborations.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ireland Section -->
+    <section id="ireland" class="country-section">
+        <div class="container">
+            <div class="country-header">
+                <img src="images/flags/ireland.jpg" alt="Ireland Flag" class="country-flag">
+                <div>
+                    <h2>Study in Ireland</h2>
+                    <p class="lead">Innovative education in Europe's tech hub with welcoming culture</p>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="education-system">
+                        <h3><i class="fas fa-graduation-cap text-primary me-2"></i> Education System</h3>
+                        <p>Ireland's education system combines traditional academic excellence with cutting-edge research and innovation.</p>
+                        <ul>
+                            <li>Bachelor's degrees typically take 3-4 years</li>
+                            <li>Master's programs usually 1-2 years</li>
+                            <li>PhD programs typically 3-4 years</li>
+                            <li>Strong connections with multinational companies</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="education-system">
+                        <h3><i class="fas fa-dollar-sign text-primary me-2"></i> Tuition & Living Costs</h3>
+                        <p>Ireland offers competitive tuition fees compared to other English-speaking countries.</p>
+                        <ul>
+                            <li>EU students: €3,000 - €6,000/year</li>
+                            <li>Non-EU students: €10,000 - €25,000/year</li>
+                            <li>Living expenses: €8,000 - €12,000/year</li>
+                            <li>Post-study work opportunities available</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <h3 class="mt-5 mb-4">Featured Universities</h3>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="university-card">
+                        <img src="images/universities/tcd.jpg" alt="Trinity College Dublin" class="university-logo">
+                        <h4>Trinity College Dublin</h4>
+                        <p>Ireland's oldest university with world-class reputation.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="university-card">
+                        <img src="images/universities/ucd.jpg" alt="University College Dublin" class="university-logo">
+                        <h4>University College Dublin</h4>
+                        <p>Ireland's largest university with global outlook.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="university-card">
+                        <img src="images/universities/ul.jpg" alt="University of Limerick" class="university-logo">
+                        <h4>University of Limerick</h4>
+                        <p>Known for industry-focused programs and excellent facilities.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Germany Section -->
+    <section id="germany" class="country-section">
+        <div class="container">
+            <div class="country-header">
+                <img src="images/flags/germany.jpg" alt="Germany Flag" class="country-flag">
+                <div>
+                    <h2>Study in Germany</h2>
+                    <p class="lead">Tuition-free education at world-renowned universities</p>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="education-system">
+                        <h3><i class="fas fa-graduation-cap text-primary me-2"></i> Education System</h3>
+                        <p>Germany is known for its excellent higher education system, particularly in engineering and technology fields.</p>
+                        <ul>
+                            <li>Bachelor's degrees typically take 3 years</li>
+                            <li>Master's programs usually 2 years</li>
+                            <li>PhD programs typically 3-5 years</li>
+                            <li>Many programs now offered in English</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="education-system">
+                        <h3><i class="fas fa-dollar-sign text-primary me-2"></i> Tuition & Living Costs</h3>
+                        <p>Most public universities charge no tuition fees, even for international students.</p>
+                        <ul>
+                            <li>No tuition fees at public universities (small semester fee)</li>
+                            <li>Private universities: €10,000 - €30,000/year</li>
+                            <li>Living expenses: €8,000 - €12,000/year</li>
+                            <li>Part-time work opportunities available</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <h3 class="mt-5 mb-4">Featured Universities</h3>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="university-card">
+                        <img src="images/universities/tum.jpg" alt="Technical University of Munich" class="university-logo">
+                        <h4>Technical University of Munich</h4>
+                        <p>Germany's top-ranked university with strong engineering programs.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="university-card">
+                        <img src="images/universities/lmu.jpg" alt="Ludwig Maximilian University of Munich" class="university-logo">
+                        <h4>LMU Munich</h4>
+                        <p>One of Europe's premier academic and research institutions.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="university-card">
+                        <img src="images/universities/heidelberg.jpg" alt="Heidelberg University" class="university-logo">
+                        <h4>Heidelberg University</h4>
+                        <p>Germany's oldest university with strong research focus.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- France Section -->
+    <section id="france" class="country-section">
+        <div class="container">
+            <div class="country-header">
+                <img src="images/flags/france.jpg" alt="France Flag" class="country-flag">
+                <div>
+                    <h2>Study in France</h2>
+                    <p class="lead">Cultural richness meets academic excellence in the heart of Europe</p>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="education-system">
+                        <h3><i class="fas fa-graduation-cap text-primary me-2"></i> Education System</h3>
+                        <p>France offers a diverse higher education system with prestigious universities and specialized schools.</p>
+                        <ul>
+                            <li>Bachelor's degrees (Licence) typically take 3 years</li>
+                            <li>Master's programs usually 2 years</li>
+                            <li>PhD programs typically 3 years</li>
+                            <li>Growing number of English-taught programs</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="education-system">
+                        <h3><i class="fas fa-dollar-sign text-primary me-2"></i> Tuition & Living Costs</h3>
+                        <p>France offers relatively low tuition fees, especially at public institutions.</p>
+                        <ul>
+                            <li>EU students: €170 - €650/year</li>
+                            <li>Non-EU students: €2,770 - €3,770/year</li>
+                            <li>Living expenses: €9,000 - €12,000/year</li>
+                            <li>Affordable healthcare and housing subsidies</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <h3 class="mt-5 mb-4">Featured Universities</h3>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="university-card">
+                        <img src="images/universities/sorbonne.jpg" alt="Sorbonne University" class="university-logo">
+                        <h4>Sorbonne University</h4>
+                        <p>Historic institution with strengths across all disciplines.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="university-card">
+                        <img src="images/universities/psl.jpg" alt="PSL University" class="university-logo">
+                        <h4>PSL University</h4>
+                        <p>Parisian institution combining arts, sciences and engineering.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="university-card">
+                        <img src="images/universities/centralesupelec.jpg" alt="CentraleSupélec" class="university-logo">
+                        <h4>CentraleSupélec</h4>
+                        <p>Leading French engineering school with international outlook.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mauritius Section -->
+    <section id="mauritius" class="country-section">
+        <div class="container">
+            <div class="country-header">
+                <img src="images/flags/mauritius.jpg" alt="Mauritius Flag" class="country-flag">
+                <div>
+                    <h2>Study in Mauritius</h2>
+                    <p class="lead">Quality education in a tropical island paradise</p>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="education-system">
+                        <h3><i class="fas fa-graduation-cap text-primary me-2"></i> Education System</h3>
+                        <p>Mauritius offers a growing higher education sector with programs modeled on British and French systems.</p>
+                        <ul>
+                            <li>Bachelor's degrees typically take 3-4 years</li>
+                            <li>Master's programs usually 1-2 years</li>
+                            <li>PhD programs typically 3 years</li>
+                            <li>English as main language of instruction</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="education-system">
+                        <h3><i class="fas fa-dollar-sign text-primary me-2"></i> Tuition & Living Costs</h3>
+                        <p>Mauritius offers affordable education compared to Western countries.</p>
+                        <ul>
+                            <li>Undergraduate tuition: $3,000 - $6,000/year</li>
+                            <li>Graduate tuition: $4,000 - $8,000/year</li>
+                            <li>Living expenses: $5,000 - $7,000/year</li>
+                            <li>Beautiful island environment</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <h3 class="mt-5 mb-4">Featured Universities</h3>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="university-card">
+                        <img src="images/universities/uom.jpg" alt="University of Mauritius" class="university-logo">
+                        <h4>University of Mauritius</h4>
+                        <p>The leading public university with diverse program offerings.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="university-card">
+                        <img src="images/universities/middlesex.jpg" alt="Middlesex University Mauritius" class="university-logo">
+                        <h4>Middlesex University Mauritius</h4>
+                        <p>British university branch campus with UK degrees.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="university-card">
+                        <img src="images/universities/curtin.jpg" alt="Curtin University Mauritius" class="university-logo">
+                        <h4>Curtin University Mauritius</h4>
+                        <p>Australian university campus offering international programs.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lithuania Section -->
+    <section id="lithuania" class="country-section">
+        <div class="container">
+            <div class="country-header">
+                <img src="images/flags/lithuania.jpg" alt="Lithuania Flag" class="country-flag">
+                <div>
+                    <h2>Study in Lithuania</h2>
+                    <p class="lead">Affordable European education with innovative programs</p>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="education-system">
+                        <h3><i class="fas fa-graduation-cap text-primary me-2"></i> Education System</h3>
+                        <p>Lithuania offers high-quality education following the European Credit Transfer System.</p>
+                        <ul>
+                            <li>Bachelor's degrees typically take 3-4 years</li>
+                            <li>Master's programs usually 1-2 years</li>
+                            <li>PhD programs typically 3-4 years</li>
+                            <li>Growing number of English-taught programs</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="education-system">
+                        <h3><i class="fas fa-dollar-sign text-primary me-2"></i> Tuition & Living Costs</h3>
+                        <p>Lithuania offers some of the most affordable education in the EU.</p>
+                        <ul>
+                            <li>Undergraduate tuition: €1,000 - €5,000/year</li>
+                            <li>Graduate tuition: €2,000 - €6,000/year</li>
+                            <li>Living expenses: €4,000 - €6,000/year</li>
+                            <li>Low cost of living compared to Western Europe</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <h3 class="mt-5 mb-4">Featured Universities</h3>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="university-card">
+                        <img src="images/universities/vu.jpg" alt="Vilnius University" class="university-logo">
+                        <h4>Vilnius University</h4>
+                        <p>Lithuania's oldest and largest university with international recognition.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="university-card">
+                        <img src="images/universities/ktu.jpg" alt="Kaunas University of Technology" class="university-logo">
+                        <h4>Kaunas University of Technology</h4>
+                        <p>Leading technical university with strong industry links.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="university-card">
+                        <img src="images/universities/vgtu.jpg" alt="Vilnius Gediminas Technical University" class="university-logo">
+                        <h4>Vilnius Gediminas Technical University</h4>
+                        <p>Specialized in engineering, architecture and business.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- UAE Section -->
+    <section id="uae" class="country-section">
+        <div class="container">
+            <div class="country-header">
+                <img src="images/flags/uae.jpg" alt="UAE Flag" class="country-flag">
+                <div>
+                    <h2>Study in Dubai, UAE</h2>
+                    <p class="lead">World-class education in a dynamic global city</p>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="education-system">
+                        <h3><i class="fas fa-graduation-cap text-primary me-2"></i> Education System</h3>
+                        <p>Dubai has become an international education hub with branch campuses of top global universities.</p>
+                        <ul>
+                            <li>Bachelor's degrees typically take 3-4 years</li>
+                            <li>Master's programs usually 1-2 years</li>
+                            <li>PhD programs typically 3-5 years</li>
+                            <li>English as main language of instruction</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="education-system">
+                        <h3><i class="fas fa-dollar-sign text-primary me-2"></i> Tuition & Living Costs</h3>
+                        <p>While Dubai is not the cheapest option, it offers excellent facilities and location.</p>
+                        <ul>
+                            <li>Undergraduate tuition: $10,000 - $20,000/year</li>
+                            <li>Graduate tuition: $15,000 - $30,000/year</li>
+                            <li>Living expenses: $12,000 - $18,000/year</li>
+                            <li>Tax-free salaries for graduates</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <h3 class="mt-5 mb-4">Featured Universities</h3>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="university-card">
+                        <img src="images/universities/aus.jpg" alt="American University of Sharjah" class="university-logo">
+                        <h4>American University of Sharjah</h4>
+                        <p>US-style education with regional focus in the Gulf.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="university-card">
+                        <img src="images/universities/middlesex-dubai.jpg" alt="Middlesex University Dubai" class="university-logo">
+                        <h4>Middlesex University Dubai</h4>
+                        <p>British university offering UK degrees in Dubai.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="university-card">
+                        <img src="images/universities/uowd.jpg" alt="University of Wollongong in Dubai" class="university-logo">
+                        <h4>University of Wollongong in Dubai</h4>
+                        <p>Australian university campus with international programs.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Netherlands Section -->
+    <section id="netherlands" class="country-section">
+        <div class="container">
+            <div class="country-header">
+                <img src="images/flags/netherlands.jpg" alt="Netherlands Flag" class="country-flag">
+                <div>
+                    <h2>Study in Netherlands</h2>
+                    <p class="lead">Innovative education with international focus</p>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="education-system">
+                        <h3><i class="fas fa-graduation-cap text-primary me-2"></i> Education System</h3>
+                        <p>The Dutch education system is known for its interactive, student-centered teaching style.</p>
+                        <ul>
+                            <li>Bachelor's degrees typically take 3-4 years</li>
+                            <li>Master's programs usually 1-2 years</li>
+                            <li>PhD programs typically 4 years</li>
+                            <li>Over 2,000 English-taught programs available</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="education-system">
+                        <h3><i class="fas fa-dollar-sign text-primary me-2"></i> Tuition & Living Costs</h3>
+                        <p>Tuition fees are reasonable compared to other Western European countries.</p>
+                        <ul>
+                            <li>EU students: €1,000 - €2,500/year</li>
+                            <li>Non-EU students: €6,000 - €15,000/year</li>
+                            <li>Living expenses: €10,000 - €14,000/year</li>
+                            <li>Various scholarship options available</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <h3 class="mt-5 mb-4">Featured Universities</h3>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="university-card">
+                        <img src="images/universities/uva.jpg" alt="University of Amsterdam" class="university-logo">
+                        <h4>University of Amsterdam</h4>
+                        <p>Comprehensive research university with international outlook.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="university-card">
+                        <img src="images/universities/tudelft.jpg" alt="Delft University of Technology" class="university-logo">
+                        <h4>Delft University of Technology</h4>
+                        <p>World-class engineering and technology institution.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="university-card">
+                        <img src="images/universities/eur.jpg" alt="Erasmus University Rotterdam" class="university-logo">
+                        <h4>Erasmus University Rotterdam</h4>
+                        <p>Renowned for economics, business and social sciences.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Poland Section -->
+    <section id="poland" class="country-section">
+        <div class="container">
+            <div class="country-header">
+                <img src="images/flags/poland.jpg" alt="Poland Flag" class="country-flag">
+                <div>
+                    <h2>Study in Poland</h2>
+                    <p class="lead">Quality European education at affordable costs</p>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="education-system">
+                        <h3><i class="fas fa-graduation-cap text-primary me-2"></i> Education System</h3>
+                        <p>Poland's higher education system combines centuries-old tradition with modern innovation.</p>
+                        <ul>
+                            <li>Bachelor's degrees typically take 3 years</li>
+                            <li>Master's programs usually 2 years</li>
+                            <li>PhD programs typically 3-4 years</li>
+                            <li>Growing number of English-taught programs</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="education-system">
+                        <h3><i class="fas fa-dollar-sign text-primary me-2"></i> Tuition & Living Costs</h3>
+                        <p>Poland offers some of the most affordable education in the EU.</p>
+                        <ul>
+                            <li>EU students: free at public universities (in Polish)</li>
+                            <li>English programs: €2,000 - €5,000/year</li>
+                            <li>Living expenses: €4,000 - €6,000/year</li>
+                            <li>Low cost of living compared to Western Europe</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <h3 class="mt-5 mb-4">Featured Universities</h3>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="university-card">
+                        <img src="images/universities/uw.jpg" alt="University of Warsaw" class="university-logo">
+                        <h4>University of Warsaw</h4>
+                        <p>Poland's largest and highest-ranked university.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="university-card">
+                        <img src="images/universities/uj.jpg" alt="Jagiellonian University" class="university-logo">
+                        <h4>Jagiellonian University</h4>
+                        <p>One of Europe's oldest universities with rich history.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="university-card">
+                        <img src="images/universities/pw.jpg" alt="Warsaw University of Technology" class="university-logo">
+                        <h4>Warsaw University of Technology</h4>
+                        <p>Leading technical university with strong industry links.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Belgium Section -->
+    <section id="belgium" class="country-section">
+        <div class="container">
+            <div class="country-header">
+                <img src="images/flags/belgium.jpg" alt="Belgium Flag" class="country-flag">
+                <div>
+                    <h2>Study in Belgium</h2>
+                    <p class="lead">High-quality education at the heart of Europe</p>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="education-system">
+                        <h3><i class="fas fa-graduation-cap text-primary me-2"></i> Education System</h3>
+                        <p>Belgium offers high-quality education with strong international orientation.</p>
+                        <ul>
+                            <li>Bachelor's degrees typically take 3 years</li>
+                            <li>Master's programs usually 1-2 years</li>
+                            <li>PhD programs typically 4 years</li>
+                            <li>Many programs available in English</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="education-system">
+                        <h3><i class="fas fa-dollar-sign text-primary me-2"></i> Tuition & Living Costs</h3>
+                        <p>Belgium offers reasonable tuition fees compared to other Western European countries.</p>
+                        <ul>
+                            <li>EU students: €900 - €4,000/year</li>
+                            <li>Non-EU students: €2,000 - €8,000/year</li>
+                            <li>Living expenses: €8,000 - €12,000/year</li>
+                            <li>Affordable healthcare and transportation</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <h3 class="mt-5 mb-4">Featured Universities</h3>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="university-card">
+                        <img src="images/universities/kuleuven.jpg" alt="KU Leuven" class="university-logo">
+                        <h4>KU Leuven</h4>
+                        <p>Belgium's highest-ranked university with strong research focus.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="university-card">
+                        <img src="images/universities/ugent.jpg" alt="Ghent University" class="university-logo">
+                        <h4>Ghent University</h4>
+                        <p>Comprehensive research university with international outlook.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="university-card">
+                        <img src="images/universities/ulb.jpg" alt="Université Libre de Bruxelles" class="university-logo">
+                        <h4>Université Libre de Bruxelles</h4>
+                        <p>French-speaking university with strong international programs.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Greece Section -->
+    <section id="greece" class="country-section">
+        <div class="container">
+            <div class="country-header">
+                <img src="images/flags/greece.jpg" alt="Greece Flag" class="country-flag">
+                <div>
+                    <h2>Study in Greece</h2>
+                    <p class="lead">Affordable education in the birthplace of Western civilization</p>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="education-system">
+                        <h3><i class="fas fa-graduation-cap text-primary me-2"></i> Education System</h3>
+                        <p>Greece offers a well-established higher education system with both public and private institutions.</p>
+                        <ul>
+                            <li>Bachelor's degrees typically take 4 years</li>
+                            <li>Master's programs usually 1-2 years</li>
+                            <li>PhD programs typically 3 years</li>
+                            <li>Growing number of English-taught programs</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="education-system">
+                        <h3><i class="fas fa-dollar-sign text-primary me-2"></i> Tuition & Living Costs</h3>
+                        <p>Greece offers some of the most affordable education in Europe.</p>
+                        <ul>
+                            <li>EU students: free at public universities</li>
+                            <li>Non-EU students: €1,500 - €9,000/year</li>
+                            <li>Living expenses: €6,000 - €9,000/year</li>
+                            <li>Beautiful Mediterranean lifestyle</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <h3 class="mt-5 mb-4">Featured Universities</h3>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="university-card">
+                        <img src="images/universities/nkua.jpg" alt="National and Kapodistrian University of Athens" class="university-logo">
+                        <h4>University of Athens</h4>
+                        <p>Greece's oldest university with comprehensive programs.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="university-card">
+                        <img src="images/universities/auth.jpg" alt="Aristotle University of Thessaloniki" class="university-logo">
+                        <h4>Aristotle University of Thessaloniki</h4>
+                        <p>Largest university in Greece with diverse faculties.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="university-card">
+                        <img src="images/universities/uoc.jpg" alt="University of Crete" class="university-logo">
+                        <h4>University of Crete</h4>
+                        <p>Modern university with strong research orientation.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Turkey Section -->
+    <section id="turkey" class="country-section">
+        <div class="container">
+            <div class="country-header">
+                <img src="images/flags/turkey.jpg" alt="Turkey Flag" class="country-flag">
+                <div>
+                    <h2>Study in Turkey</h2>
+                    <p class="lead">Bridge between Europe and Asia with affordable quality education</p>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="education-system">
+                        <h3><i class="fas fa-graduation-cap text-primary me-2"></i> Education System</h3>
+                        <p>Turkey's higher education system has expanded rapidly with growing internationalization.</p>
+                        <ul>
+                            <li>Bachelor's degrees typically take 4 years</li>
+                            <li>Master's programs usually 2 years</li>
+                            <li>PhD programs typically 4 years</li>
+                            <li>Increasing number of English-taught programs</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="education-system">
+                        <h3><i class="fas fa-dollar-sign text-primary me-2"></i> Tuition & Living Costs</h3>
+                        <p>Turkey offers affordable education compared to Western countries.</p>
+                        <ul>
+                            <li>Public universities: $300 - $1,500/year</li>
+                            <li>Private universities: $5,000 - $20,000/year</li>
+                            <li>Living expenses: $4,000 - $6,000/year</li>
+                            <li>Lower cost of living than Western Europe</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <h3 class="mt-5 mb-4">Featured Universities</h3>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="university-card">
+                        <img src="images/universities/bogazici.jpg" alt="Boğaziçi University" class="university-logo">
+                        <h4>Boğaziçi University</h4>
+                        <p>Turkey's top-ranked university with American-style education.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="university-card">
+                        <img src="images/universities/middleeast.jpg" alt="Middle East Technical University" class="university-logo">
+                        <h4>Middle East Technical University</h4>
+                        <p>Leading technical university with English instruction.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="university-card">
+                        <img src="images/universities/koç.jpg" alt="Koç University" class="university-logo">
+                        <h4>Koç University</h4>
+                        <p>Premier private university with strong international ties.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Malaysia Section -->
+    <section id="malaysia" class="country-section">
+        <div class="container">
+            <div class="country-header">
+                <img src="images/flags/malaysia.jpg" alt="Malaysia Flag" class="country-flag">
+                <div>
+                    <h2>Study in Malaysia</h2>
+                    <p class="lead">Affordable international education in a multicultural environment</p>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="education-system">
+                        <h3><i class="fas fa-graduation-cap text-primary me-2"></i> Education System</h3>
+                        <p>Malaysia has become an international education hub with branch campuses of top global universities.</p>
+                        <ul>
+                            <li>Bachelor's degrees typically take 3-4 years</li>
+                            <li>Master's programs usually 1-2 years</li>
+                            <li>PhD programs typically 3-5 years</li>
+                            <li>English as main language of instruction</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="education-system">
+                        <h3><i class="fas fa-dollar-sign text-primary me-2"></i> Tuition & Living Costs</h3>
+                        <p>Malaysia offers excellent value for money in higher education.</p>
+                        <ul>
+                            <li>Public universities: $1,000 - $5,000/year</li>
+                            <li>Private universities: $4,000 - $10,000/year</li>
+                            <li>Living expenses: $4,000 - $6,000/year</li>
+                            <li>Affordable cost of living</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <h3 class="mt-5 mb-4">Featured Universities</h3>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="university-card">
+                        <img src="images/universities/um.jpg" alt="University of Malaya" class="university-logo">
+                        <h4>University of Malaya</h4>
+                        <p>Malaysia's highest-ranked university with comprehensive programs.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="university-card">
+                        <img src="images/universities/nottingham.jpg" alt="University of Nottingham Malaysia" class="university-logo">
+                        <h4>University of Nottingham Malaysia</h4>
+                        <p>British university campus offering UK degrees.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="university-card">
+                        <img src="images/universities/monash.jpg" alt="Monash University Malaysia" class="university-logo">
+                        <h4>Monash University Malaysia</h4>
+                        <p>Australian university campus with international programs.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Malta Section -->
+    <section id="malta" class="country-section">
+        <div class="container">
+            <div class="country-header">
+                <img src="images/flags/malta.jpg" alt="Malta Flag" class="country-flag">
+                <div>
+                    <h2>Study in Malta</h2>
+                    <p class="lead">English-speaking European education in a Mediterranean setting</p>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="education-system">
+                        <h3><i class="fas fa-graduation-cap text-primary me-2"></i> Education System</h3>
+                        <p>Malta offers high-quality education following the British system, with English as the language of instruction.</p>
+                        <ul>
+                            <li>Bachelor's degrees typically take 3 years</li>
+                            <li>Master's programs usually 1-2 years</li>
+                            <li>PhD programs typically 3 years</li>
+                            <li>Small class sizes and personalized attention</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="education-system">
+                        <h3><i class="fas fa-dollar-sign text-primary me-2"></i> Tuition & Living Costs</h3>
+                        <p>Malta offers reasonable tuition fees compared to other English-speaking destinations.</p>
+                        <ul>
+                            <li>EU students: €1,000 - €5,000/year</li>
+                            <li>Non-EU students: €5,000 - €10,000/year</li>
+                            <li>Living expenses: €8,000 - €12,000/year</li>
+                            <li>Safe island environment with Mediterranean climate</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <h3 class="mt-5 mb-4">Featured Universities</h3>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="university-card">
+                        <img src="images/universities/umalta.jpg" alt="University of Malta" class="university-logo">
+                        <h4>University of Malta</h4>
+                        <p>Malta's leading public university with diverse programs.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="university-card">
+                        <img src="images/universities/mcast.jpg" alt="Malta College of Arts, Science and Technology" class="university-logo">
+                        <h4>MCAST</h4>
+                        <p>Vocational and technical education with industry focus.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="university-card">
+                        <img src="images/universities/americancollege.jpg" alt="American University of Malta" class="university-logo">
+                        <h4>American University of Malta</h4>
+                        <p>US-style education in a Mediterranean setting.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits-section">
+        <div class="container">
+            <h2 class="text-center mb-5">Benefits of Studying Abroad</h2>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <h3>Global Perspective</h3>
+                        <p>Gain international exposure and develop a broader worldview that enhances your personal and professional growth.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <h3>Career Opportunities</h3>
+                        <p>International education makes you more attractive to employers and opens doors to global career opportunities.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-network-wired"></i>
+                        </div>
+                        <h3>Global Network</h3>
+                        <p>Build lifelong connections with students and professionals from around the world.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-language"></i>
+                        </div>
+                        <h3>Language Skills</h3>
+                        <p>Immerse yourself in a new language environment and develop valuable language proficiency.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                        <h3>Quality Education</h3>
+                        <p>Access world-class education systems with cutting-edge facilities and renowned faculty.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h3>Personal Growth</h3>
+                        <p>Develop independence, adaptability and cross-cultural skills that last a lifetime.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2 class="mb-4">Ready to Begin Your Study Abroad Journey?</h2>
+            <p class="lead mb-5">Our expert advisors will guide you through every step of the process</p>
+            <div class="d-flex justify-content-center gap-4">
+                <a href="contact.html" class="btn btn-primary btn-lg">Contact Us</a>
+                <a href="tel:+2348060581501" class="btn btn-outline-light btn-lg"><i class="fas fa-phone-alt me-2"></i> Call Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <img src="images/logo.png" alt="MEC Logo" class="mb-3" height="50">
+                    <p>Multinational Educational Consulting (MEC) is dedicated to helping students achieve their academic dreams through expert guidance and personalized support.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="index.html">Home</a></li>
+                        <li class="mb-2"><a href="about.html">About Us</a></li>
+                        <li class="mb-2"><a href="services.html">Services</a></li>
+                        <li class="mb-2"><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5>Study Destinations</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#canada">Canada</a></li>
+                        <li class="mb-2"><a href="#uk">United Kingdom</a></li>
+                        <li class="mb-2"><a href="#usa">United States</a></li>
+                        <li class="mb-2"><a href="#australia">Australia</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5>Contact Us</h5>
+                    <ul class="list-unstyled">
+                         <li class="mb-3">
+            <img src="images/address-icon.png" alt="Address" class="footer-icon me-2">
+            123 Education Ave, Lagos, Nigeria
+        </li>
+        <li class="mb-3">
+            <img src="images/phone-icon.png" alt="Phone" class="footer-icon me-2">
+            +234 806 058 1501
+        </li>
+        <li class="mb-3">
+            <img src="images/email-icon.png" alt="Email" class="footer-icon me-2">
+            info@mecconsulting.com
+        </li>                     </ul>
+                </div>
+            </div>
+            <hr class="my-4 bg-light opacity-25">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0">&copy; 2023 Multinational Educational Consulting. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="privacy-policy.html">Privacy Policy</a>
+                    <span class="mx-2">|</span>
+                    <a href="terms.html">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle with Popper CDN -->
+    <script src="bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Smooth scrolling for country links
+        document.querySelectorAll('.country-item a, .dropdown-item').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 160,
+                    behavior: 'smooth'
+                });
+                
+                // Update active country in submenu
+                document.querySelectorAll('.country-item').forEach(item => {
+                    item.classList.remove('active');
+                    if (item.querySelector('a').getAttribute('href') === targetId) {
+                        item.classList.add('active');
+                    }
+                });
+            });
+        });
+        
+        // Highlight current country in submenu when scrolling
+        window.addEventListener('scroll', function() {
+            const countrySections = document.querySelectorAll('.country-section');
+            const scrollPosition = window.scrollY + 180;
+            
+            countrySections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    const sectionId = section.getAttribute('id');
+                    document.querySelectorAll('.country-item').forEach(item => {
+                        item.classList.remove('active');
+                        if (item.querySelector('a').getAttribute('href') === `#${sectionId}`) {
+                            item.classList.add('active');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

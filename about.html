@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About MEC - Multinational Educational Consulting</title>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+
+    <!-- Bootstrap CSS CDN -->
+    <link href="bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome CSS CDN -->
+    <link rel="stylesheet" href="all.min.css">
+    <style>
+        :root {
+            --mec-red: #d32f2f;
+            --mec-yellow: #f9a825;
+            --mec-green: #2e8540;
+            --mec-dark: #2d2d2d;
+            --mec-light: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            line-height: 1.6;
+            color: var(--mec-dark);
+            padding-top: 140px;
+            background-color: #f9f9f9;
+        }
+
+        /* Contact Info Bar */
+        .contact-bar {
+            background: var(--mec-green);
+            color: white;
+            font-size: 0.9rem;
+            padding: 8px 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 2000;
+        }
+
+        .contact-bar a {
+            color: white;
+            margin: 0 8px;
+            transition: opacity 0.3s;
+        }
+
+        .contact-bar a:hover {
+            opacity: 0.8;
+        }
+
+        /* Main Header with Menu Styling from Reference Code */
+        .main-header {
+            background: white;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 40px;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .header-container {
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            margin-right: 15px;
+        }
+
+        .main-logo {
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .accreditation-badge {
+            border-left: 2px solid var(--mec-yellow);
+            padding-left: 8px;
+            font-size: 0.75rem;
+            line-height: 1.2;
+            color: var(--mec-red);
+        }
+
+        .tagline {
+            font-size: 0.85rem;
+            color: var(--mec-green);
+            font-weight: 600;
+            margin-top: 3px;
+            white-space: nowrap;
+        }
+
+        /* Navigation - Exact Styling from Reference Code */
+        .navbar-nav {
+            gap: 12px;
+        }
+
+        .nav-link {
+            color: var(--mec-dark);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.95rem;
+            padding: 8px 12px !important;
+            white-space: nowrap;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--mec-red);
+        }
+
+        /* Hero Section */
+        .about-hero {
+            height: 70vh;
+            min-height: 500px;
+            background: url('images/about-us-hero.jpg') center/cover no-repeat;
+            position: relative;
+            display: flex;
+            align-items: center;
+            color: white;
+            margin-bottom: 60px;
+        }
+
+        /* Brief Story Section with Yellow Background */
+        #brief-story {
+            background-color: var(--mec-yellow);
+            padding: 80px 0;
+        }
+
+        .story-card {
+            background: white;
+            border-radius: 8px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        /* Company Section with Restored Paragraph */
+        .company-section {
+            padding: 80px 0;
+            background-color: var(--mec-light);
+        }
+
+        .company-description {
+            max-width: 800px;
+            margin: 0 auto 40px;
+            text-align: center;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .company-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--mec-red);
+            margin-bottom: 20px;
+        }
+
+        /* Global Network Section */
+        .network-section {
+            background-color: var(--mec-green);
+            color: white;
+            padding: 80px 0;
+        }
+
+        .map-container {
+            height: 70vh;
+            min-height: 500px;
+            width: 100%;
+            position: relative;
+            margin: 30px auto;
+            background: #e8f4ea;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .world-map {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background: #e8f4ea;
+        }
+
+        .country-marker {
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            background: var(--mec-red);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 0 4px rgba(211, 47, 47, 0.3);
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .country-marker:hover {
+            transform: translate(-50%, -50%) scale(1.5);
+            box-shadow: 0 0 0 6px rgba(211, 47, 47, 0.4);
+            z-index: 20;
+        }
+
+        .country-marker::after {
+            content: attr(data-country);
+            position: absolute;
+            top: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            color: var(--mec-dark);
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .country-marker:hover::after {
+            opacity: 1;
+        }
+
+        .country-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 12px;
+            margin-top: 40px;
+        }
+
+        .country-item {
+            background: rgba(255,255,255,0.15);
+            padding: 12px 15px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .country-item:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateX(5px);
+        }
+
+        .country-item i {
+            margin-right: 10px;
+            color: var(--mec-yellow);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--mec-red) !important;
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        footer a:hover {
+            opacity: 0.8;
+        }
+
+        .social-icons {
+            margin-top: 15px;
+        }
+
+        .social-icons a {
+            display: inline-block;
+            margin-right: 15px;
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .map-container {
+                height: 60vh;
+                min-height: 400px;
+            }
+            .country-list {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            .country-marker {
+                width: 12px;
+                height: 12px;
+            }
+            
+            /* Mobile menu adjustments */
+            .navbar-nav {
+                gap: 8px;
+            }
+            .nav-link {
+                font-size: 0.9rem;
+                padding: 6px 10px !important;
+            }
+            .main-logo {
+                height: 40px;
+            }
+            .accreditation-badge {
+                font-size: 0.65rem;
+            }
+
+            .contact-bar .d-flex {
+                flex-direction: column;
+                text-align: center;
+                gap: 5px;
+            }
+            
+            .contact-bar span {
+                display: block;
+                margin: 0 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Contact Info Bar -->
+    <div class="contact-bar">
+        <div class="header-container">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <span><img src="images/phone-icon.png" alt="Phone" class="icon me-2" style="width:16px;"> +234 806 058 1501</span>
+                <span class="ms-3"><img src="images/email-icon.png" alt="Email" class="icon me-2" style="width:16px;"> info@mecconsulting.com</span>
+            </div>
+            <div>
+                <a href="#"><img src="images/facebook-icon.png" alt="Facebook" class="icon" style="width:18px;"></a>
+                <a href="#"><img src="images/twitter-icon.png" alt="Twitter" class="icon" style="width:18px;"></a>
+                <a href="#"><img src="images/linkedin-icon.png" alt="LinkedIn" class="icon" style="width:18px;"></a>
+                <a href="#"><img src="images/instagram-icon.png" alt="Instagram" class="icon" style="width:18px;"></a>                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Header with Menu from Reference Code -->
+    <header class="main-header">
+        <div class="header-container">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="logo-container">
+                    <img src="images/logo.png" alt="MEC Logo" class="main-logo">
+                    <div class="accreditation-badge">
+                        <div>An Accredited</div>
+                        <div>Educational Agent</div>
+                        <div>Home & Abroad</div>
+                    </div>
+                </div>
+                <div class="tagline d-none d-xl-block">...your direct pathway to quality education</div>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">HOME</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="about.html">ABOUT US</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link active dropdown-toggle" href="services.html" id="servicesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                OUR SERVICES
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
+                                <li><a class="dropdown-item" href="admission-processing.html">Admission Processing</a></li>
+                                <li><a class="dropdown-item" href="foreign-exam-registration.html">Foreign Exam Registration & Coaching</a></li>
+                                <li><a class="dropdown-item" href="local-exam-registration.html">Local Exam Registration & Coaching</a></li>
+                                <li><a class="dropdown-item" href="resource-platform.html">Resource Platform</a></li>
+                                <li><a class="dropdown-item" href="visa-guidance.html">Visa Guidance and Application</a></li>
+                                <li><a class="dropdown-item" href="sevis-payment.html">SEVIS Fee Payment</a></li>
+                                <li><a class="dropdown-item" href="scratch-cards.html">Sales of WAEC, NECO, JAMB Scratch Cards</a></li>
+                                <li><a class="dropdown-item" href="foreign-textbooks.html">Sales of Foreign Exam Textbooks</a></li>
+                                <li><a class="dropdown-item" href="private-coaching.html">Private Coaching</a></li>
+                                <li><a class="dropdown-item" href="fund-transfer.html">Fund Transfer</a></li>
+                            </ul>
+                        </li>
+                         
+                      <li class="nav-item dropdown">
+    <a class="nav-link active dropdown-toggle" href="destinations.html" id="studyAbroadDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        STUDY ABROAD
+    </a>
+    <ul class="dropdown-menu scrollable-dropdown" aria-labelledby="studyAbroadDropdown" style="max-height: 400px; overflow-y: auto;">
+        <li><a class="dropdown-item" href="canada.html">Canada</a></li>
+        <li><a class="dropdown-item" href="uk.html">United Kingdom</a></li>
+        <li><a class="dropdown-item" href="usa.html">United States</a></li>
+        <li><a class="dropdown-item" href="cyprus.html">Cyprus</a></li>
+        <li><a class="dropdown-item" href="australia.html">Australia</a></li>
+        <li><a class="dropdown-item" href="austria.html">Austria</a></li>
+        <li><a class="dropdown-item" href="india.html">India</a></li>
+        <li><a class="dropdown-item" href="ireland.html">Ireland</a></li>
+        <li><a class="dropdown-item" href="germany.html">Germany</a></li>
+        <li><a class="dropdown-item" href="france.html">France</a></li>
+        <li><a class="dropdown-item" href="mauritius.html">Mauritius</a></li>
+        <li><a class="dropdown-item" href="lithuania.html">Lithuania</a></li>
+        <li><a class="dropdown-item" href="uae.html">Dubai, UAE</a></li>
+        <li><a class="dropdown-item" href="netherlands.html">Netherlands</a></li>
+        <li><a class="dropdown-item" href="poland.html">Poland</a></li>
+        <li><a class="dropdown-item" href="belgium.html">Belgium</a></li>
+        <li><a class="dropdown-item" href="greece.html">Greece</a></li>
+        <li><a class="dropdown-item" href="turkey.html">Turkey</a></li>
+        <li><a class="dropdown-item" href="malaysia.html">Malaysia</a></li>
+        <li><a class="dropdown-item" href="malta.html">Malta</a></li>
+    </ul>
+</li>              
+ <li class="nav-item">
+                            <a class="nav-link" href="gallery.html">GALLERY</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">CONTACT</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="tagline d-xl-none text-center mt-2">...your direct pathway to quality education</div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="about-hero">
+        <div class="container text-center">
+            <h1 class="display-4 fw-bold mb-4">About Multinational Educational Consulting</h1>
+            <p class="lead">Guiding students to global educational success since 2009</p>
+            <a href="#brief-story" class="btn btn-primary btn-lg mt-3">Our Story</a>
+        </div>
+    </section>
+
+    <!-- Brief Story Section with Yellow Background -->
+    <section id="brief-story">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="story-card">
+                        <h2 class="section-title">Our Brief Story</h2>
+                        <p class="lead">Multinational Educational Consulting (MEC) was established in 2009 to address the challenges students face in making informed educational decisions.</p>
+                        <p>We recognized that many students struggled with choosing the right course of study, finding institutions that matched their academic profiles, and navigating the complexities of international education. Parents often invested significant resources without proper guidance, leading to suboptimal outcomes.</p>
+                        <p>MEC was founded to bridge these gaps by providing expert guidance, transparent information, and comprehensive support throughout the educational journey. What began as a small consultancy in Lagos has grown into a leading educational advisory with a global reach.</p>
+                        <div class="row mt-5">
+                            <div class="col-md-6">
+                                <img src="images/graduate.jpg" alt="MEC Founders" class="img-fluid rounded">
+                            </div>
+                            <div class="col-md-6">
+                                <h3><i class="fas fa-lightbulb me-2 text-primary"></i> Our Inspiration</h3>
+                                <p>Seeing talented students miss opportunities due to lack of guidance motivated us to create MEC.</p>
+                                <h3 class="mt-4"><i class="fas fa-chart-line me-2 text-primary"></i> Our Growth</h3>
+                                <p>From helping 12 students in our first year to over 1,000 annually today, our impact continues to grow.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Company Section with Restored Paragraph -->
+    <section class="company-section">
+        <div class="container">
+            <h2 class="section-title">Our Company</h2>
+            
+            <div class="company-description">
+                <p>Multinational Educational Consulting (MEC) came into existence after careful examination of the role it intends to offer prospective students seeking to study locally and internationally. Our business started as freelance many years back, but in January 2009 we saw the need for expansion in order to cater for more people out there, having seen the importance of our services to the masses. </p>
+                <p>We chose the name MULTINATIONAL because we intend to carry out our student recruitment activities to many nations. We have our business fully registered as a legal entity operated by law under the Federal Republic of Nigeria. </p>
+				<p class="MsoNormal"><span>We partner with some selected 
+				institutions and other educational services provider from 
+				different countries in order to offer students with variety of 
+				institutions and courses to choose from, thereby leading to a 
+				successful student recruitment exercise in the <b>UK, USA, 
+				Canada, Australia, Cyprus, Malta, Turkey, India, Ireland, 
+				Malaysia, Germany, Dubai, Mauritius, Netherlands, Poland, 
+				Austria, France, Lithuania, Greece e.t.c. </b>over the years.<o:p></o:p></span></p>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+            </div>
+            
+            <div class="company-features">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <h3>Our Mission</h3>
+                    <p>To safeguard the interests of our clients through ethical professional practices and personalized guidance.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h3>Our Vision</h3>
+                    <p>To make quality education accessible to all aspiring students globally.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-hand-holding-heart"></i>
+                    </div>
+                    <h3>Our Values</h3>
+                    <p>Integrity, Excellence, Transparency, and Student-Centered Service.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Global Network Section -->
+    <section class="network-section">
+        <div class="container">
+            <h2 class="text-center mb-4">Our Global Network</h2>
+            <p class="text-center mb-5">Partner institutions across 20+ countries worldwide</p>
+            
+            <div class="map-container">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg" 
+                     alt="World Map" 
+                     class="world-map">
+                
+                <!-- Country Markers -->
+                <div class="country-marker" style="top: 22%; left: 20%;" data-country="Canada"></div>
+                <div class="country-marker" style="top: 20%; left: 48%;" data-country="United Kingdom"></div>
+                <div class="country-marker" style="top: 28%; left: 22%;" data-country="USA"></div>
+                <div class="country-marker" style="top: 38%; left: 58%;" data-country="Cyprus"></div>
+                <div class="country-marker" style="top: 75%; left: 85%;" data-country="Australia"></div>
+                <div class="country-marker" style="top: 30%; left: 53%;" data-country="Austria"></div>
+                <div class="country-marker" style="top: 45%; left: 72%;" data-country="India"></div>
+                <div class="country-marker" style="top: 22%; left: 46%;" data-country="Ireland"></div>
+                <div class="country-marker" style="top: 28%; left: 52%;" data-country="Germany"></div>
+                <div class="country-marker" style="top: 30%; left: 50%;" data-country="France"></div>
+                <div class="country-marker" style="top: 65%; left: 68%;" data-country="Mauritius"></div>
+                <div class="country-marker" style="top: 26%; left: 55%;" data-country="Lithuania"></div>
+                <div class="country-marker" style="top: 42%; left: 62%;" data-country="Dubai, UAE"></div>
+                <div class="country-marker" style="top: 26%; left: 50%;" data-country="Netherlands"></div>
+                <div class="country-marker" style="top: 28%; left: 55%;" data-country="Poland"></div>
+                <div class="country-marker" style="top: 28%; left: 50%;" data-country="Belgium"></div>
+                <div class="country-marker" style="top: 38%; left: 55%;" data-country="Greece"></div>
+                <div class="country-marker" style="top: 38%; left: 60%;" data-country="Turkey"></div>
+                <div class="country-marker" style="top: 50%; left: 78%;" data-country="Malaysia"></div>
+                <div class="country-marker" style="top: 38%; left: 54%;" data-country="Malta"></div>
+            </div>
+
+            <div class="country-list">
+                <div class="country-item"><i class="fas fa-map-marker-alt"></i> <a href="canada.html" style="color: white;">Canada</a></div>
+                <div class="country-item"><i class="fas fa-map-marker-alt"></i> <a href="uk.html" style="color: white;">United Kingdom</a></div>
+                <div class="country-item"><i class="fas fa-map-marker-alt"></i> <a href="usa.html" style="color: white;">USA</a></div>
+                <div class="country-item"><i class="fas fa-map-marker-alt"></i> <a href="cyprus.html" style="color: white;">Cyprus</a></div>
+                <div class="country-item"><i class="fas fa-map-marker-alt"></i> <a href="australia.html" style="color: white;">Australia</a></div>
+                <div class="country-item"><i class="fas fa-map-marker-alt"></i> <a href="austria.html" style="color: white;">Austria</a></div>
+                <div class="country-item"><i class="fas fa-map-marker-alt"></i> <a href="india.html" style="color: white;">India</a></div>
+                <div class="country-item"><i class="fas fa-map-marker-alt"></i> <a href="ireland.html" style="color: white;">Ireland</a></div>
+                <div class="country-item"><i class="fas fa-map-marker-alt"></i> <a href="germany.html" style="color: white;">Germany</a></div>
+                <div class="country-item"><i class="fas fa-map-marker-alt"></i> <a href="france.html" style="color: white;">France</a></div>
+                <div class="country-item"><i class="fas fa-map-marker-alt"></i> <a href="mauritius.html" style="color: white;">Mauritius</a></div>
+                <div class="country-item"><i class="fas fa-map-marker-alt"></i> <a href="lithuania.html" style="color: white;">Lithuania</a></div>
+                <div class="country-item"><i class="fas fa-map-marker-alt"></i> <a href="uae.html" style="color: white;">Dubai, UAE</a></div>
+                <div class="country-item"><i class="fas fa-map-marker-alt"></i> <a href="netherlands.html" style="color: white;">Netherlands</a></div>
+                <div class="country-item"><i class="fas fa-map-marker-alt"></i> <a href="poland.html" style="color: white;">Poland</a></div>
+                <div class="country-item"><i class="fas fa-map-marker-alt"></i> <a href="belgium.html" style="color: white;">Belgium</a></div>
+                <div class="country-item"><i class="fas fa-map-marker-alt"></i> <a href="greece.html" style="color: white;">Greece</a></div>
+                <div class="country-item"><i class="fas fa-map-marker-alt"></i> <a href="turkey.html" style="color: white;">Turkey</a></div>
+                <div class="country-item"><i class="fas fa-map-marker-alt"></i> <a href="malaysia.html" style="color: white;">Malaysia</a></div>
+                <div class="country-item"><i class="fas fa-map-marker-alt"></i> <a href="malta.html" style="color: white;">Malta</a></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <img src="images/logo.png" alt="MEC Logo" class="mb-3" height="50">
+                    <p>Multinational Educational Consulting (MEC) is dedicated to helping students achieve their academic dreams through expert guidance and personalized support.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="index.html">Home</a></li>
+                        <li class="mb-2"><a href="about.html">About Us</a></li>
+                        <li class="mb-2"><a href="services.html">Services</a></li>
+                        <li class="mb-2"><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5>Services</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="services.html">University Admissions</a></li>
+                        <li class="mb-2"><a href="services.html">Test Preparation</a></li>
+                        <li class="mb-2"><a href="services.html">Visa Assistance</a></li>
+                        <li class="mb-2"><a href="services.html">Scholarship Help</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5>Contact Us</h5>
+                    <ul class="list-unstyled">
+                         <li class="mb-3">
+            <img src="images/address-icon.png" alt="Address" class="footer-icon me-2">
+            123 Education Ave, Lagos, Nigeria
+        </li>
+        <li class="mb-3">
+            <img src="images/phone-icon.png" alt="Phone" class="footer-icon me-2">
+            +234 806 058 1501
+        </li>
+        <li class="mb-3">
+            <img src="images/email-icon.png" alt="Email" class="footer-icon me-2">
+            info@mecconsulting.com
+        </li>                     </ul>
+                </div>
+            </div>
+            <hr class="my-4 bg-light opacity-25">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0">&copy; 2023 Multinational Educational Consulting. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="#">Privacy Policy</a>
+                    <span class="mx-2">|</span>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle with Popper CDN -->
+    <script src="bootstrap.bundle.min.js"></script>
+</body>
+</html>

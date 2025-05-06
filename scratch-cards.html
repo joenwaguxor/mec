@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WAEC/NECO/JAMB Scratch Cards - Multinational Educational Consulting</title>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+
+    <!-- Bootstrap CSS CDN -->
+    <link href="bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome CSS CDN -->
+    <link rel="stylesheet" href="all.min.css">
+    <style>
+        :root {
+            --mec-red: #d32f2f;
+            --mec-yellow: #f9a825;
+            --mec-green: #2e8540;
+            --mec-dark: #2d2d2d;
+            --mec-light: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            line-height: 1.6;
+            color: var(--mec-dark);
+            padding-top: 140px;
+            background-color: #f9f9f9;
+        }
+
+        /* Contact Info Bar */
+        .contact-bar {
+            background: var(--mec-green);
+            color: white;
+            font-size: 0.9rem;
+            padding: 8px 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 2000;
+        }
+
+        .contact-bar a {
+            color: white;
+            margin: 0 8px;
+            transition: opacity 0.3s;
+        }
+
+        .contact-bar a:hover {
+            opacity: 0.8;
+        }
+
+        /* Main Header */
+        .main-header {
+            background: white;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 40px;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .header-container {
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            margin-right: 15px;
+        }
+
+        .main-logo {
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .accreditation-badge {
+            border-left: 2px solid var(--mec-yellow);
+            padding-left: 8px;
+            font-size: 0.75rem;
+            line-height: 1.2;
+            color: var(--mec-red);
+        }
+
+        .tagline {
+            font-size: 0.85rem;
+            color: var(--mec-green);
+            font-weight: 600;
+            margin-top: 3px;
+            white-space: nowrap;
+        }
+
+        .navbar-nav {
+            gap: 12px;
+        }
+
+        .nav-link {
+            color: var(--mec-dark);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.95rem;
+            padding: 8px 12px !important;
+            white-space: nowrap;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--mec-red);
+        }
+
+        /* Dropdown menu styles */
+        .dropdown-menu {
+            border: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        /* Services dropdown menu - fixed height with scroll */
+        #servicesDropdownMenu {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        
+        /* Study abroad dropdown menu - scrollable */
+        #studyAbroadDropdownMenu {
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        /* Scratch Cards Hero Section */
+        .scratch-hero {
+            height: 50vh;
+            min-height: 300px;
+            background: linear-gradient(rgba(0,0,0,0.0), rgba(0,0,0,0.0)), 
+                        url('images/cards.jpg') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            color: white;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .scratch-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+        .scratch-hero .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .content-section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+            color: var(--mec-dark);
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--mec-red);
+            margin: 20px auto 0;
+        }
+
+        .step-card {
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+            background: white;
+            border-left: 5px solid var(--mec-green);
+        }
+
+        .step-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: var(--mec-red);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .pricing-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+        }
+
+        .pricing-table th, 
+        .pricing-table td {
+            padding: 12px 15px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        .pricing-table th {
+            background-color: var(--mec-green);
+            color: white;
+            font-weight: 600;
+        }
+
+        .pricing-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .pricing-table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .note-box {
+            background-color: #fff8e1;
+            border-left: 4px solid var(--mec-yellow);
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .warning-box {
+            background-color: #ffebee;
+            border-left: 4px solid var(--mec-red);
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .office-card {
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            background: white;
+            border-top: 4px solid var(--mec-red);
+        }
+
+        .office-card h4 {
+            color: var(--mec-red);
+            margin-bottom: 15px;
+        }
+
+        .benefits-container {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .benefits-header {
+            background: var(--mec-green);
+            color: white;
+            padding: 20px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .benefits-body {
+            padding: 30px;
+        }
+
+        .faq-item {
+            margin-bottom: 15px;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .faq-question {
+            padding: 20px;
+            background: var(--mec-light);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--mec-dark);
+        }
+
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-answer.show {
+            padding: 20px;
+            max-height: 500px;
+        }
+
+        .contact-cta {
+            background: linear-gradient(rgba(45, 45, 45, 0.9), rgba(45, 45, 45, 0.9)), url('https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80');
+            background-size: cover;
+            color: white;
+            padding: 60px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 40px;
+            position: relative;
+        }
+
+        .contact-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(45, 45, 45, 0.8);
+            border-radius: 8px;
+            z-index: 1;
+        }
+
+        .contact-cta .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--mec-red) !important;
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        footer a:hover {
+            opacity: 0.8;
+        }
+
+        .social-icons {
+            margin-top: 15px;
+        }
+
+        .social-icons a {
+            display: inline-block;
+            margin-right: 15px;
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding-top: 120px;
+            }
+            
+            .navbar-nav {
+                gap: 8px;
+            }
+            
+            .nav-link {
+                font-size: 0.9rem;
+                padding: 6px 10px !important;
+            }
+            
+            .main-logo {
+                height: 40px;
+            }
+            
+            .accreditation-badge {
+                font-size: 0.65rem;
+            }
+            
+            .contact-bar .d-flex {
+                flex-direction: column;
+                text-align: center;
+                gap: 5px;
+            }
+            
+            .contact-bar span {
+                display: block;
+                margin: 0 !important;
+            }
+
+            .scratch-hero {
+                height: 40vh;
+            }
+            
+            .content-section {
+                padding: 60px 0;
+            }
+            
+            .contact-cta {
+                padding: 40px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Contact Info Bar -->
+    <div class="contact-bar">
+        <div class="header-container">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <span><img src="images/phone-icon.png" alt="Phone" class="icon me-2" style="width:16px;"> +234 806 058 1501</span>
+                <span class="ms-3"><img src="images/email-icon.png" alt="Email" class="icon me-2" style="width:16px;"> info@mecconsulting.com</span>
+            </div>
+            <div>
+                <a href="#"><img src="images/facebook-icon.png" alt="Facebook" class="icon" style="width:18px;"></a>
+                <a href="#"><img src="images/twitter-icon.png" alt="Twitter" class="icon" style="width:18px;"></a>
+                <a href="#"><img src="images/linkedin-icon.png" alt="LinkedIn" class="icon" style="width:18px;"></a>
+                <a href="#"><img src="images/instagram-icon.png" alt="Instagram" class="icon" style="width:18px;"></a>                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Header -->
+    <header class="main-header">
+        <div class="header-container">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="logo-container">
+                    <img src="images/logo.png" alt="MEC Logo" class="main-logo">
+                    <div class="accreditation-badge">
+                        <div>An Accredited</div>
+                        <div>Educational Agent</div>
+                        <div>Home & Abroad</div>
+                    </div>
+                </div>
+                <div class="tagline d-none d-xl-block">...your direct pathway to quality education</div>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">HOME</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="about.html">ABOUT US</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="services.html" id="servicesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                OUR SERVICES
+                            </a>
+                            <ul class="dropdown-menu" id="servicesDropdownMenu" aria-labelledby="servicesDropdown">
+                                <li><a class="dropdown-item" href="admission-processing.html">Admission Processing</a></li>
+                                <li><a class="dropdown-item" href="foreign-exam-registration.html">Foreign Exam Registration & Coaching</a></li>
+                                <li><a class="dropdown-item" href="local-exam-registration.html">Local Exam Registration & Coaching</a></li>
+                                <li><a class="dropdown-item" href="resource-platform.html">Resource Platform</a></li>
+                                <li><a class="dropdown-item" href="visa-guidance.html">Visa Guidance and Application</a></li>
+                                <li><a class="dropdown-item" href="sevis-payment.html">SEVIS Fee Payment</a></li>
+                                <li><a class="dropdown-item active" href="scratch-cards.html">Sales of WAEC, NECO, JAMB Scratch Cards</a></li>
+                                <li><a class="dropdown-item" href="foreign-textbooks.html">Sales of Foreign Exam Textbooks</a></li>
+                                <li><a class="dropdown-item" href="private-coaching.html">Private Coaching</a></li>
+                                <li><a class="dropdown-item" href="fund-transfer.html">Fund Transfer</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="destinations.html" id="studyAbroadDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                STUDY ABROAD
+                            </a>
+                            <ul class="dropdown-menu" id="studyAbroadDropdownMenu" aria-labelledby="studyAbroadDropdown">
+                                <li><a class="dropdown-item" href="#canada">Canada</a></li>
+                                <li><a class="dropdown-item" href="#uk">United Kingdom</a></li>
+                                <li><a class="dropdown-item" href="#usa">United States</a></li>
+                                <li><a class="dropdown-item" href="#cyprus">Cyprus</a></li>
+                                <li><a class="dropdown-item" href="#australia">Australia</a></li>
+                                <li><a class="dropdown-item" href="#austria">Austria</a></li>
+                                <li><a class="dropdown-item" href="#india">India</a></li>
+                                <li><a class="dropdown-item" href="#ireland">Ireland</a></li>
+                                <li><a class="dropdown-item" href="#germany">Germany</a></li>
+                                <li><a class="dropdown-item" href="#france">France</a></li>
+                                <li><a class="dropdown-item" href="#mauritius">Mauritius</a></li>
+                                <li><a class="dropdown-item" href="#lithuania">Lithuania</a></li>
+                                <li><a class="dropdown-item" href="#uae">Dubai, UAE</a></li>
+                                <li><a class="dropdown-item" href="#netherlands">Netherlands</a></li>
+                                <li><a class="dropdown-item" href="#poland">Poland</a></li>
+                                <li><a class="dropdown-item" href="#belgium">Belgium</a></li>
+                                <li><a class="dropdown-item" href="#greece">Greece</a></li>
+                                <li><a class="dropdown-item" href="#turkey">Turkey</a></li>
+                                <li><a class="dropdown-item" href="#malaysia">Malaysia</a></li>
+                                <li><a class="dropdown-item" href="#malta">Malta</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="gallery.html">GALLERY</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">CONTACT</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="tagline d-xl-none text-center mt-2">...your direct pathway to quality education</div>
+        </div>
+    </header>
+
+    <!-- Scratch Cards Hero Section -->
+    <section class="scratch-hero">
+        <div class="container text-center">
+            <h1 class="display-4 fw-bold mb-4">WAEC/NECO/JAMB SCRATCH CARDS</h1>
+            <p class="lead">Purchase your result checker cards with ease from trusted vendors</p>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+            <div class="warning-box">
+                <h4 class="text-danger"><i class="fas fa-exclamation-triangle me-2"></i> IMPORTANT NOTICE</h4>
+                <p>If you are interested in purchasing the WAEC or NECO result checker's cards from us, kindly follow the five (5) simple steps below:</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section bg-light">
+        <div class="container">
+            <h2 class="section-title">HOW TO PURCHASE YOUR SCRATCH CARDS</h2>
+            
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <h3>CARD AVAILABILITY</h3>
+                        <p>The first step is to contact us to know if we have the card you want to purchase. Here you are to contact a MEC team member using the contact details provided.</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <h3>PAY INTO OUR ACCOUNT</h3>
+                        <p>If card is available, depending on the card you are purchasing, PAY the following amounts into any of our accounts:</p>
+                        <ul>
+                            <li>WAEC SCRATCH CARD (in PIN form) = N4,000</li>
+                            <li>NECO TOKEN (in PIN form) = N1,500</li>
+                        </ul>
+                        <p><strong>Account Name:</strong> Multinational Educational Consulting Limited<br>
+                        <strong>Account No:</strong> 0126580520<br>
+                        <strong>Bank:</strong> GTBank</p>
+                        <p>OR</p>
+                        <p><strong>Account Name:</strong> Multinational Educational Consulting Limited<br>
+                        <strong>Account No:</strong> 1018060727<br>
+                        <strong>Bank:</strong> UBA</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <h3>SEND PROOF OF PAYMENT</h3>
+                        <p>After making payment, send us a proof of your payment via whatsapp, text message or direct call.</p>
+                        <p>Be aware that at this point you may be asked to furnish us with some additional information that will help us track your payment safely from our account after payment has been made.</p>
+                        <p><strong>Contact Numbers:</strong><br>
+                        08060581501/07032835643 (Festac Office)<br>
+                        07046736448/07077975931 (Okota Office)</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6 col-md-6">
+                    <div class="step-card">
+                        <div class="step-number">4</div>
+                        <h3>PAYMENT CONFIRMATION</h3>
+                        <p>After any payment is made into our account, please give us up to 15 minutes to confirm your payment using the details you provided.</p>
+                        <p>Please note that in some cases, especially when network is bad, confirmation may be longer than 15 minutes but be rest assured we will get back to you as soon as we are able to confirm your payment.</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6 col-md-6">
+                    <div class="step-card">
+                        <div class="step-number">5</div>
+                        <h3>SENDING YOUR CARD DETAILS</h3>
+                        <p>Immediately we confirm your payment, we will send you (via whatsapp or text message) the card details Ã¢â‚¬â€œ PIN and SERIAL No (for WAEC card) or TOKEN (for NECO card).</p>
+                        <p>Sending your card info is faster through whatsapp, so we encourage you to contact us with your active whatsapp number.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+            <div class="note-box">
+                <h4>CONDITIONS TO NOTE</h4>
+                <p><strong>The best time to contact us</strong> is between 9am to 4pm MONDAY to FRIDAY. We do not do card transactions on weekends and even public holidays since we may have limited ACCESS to confirm payments.</p>
+                <p><strong>We do not make REFUND</strong> of payment made after a card details (PIN & SERIAL No or TOKEN) has been sent to a customer. If you may have any doubt regarding our card details; after payment to our account, ensure to first send us your candidate details such as Exam No, Exam Year & Exam Type (whether May/June or Nov/Dec). We will check the result at our end before sending you the card details. That way we are sure there won't be any complain.</p>
+            </div>
+            
+            <div class="warning-box text-center">
+                <h4 class="text-danger">NO REFUND WILL BE MADE IF OUR CARD DETAILS FAIL AT YOUR END, SO ENSURE TO READ THIS CAREFULLY BEFORE MAKING ANY PURCHASE.</h4>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section bg-light">
+        <div class="container">
+            <h2 class="section-title">WHY PURCHASE FROM MEC?</h2>
+            
+            <div class="benefits-container">
+                <div class="benefits-header">
+                    <h3 class="mb-0">Benefits of Buying From Us</h3>
+                </div>
+                <div class="benefits-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul>
+                                <li>We are trusted and reliable</li>
+                                <li>We deliver on time, once payment is confirmed</li>
+                                <li>You do not need to travel distances looking for WAEC or NECO office</li>
+                                <li>We provide all the necessary assistance you may need on result checking</li>
+                                <li>We can help you check the result free and send details to your email if you wish</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul>
+                                <li>Our price is cheap compared to other vendors</li>
+                                <li>We are out to serve you better, cheaper and faster</li>
+                                <li>We have been in the business for over 14 years (since 2010)</li>
+                                <li>You have the option of coming to our office to purchase as much quantity as you desire without pre-informing us</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+            <h2 class="section-title">PRICE LIST TABLE</h2>
+            <p class="text-center mb-4">The amount below is per unit price, if you want to buy in bulk (e.g. 20 and above for each card type) we are happy to negotiate a more reduced price with you.</p>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <h4 class="text-center mb-3">OPTION 1: IN PIN FORM</h4>
+                    <div class="table-responsive">
+                        <table class="pricing-table">
+                            <thead>
+                                <tr>
+                                    <th>TYPE OF CARD</th>
+                                    <th>AMOUNT (in Naira)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>WAEC</td>
+                                    <td>Ã¢â€šÂ¦4,000</td>
+                                </tr>
+                                <tr>
+                                    <td>NECO</td>
+                                    <td>Ã¢â€šÂ¦1,500</td>
+                                </tr>
+                                <tr>
+                                    <td>JAMB</td>
+                                    <td>NOT AVAILABLE</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <h4 class="text-center mb-3">OPTION 2: IN CARD FORM</h4>
+                    <div class="table-responsive">
+                        <table class="pricing-table">
+                            <thead>
+                                <tr>
+                                    <th>TYPE OF CARD</th>
+                                    <th>AMOUNT (in Naira)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>WAEC</td>
+                                    <td>Ã¢â€šÂ¦6,000</td>
+                                </tr>
+                                <tr>
+                                    <td>NECO</td>
+                                    <td>Ã¢â€šÂ¦2,500</td>
+                                </tr>
+                                <tr>
+                                    <td>JAMB</td>
+                                    <td>NOT AVAILABLE</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section bg-light">
+        <div class="container">
+            <h2 class="section-title">OUR OFFICE LOCATIONS</h2>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="office-card">
+                        <h4>FESTAC OFFICE</h4>
+                        <p>Multinational Educational Consulting (MEC)<br>
+                        Plot 925 Ã¢â‚¬â€œ 926, 13th Cavera Road, Beside MRS Filling Station,<br>
+                        Off 6th Avenue Road, Festac Town, Lagos Ã¢â‚¬â€œ Nigeria.</p>
+                        <p><strong>Direct calls:</strong> 08060581501/07032835643<br>
+                        <strong>Whatsapp (text/calls):</strong> 08060581501</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="office-card">
+                        <h4>OKOTA OFFICE</h4>
+                        <p>Multinational Educational Consulting (MEC)<br>
+                        27, Ago Palace Way, Opposite Shadia Memorial School,<br>
+                        By Ali Dada Bus Stop, Okota, Lagos Ã¢â‚¬â€œ Nigeria.</p>
+                        <p><strong>Direct calls:</strong> 07046736448/07077975931<br>
+                        <strong>Whatsapp (text & calls):</strong> 07046736448<br>
+                        <strong>Whatsapp (text only):</strong> 07077975931</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+            <h2 class="section-title">HOW TO CHECK YOUR RESULTS ONLINE</h2>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="benefits-container">
+                        <div class="benefits-header">
+                            <h3 class="mb-0">WAEC Result Checking</h3>
+                        </div>
+                        <div class="benefits-body">
+                            <p>Visit the WAEC result checker's page at <a href="https://www.waecdirect.org" target="_blank">WAEC-DIRECT</a></p>
+                            <ol>
+                                <li>Enter your 10-digit WAEC Examination Number. (This is your 7-Digit centre number followed by your 3-digit candidate number e.g. 4123456789)</li>
+                                <li>Enter the 4 digits of your Examination Year e.g. 2002</li>
+                                <li>Select the Type of Examination</li>
+                                <li>Enter the Card Serial Number</li>
+                                <li>Enter the Personal Identification Number (PIN)</li>
+                                <li>Click Submit and wait for the results window to come up</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="benefits-container">
+                        <div class="benefits-header">
+                            <h3 class="mb-0">NECO Result Checking</h3>
+                        </div>
+                        <div class="benefits-body">
+                            <p>Visit the NECO result checker's page at <a href="https://results.neco.gov.ng" target="_blank">https://results.neco.gov.ng</a></p>
+                            <ol>
+                                <li>Click on Examination Year and select your exam year</li>
+                                <li>Click on Examination Type and select your exam type</li>
+                                <li>Enter your purchased NECO token number (the one sent to you by us)</li>
+                                <li>Enter your exam Registration Number. This is a 10-digit number followed by 2 last alphabets e.g. 2310549571AB</li>
+                                <li>Click on check result and wait for your result to be displayed</li>
+                            </ol>
+                            <p class="note-box"><strong>NOTE:</strong><br>
+                            SSCE Internal (NECO taken in your secondary school as an internal candidate)<br>
+                            SSCE External (also called NECO GCE or the NECO taken as an external candidate)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section bg-light">
+        <div class="container">
+            <h2 class="section-title">Frequently Asked Questions (FAQ)</h2>
+            
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>What Time of The Day Can I Place My Order?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>The best time is between 9am to 4pm MONDAY to FRIDAY. We do not sell cards on weekends and public holidays.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>How Soon Will My Order Be Delivered After Making Payment?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Almost immediately. As soon as your payment is confirmed, your order (WAEC or NECO cards in any form) will be delivered to you either by whatsapp or text message. You can also transact with us directly from our offices if it's convenient for you.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>How many times can I use my WAEC PIN/Card?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>You may check your WAEC results up to a maximum of 5 (five) times with the same pin/card details. In order to check further after exhausting the allowed five (5) times you will need to purchase another WAEC result checker's PIN or Card which will entitle you to another five (5) times check of the same or another candidate's result.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>How many times can I use my NECO result token?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>NECO result Token can be use for five (5) times to check the result of one candidate with the same exam & registration number. After the fifth time, you will need to purchase a new Token which will allow you to check the same or another candidate's result for five (5) times.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Is WAEC PIN the same as WAEC Card?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes, they both serve the same purpose. The WAEC PIN and WAEC Card are used to check candidate's WAEC result, as they both have Serial number and Pin number. The only difference is that for the WAEC PIN, the serial number and pin number are already exposed, ready for use whereas the serial number and pin number for the WAEC Card are sealed on the card, and need to be scratched first to unveil the numbers before they are used to check results.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>How can I Trust the WAEC PIN or NECO TOKEN I am Receiving From MEC After Purchase?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>After purchasing a WAEC pin or NECO token from us, one way you can trust the details sent to you is if you have allowed us use same details to check your result once from our end before sending to you. That way we are sure no one can hack your Pin or Token details even if they are exposed publicly. As long as we have used the details once to check your result, it will make it invalid for every other user who attempt using it. By this you still have four (4) more times to use the purchased WAEC pin and or NECO token.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>What should I do if I want MEC to use my purchased card details to check my result once before sending details to me?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>If you would like us to check your result once from our end before sending your card details to you, all you need to do is to notify us candidate's exam details to us alongside evidence of your payment.</p>
+                            <p class="note-box"><strong>Note:</strong><br>
+                            - Do not send us a copy of the result to be checked<br>
+                            - Do not send the name of the exam candidate<br>
+                            - Do not send us any detail we didn't ask for</p>
+                            <p>For the sake of clarity, below are the details we need from you for each card purchased:</p>
+                            <p><strong>For WAEC PINs:</strong><br>
+                            Please send the candidate's:<br>
+                            Ã¢â‚¬Â¢ 10-digit WAEC Examination Number. (This is your 7-Digit centre number followed by your 3-digit candidate number e.g. 4123456789).<br>
+                            Ã¢â‚¬Â¢ 4 digits of your Examination Year e.g. 2002.<br>
+                            Ã¢â‚¬Â¢ Examination Type. This can either be school candidate or private candidate.<br>
+                            ÃƒËœ It is school candidate if you took the exam in your secondary school as an internal candidate wearing the school uniform during the exam.<br>
+                            ÃƒËœ It is private candidate if you took the exam as an external candidate (either within or outside your school) but not wearing any school uniform during the exam</p>
+                            <p><strong>For NECO tokens:</strong><br>
+                            Please send:<br>
+                            Ã¢â‚¬Â¢ Examination Year e.g. 1998 or 2020<br>
+                            Ã¢â‚¬Â¢ Candidate's Registration Number. This is a 10-digit number followed by 2 last alphabets e.g. 2310549571AB<br>
+                            Ã¢â‚¬Â¢ Examination Type. This can either be SSCE Internal or SSCE External<br>
+                            ÃƒËœ It is SSCE internal if you took the exam in your secondary school as an internal candidate wearing the school uniform during the exam.<br>
+                            ÃƒËœ It is SSCE external if you took the exam as an external candidate (either within or outside your school) but not wearing any school uniform during the exam</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Can I Buy the WAEC or NECO card without checking my result from MEC?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes, it's absolutely your choice to either check the result first with us after paying for the card or ask for your card details straight away. However, in order to clear doubts amongst parties, it is advisable for us to first check the result at our end before sending card details out otherwise you cannot hold us liable if the card details turns out to be invalid at your end after sending them over to you.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Is there any exam year I cannot check with my purchased card details from MEC?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>We are not sure you can check your result for a WAEC exam taken earlier than 1988, however there is no year restriction for NECO result checking.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+            <div class="contact-cta">
+                <h2 class="mb-4">Ready to Purchase Your Scratch Cards?</h2>
+                <p class="mb-4">Contact us today for a smooth and hassle-free purchase experience</p>
+                <div class="d-flex justify-content-center gap-4 flex-wrap">
+                    <a href="contact.html" class="btn btn-primary btn-lg"><i class="fas fa-envelope me-2"></i> Contact Us</a>
+                    <a href="tel:+2348060581501" class="btn btn-outline-light btn-lg"><i class="fas fa-phone-alt me-2"></i> Call Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <img src="images/logo.png" alt="MEC Logo" class="mb-3" height="50">
+                    <p>Multinational Educational Consulting (MEC) is dedicated to helping students achieve their academic dreams through expert guidance and personalized support.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="index.html">Home</a></li>
+                        <li class="mb-2"><a href="about.html">About Us</a></li>
+                        <li class="mb-2"><a href="services.html">Services</a></li>
+                        <li class="mb-2"><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5>Services</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="admission-processing.html">University Admissions</a></li>
+                        <li class="mb-2"><a href="resource-platform.html">Resource Platform</a></li>
+                        <li class="mb-2"><a href="visa-guidance.html">Visa Assistance</a></li>
+                        <li class="mb-2"><a href="foreign-exam-registration.html">Exam Preparation</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5>Contact Us</h5>
+                    <ul class="list-unstyled">
+                         <li class="mb-3">
+            <img src="images/address-icon.png" alt="Address" class="footer-icon me-2">
+            123 Education Ave, Lagos, Nigeria
+        </li>
+        <li class="mb-3">
+            <img src="images/phone-icon.png" alt="Phone" class="footer-icon me-2">
+            +234 806 058 1501
+        </li>
+        <li class="mb-3">
+            <img src="images/email-icon.png" alt="Email" class="footer-icon me-2">
+            info@mecconsulting.com
+        </li>                     </ul>
+                </div>
+            </div>
+            <hr class="my-4 bg-light opacity-25">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0">&copy; 2023 Multinational Educational Consulting. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="privacy-policy.html">Privacy Policy</a>
+                    <span class="mx-2">|</span>
+                    <a href="terms.html">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle with Popper CDN -->
+    <script src="bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // FAQ Toggle Functionality
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const icon = question.querySelector('i.fa-chevron-down, i.fa-chevron-up');
+                
+                // Toggle answer visibility
+                answer.classList.toggle('show');
+                
+                // Toggle icon
+                if (icon.classList.contains('fa-chevron-down')) {
+                    icon.classList.remove('fa-chevron-down');
+                    icon.classList.add('fa-chevron-up');
+                } else {
+                    icon.classList.remove('fa-chevron-up');
+                    icon.classList.add('fa-chevron-down');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

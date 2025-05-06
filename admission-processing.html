@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admission Processing - Multinational Educational Consulting</title>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+
+    <!-- Bootstrap CSS CDN -->
+    <link href="bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome CSS CDN -->
+    <link rel="stylesheet" href="all.min.css">
+    <style>
+        :root {
+            --mec-red: #d32f2f;
+            --mec-yellow: #f9a825;
+            --mec-green: #2e8540;
+            --mec-dark: #2d2d2d;
+            --mec-light: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            line-height: 1.6;
+            color: var(--mec-dark);
+            padding-top: 140px;
+            background-color: #f9f9f9;
+        }
+
+        /* Contact Info Bar - Matching services page */
+        .contact-bar {
+            background: var(--mec-green);
+            color: white;
+            font-size: 0.9rem;
+            padding: 8px 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 2000;
+        }
+
+        .contact-bar a {
+            color: white;
+            margin: 0 8px;
+            transition: opacity 0.3s;
+        }
+
+        .contact-bar a:hover {
+            opacity: 0.8;
+        }
+
+        /* Main Header with Menu - Exact match to services page */
+        .main-header {
+            background: white;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 40px;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .header-container {
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            margin-right: 15px;
+        }
+
+        .main-logo {
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .accreditation-badge {
+            border-left: 2px solid var(--mec-yellow);
+            padding-left: 8px;
+            font-size: 0.75rem;
+            line-height: 1.2;
+            color: var(--mec-red);
+        }
+
+        .tagline {
+            font-size: 0.85rem;
+            color: var(--mec-green);
+            font-weight: 600;
+            margin-top: 3px;
+            white-space: nowrap;
+        }
+
+        .navbar-nav {
+            gap: 12px;
+        }
+
+        .nav-link {
+            color: var(--mec-dark);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.95rem;
+            padding: 8px 12px !important;
+            white-space: nowrap;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--mec-red);
+        }
+
+        /* Updated admission hero section with background image */
+        .admission-hero {
+            height: 50vh;
+            min-height: 300px;
+            background: linear-gradient(rgba(0,0,0,0.0), rgba(0,0,0,0.0)), 
+                        url('images/admission.jpg') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            color: white;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .admission-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+        .admission-hero .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .content-section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+            color: var(--mec-dark);
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--mec-red);
+            margin: 20px auto 0;
+        }
+
+        .process-card {
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+            color: white;
+            background: var(--mec-green);
+        }
+
+        .process-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .process-icon {
+            font-size: 2.5rem;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .requirements-container {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .requirements-header {
+            background: var(--mec-green);
+            color: white;
+            padding: 20px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .requirements-body {
+            padding: 30px;
+        }
+
+        .requirements-body h4 {
+            color: var(--mec-red);
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--mec-yellow);
+            padding-bottom: 8px;
+        }
+
+        .faq-item {
+            margin-bottom: 15px;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .faq-question {
+            padding: 20px;
+            background: var(--mec-light);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--mec-dark);
+        }
+
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-answer.show {
+            padding: 20px;
+            max-height: 500px;
+        }
+
+        .contact-cta {
+            background: linear-gradient(rgba(45, 45, 45, 0.9), rgba(45, 45, 45, 0.9)), url('https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80');
+            background-size: cover;
+            color: white;
+            padding: 60px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 40px;
+            position: relative;
+        }
+
+        .contact-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(45, 45, 45, 0.8);
+            border-radius: 8px;
+            z-index: 1;
+        }
+
+        .contact-cta .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Footer - Matching services page */
+        footer {
+            background-color: var(--mec-red) !important;
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        footer a:hover {
+            opacity: 0.8;
+        }
+
+        .social-icons {
+            margin-top: 15px;
+        }
+
+        .social-icons a {
+            display: inline-block;
+            margin-right: 15px;
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding-top: 120px;
+            }
+            
+            .navbar-nav {
+                gap: 8px;
+            }
+            
+            .nav-link {
+                font-size: 0.9rem;
+                padding: 6px 10px !important;
+            }
+            
+            .main-logo {
+                height: 40px;
+            }
+            
+            .accreditation-badge {
+                font-size: 0.65rem;
+            }
+            
+            .contact-bar .d-flex {
+                flex-direction: column;
+                text-align: center;
+                gap: 5px;
+            }
+            
+            .contact-bar span {
+                display: block;
+                margin: 0 !important;
+            }
+
+            .admission-hero {
+                height: 40vh;
+            }
+            
+            .content-section {
+                padding: 60px 0;
+            }
+            
+            .requirements-body {
+                padding: 20px;
+            }
+            
+            .contact-cta {
+                padding: 40px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Contact Info Bar - Matching services page -->
+    <div class="contact-bar">
+        <div class="header-container">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <span><img src="images/phone-icon.png" alt="Phone" class="icon me-2" style="width:16px;"> +234 806 058 1501</span>
+                <span class="ms-3"><img src="images/email-icon.png" alt="Email" class="icon me-2" style="width:16px;"> info@mecconsulting.com</span>
+            </div>
+            <div>
+                <a href="#"><img src="images/facebook-icon.png" alt="Facebook" class="icon" style="width:18px;"></a>
+                <a href="#"><img src="images/twitter-icon.png" alt="Twitter" class="icon" style="width:18px;"></a>
+                <a href="#"><img src="images/linkedin-icon.png" alt="LinkedIn" class="icon" style="width:18px;"></a>
+                <a href="#"><img src="images/instagram-icon.png" alt="Instagram" class="icon" style="width:18px;"></a>                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Header - Matching services page -->
+    <header class="main-header">
+        <div class="header-container">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="logo-container">
+                    <img src="images/logo.png" alt="MEC Logo" class="main-logo">
+                    <div class="accreditation-badge">
+                        <div>An Accredited</div>
+                        <div>Educational Agent</div>
+                        <div>Home & Abroad</div>
+                    </div>
+                </div>
+                <div class="tagline d-none d-xl-block">...your direct pathway to quality education</div>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">HOME</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="about.html">ABOUT US</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link active dropdown-toggle" href="services.html" id="servicesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                OUR SERVICES
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
+                                <li><a class="dropdown-item" href="admission-processing.html">Admission Processing</a></li>
+                                <li><a class="dropdown-item" href="foreign-exam-registration.html">Foreign Exam Registration & Coaching</a></li>
+                                <li><a class="dropdown-item" href="local-exam-registration.html">Local Exam Registration & Coaching</a></li>
+                                <li><a class="dropdown-item" href="resource-platform.html">Resource Platform</a></li>
+                                <li><a class="dropdown-item" href="visa-guidance.html">Visa Guidance and Application</a></li>
+                                <li><a class="dropdown-item" href="sevis-payment.html">SEVIS Fee Payment</a></li>
+                                <li><a class="dropdown-item" href="scratch-cards.html">Sales of WAEC, NECO, JAMB Scratch Cards</a></li>
+                                <li><a class="dropdown-item" href="foreign-textbooks.html">Sales of Foreign Exam Textbooks</a></li>
+                                <li><a class="dropdown-item" href="private-coaching.html">Private Coaching</a></li>
+                                <li><a class="dropdown-item" href="fund-transfer.html">Fund Transfer</a></li>
+                            </ul>
+                        </li>
+                       <li class="nav-item dropdown">
+    <a class="nav-link active dropdown-toggle" href="destinations.html" id="studyAbroadDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        STUDY ABROAD
+    </a>
+    <ul class="dropdown-menu scrollable-dropdown" aria-labelledby="studyAbroadDropdown" style="max-height: 400px; overflow-y: auto;">
+        <li><a class="dropdown-item" href="canada.html">Canada</a></li>
+        <li><a class="dropdown-item" href="uk.html">United Kingdom</a></li>
+        <li><a class="dropdown-item" href="usa.html">United States</a></li>
+        <li><a class="dropdown-item" href="cyprus.html">Cyprus</a></li>
+        <li><a class="dropdown-item" href="australia.html">Australia</a></li>
+        <li><a class="dropdown-item" href="austria.html">Austria</a></li>
+        <li><a class="dropdown-item" href="india.html">India</a></li>
+        <li><a class="dropdown-item" href="ireland.html">Ireland</a></li>
+        <li><a class="dropdown-item" href="germany.html">Germany</a></li>
+        <li><a class="dropdown-item" href="france.html">France</a></li>
+        <li><a class="dropdown-item" href="mauritius.html">Mauritius</a></li>
+        <li><a class="dropdown-item" href="lithuania.html">Lithuania</a></li>
+        <li><a class="dropdown-item" href="uae.html">Dubai, UAE</a></li>
+        <li><a class="dropdown-item" href="netherlands.html">Netherlands</a></li>
+        <li><a class="dropdown-item" href="poland.html">Poland</a></li>
+        <li><a class="dropdown-item" href="belgium.html">Belgium</a></li>
+        <li><a class="dropdown-item" href="greece.html">Greece</a></li>
+        <li><a class="dropdown-item" href="turkey.html">Turkey</a></li>
+        <li><a class="dropdown-item" href="malaysia.html">Malaysia</a></li>
+        <li><a class="dropdown-item" href="malta.html">Malta</a></li>
+    </ul>
+</li>                        <li class="nav-item">
+                            <a class="nav-link" href="gallery.html">GALLERY</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">CONTACT</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="tagline d-xl-none text-center mt-2">...your direct pathway to quality education</div>
+        </div>
+    </header>
+
+    <!-- Admission Hero Section with Background Image -->
+    <section class="admission-hero">
+        <div class="container text-center">
+            <h1 class="display-4 fw-bold mb-4">Admission Processing</h1>
+            <p class="lead">Your pathway to quality education at home and abroad</p>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 mx-auto text-center">
+                    <p class="lead">Multinational Educational Consulting (MEC) plays a vital role during admission processing for students seeking to study in an educational institution (either home or abroad), particularly at international contexts. We are instrumental in navigating the complexities of the admission process, ensuring that students receive the support they need to successfully enroll in their chosen institutions.</p>
+                    <p>Our student applications are processed in a timely manner. However, processing time may vary from one school to another; some foreign schools are able to turn around applications to offer letters within 24 hours while others can take a couple of days or even weeks. On the other hand most Nigerian institutions have different admission criteria, making admission processing time differ from one institution to another. The bottom line is that all our students end up with admission offers in good time.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section bg-light">
+        <div class="container">
+            <h2 class="section-title">Our Admission Processing Services</h2>
+            
+            <div class="row">
+                <div class="col-md-6 col-lg-3">
+                    <div class="process-card">
+                        <div class="process-icon">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                        <h3>Guidance and Support</h3>
+                        <p>We provide advice and counseling assistance to prospective students throughout their application process, helping them identify suitable universities that align with their academic interests and career goals.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3">
+                    <div class="process-card">
+                        <div class="process-icon">
+                            <i class="fas fa-file-signature"></i>
+                        </div>
+                        <h3>Application Assistance</h3>
+                        <p>Our Student Recruitment Counselors guide students through completing application forms, ensuring all required documents are submitted correctly and on time for successful admission.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3">
+                    <div class="process-card">
+                        <div class="process-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <h3>Institution Liaison</h3>
+                        <p>We act as intermediaries between students and educational institutions, facilitating swift communication and clarifying any questions that may arise during the admission process.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3">
+                    <div class="process-card">
+                        <div class="process-icon">
+                            <i class="fas fa-passport"></i>
+                        </div>
+                        <h3>Next Steps Preparation</h3>
+                        <p>Once admission offers are received, we prepare students for the next steps including accepting offers, meeting conditions, tuition deposits, and visa application preparation.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+            <h2 class="section-title">Admission Requirements</h2>
+            <p class="text-center mb-5">Admission requirements vary by country. Contact our counselor for requirements matching your study destination.</p>
+            
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="requirements-container">
+                        <div class="requirements-header">
+                            <h3 class="mb-0">Local Admissions</h3>
+                        </div>
+                        <div class="requirements-body">
+                            <h4><i class="fas fa-school me-2"></i> Secondary Level</h4>
+                            <ol>
+                                <li>Complete a registration form</li>
+                                <li>Take a pre-admission entrance test (depending on school)</li>
+                                <li>Attend oral interview</li>
+                                <li>Get professional advice</li>
+                                <li>Deployment into suitable school</li>
+                            </ol>
+                            
+                            <h4 class="mt-4"><i class="fas fa-user-graduate me-2"></i> Undergraduate Level</h4>
+                            <ul>
+                                <li>5 credits in WAEC/NECO (including English)</li>
+                                <li>Good score in UTME</li>
+                                <li>Post-UTME screening test</li>
+                            </ul>
+                            
+                            <h4 class="mt-4"><i class="fas fa-graduation-cap me-2"></i> Postgraduate Level</h4>
+                            <ul>
+                                <li>Completed HND/Bachelor degree with good grades</li>
+                                <li>Institution's entrance examination</li>
+                                <li>Official transcripts from previous institutions</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <div class="requirements-container">
+                        <div class="requirements-header">
+                            <h3 class="mb-0">Foreign Admissions</h3>
+                        </div>
+                        <div class="requirements-body">
+                            <h4><i class="fas fa-user-graduate me-2"></i> Undergraduate Level</h4>
+                            <ol>
+                                <li>O'level certificates (WAEC/NECO) with result checker</li>
+                                <li>High school official transcripts</li>
+                                <li>Reference letter from previous institution</li>
+                                <li>Passport data page (6+ months validity)</li>
+                                <li>Detailed CV (for students with study gap)</li>
+                                <li>Standardized test scores (SAT, ACT, TOEFL, IELTS, etc.)</li>
+                                <li>Statement of purpose</li>
+                                <li>Application fee (where applicable)</li>
+                            </ol>
+                            
+                            <h4 class="mt-4"><i class="fas fa-graduation-cap me-2"></i> Postgraduate Level</h4>
+                            <ol>
+                                <li>O'level certificates (WAEC/NECO) with result checker</li>
+                                <li>HND/Bachelor degree certificate and transcripts</li>
+                                <li>Two reference letters (academic & professional)</li>
+                                <li>Passport data page (6+ months validity)</li>
+                                <li>Detailed CV showing education/work history</li>
+                                <li>Standardized test scores (GRE, GMAT, etc.)</li>
+                                <li>Statement of purpose</li>
+                                <li>Application fee (where applicable)</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-4">
+                <p>For admission queries, contact <a href="mailto:admissions@mecnigeria.com">admissions@mecnigeria.com</a> or call <a href="tel:07077975931">07077975931</a>, <a href="tel:08060581501">08060581501</a>, <a href="tel:07046736448">07046736448</a></p>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section bg-light">
+        <div class="container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span><i class="fas fa-question-circle me-2"></i> When do I need to apply for admission?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Applications are accepted before institution deadlines. Early applications are advised to secure course places. Complete financial sponsorship discussions before applying.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span><i class="fas fa-question-circle me-2"></i> Do I need to discuss with my sponsor before contacting MEC?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Only if someone else is sponsoring you. Self-sponsored students don't need this discussion.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span><i class="fas fa-question-circle me-2"></i> What does studying abroad cost?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Costs vary by course, study level, country, institution, and lifestyle. Consult our counselors for details.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span><i class="fas fa-question-circle me-2"></i> Can I get a scholarship?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Competitive scholarships exist but are merit-based. We can't guarantee awards. Check with embassies for opportunities.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span><i class="fas fa-question-circle me-2"></i> What institutions does MEC represent?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>We have unlimited coverage for student recruitment overseas, working to help students actualize their dreams.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span><i class="fas fa-question-circle me-2"></i> How long does admission processing take?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Varies by school, typically 1-2 weeks with complete documents. Early applications receive faster responses.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+            <div class="contact-cta">
+                <h2 class="mb-4">Ready to Begin Your Admission Process?</h2>
+                <p class="mb-4">Our team is ready to guide you through every step of the process</p>
+                <div class="d-flex justify-content-center gap-4 flex-wrap">
+                    <a href="contact.html" class="btn btn-primary btn-lg"><i class="fas fa-envelope me-2"></i> Contact Us</a>
+                    <a href="tel:+2348060581501" class="btn btn-outline-light btn-lg"><i class="fas fa-phone-alt me-2"></i> Call Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer - Matching services page -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <img src="images/logo.png" alt="MEC Logo" class="mb-3" height="50">
+                    <p>Multinational Educational Consulting (MEC) is dedicated to helping students achieve their academic dreams through expert guidance and personalized support.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="index.html">Home</a></li>
+                        <li class="mb-2"><a href="about.html">About Us</a></li>
+                        <li class="mb-2"><a href="services.html">Services</a></li>
+                        <li class="mb-2"><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5>Services</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="admission-processing.html">University Admissions</a></li>
+                        <li class="mb-2"><a href="foreign-exams.html">Test Preparation</a></li>
+                        <li class="mb-2"><a href="visa-guidance.html">Visa Assistance</a></li>
+                        <li class="mb-2"><a href="resource-platform.html">Scholarship Help</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5>Contact Us</h5>
+                    <ul class="list-unstyled">
+                         <li class="mb-3">
+            <img src="images/address-icon.png" alt="Address" class="footer-icon me-2">
+            123 Education Ave, Lagos, Nigeria
+        </li>
+        <li class="mb-3">
+            <img src="images/phone-icon.png" alt="Phone" class="footer-icon me-2">
+            +234 806 058 1501
+        </li>
+        <li class="mb-3">
+            <img src="images/email-icon.png" alt="Email" class="footer-icon me-2">
+            info@mecconsulting.com
+        </li>                     </ul>
+                </div>
+            </div>
+            <hr class="my-4 bg-light opacity-25">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0">&copy; 2023 Multinational Educational Consulting. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="privacy-policy.html">Privacy Policy</a>
+                    <span class="mx-2">|</span>
+                    <a href="terms.html">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle with Popper CDN -->
+    <script src="bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // FAQ Toggle Functionality
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const icon = question.querySelector('i.fa-chevron-down, i.fa-chevron-up');
+                
+                // Toggle answer visibility
+                answer.classList.toggle('show');
+                
+                // Toggle icon
+                if (icon.classList.contains('fa-chevron-down')) {
+                    icon.classList.remove('fa-chevron-down');
+                    icon.classList.add('fa-chevron-up');
+                } else {
+                    icon.classList.remove('fa-chevron-up');
+                    icon.classList.add('fa-chevron-down');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

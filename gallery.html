@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - Multinational Educational Consulting</title>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+
+    <link href="bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        :root {
+            --mec-red: #d32f2f;
+            --mec-yellow: #f9a825;
+            --mec-green: #2e8540;
+            --mec-dark: #2d2d2d;
+            --mec-light: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            line-height: 1.6;
+            color: var(--mec-dark);
+            padding-top: 140px;
+            background-color: #f9f9f9;
+        }
+
+        /* Contact Info Bar */
+        .contact-bar {
+            background: var(--mec-green);
+            color: white;
+            font-size: 0.9rem;
+            padding: 8px 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 2000;
+        }
+
+        .contact-bar a {
+            color: white;
+            text-decoration: none;
+            margin: 0 8px;
+            transition: opacity 0.3s;
+        }
+
+        .contact-bar a:hover {
+            opacity: 0.8;
+        }
+
+        /* Main Header with Menu Styling from Reference Code */
+        .main-header {
+            background: white;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 40px;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .header-container {
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            margin-right: 15px;
+        }
+
+        .main-logo {
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .accreditation-badge {
+            border-left: 2px solid var(--mec-yellow);
+            padding-left: 8px;
+            font-size: 0.75rem;
+            line-height: 1.2;
+            color: var(--mec-red);
+        }
+
+        .tagline {
+            font-size: 0.85rem;
+            color: var(--mec-green);
+            font-weight: 600;
+            margin-top: 3px;
+            white-space: nowrap;
+        }
+
+        /* Navigation - Exact Styling from Reference Code */
+        .navbar-nav {
+            gap: 12px;
+        }
+
+        .nav-link {
+            color: var(--mec-dark);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.95rem;
+            padding: 8px 12px !important;
+            white-space: nowrap;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--mec-red);
+        }
+
+        /* Gallery Hero Section */
+        .gallery-hero {
+            height: 50vh;
+            min-height: 400px;
+            background: url('images/graduate.jpg') center/cover no-repeat;
+            position: relative;
+            display: flex;
+            align-items: center;
+            color: white;
+            margin-bottom: 60px;
+        }
+
+        /* Gallery Section */
+        .gallery-section {
+            padding: 80px 0;
+            background-color: white;
+        }
+
+        .gallery-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            aspect-ratio: 4/3;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: white;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-caption {
+            opacity: 1;
+        }
+
+        /* Testimonials Section */
+        .testimonials-section {
+            padding: 80px 0;
+            background-color: var(--mec-light);
+        }
+
+        .testimonial-card {
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin: 15px;
+            position: relative;
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            font-family: Georgia, serif;
+            font-size: 5rem;
+            color: rgba(211, 47, 47, 0.1);
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            line-height: 1;
+        }
+
+        .testimonial-content {
+            position: relative;
+            z-index: 1;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .testimonial-author img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+        }
+
+        .author-info h5 {
+            margin-bottom: 0;
+            color: var(--mec-red);
+        }
+
+        .author-info p {
+            margin-bottom: 0;
+            font-size: 0.9rem;
+            color: var(--mec-dark);
+        }
+
+        .testimonial-rating {
+            color: var(--mec-yellow);
+            margin-top: 5px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--mec-red) !important;
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        footer a:hover {
+            opacity: 0.8;
+            color: white;
+        }
+
+        .social-icons {
+            margin-top: 15px;
+        }
+
+        .social-icons a {
+            display: inline-block;
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 768px) {
+            .gallery-hero {
+                height: 40vh;
+                min-height: 300px;
+            }
+            
+            .gallery-container {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            /* Mobile menu adjustments */
+            .navbar-nav {
+                gap: 8px;
+            }
+            .nav-link {
+                font-size: 0.9rem;
+                padding: 6px 10px !important;
+            }
+            .main-logo {
+                height: 40px;
+            }
+            .accreditation-badge {
+                font-size: 0.65rem;
+            }
+
+            .contact-bar .d-flex {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .contact-bar span {
+                display: block;
+                margin: 5px 0;
+            }
+
+            .contact-bar .ms-3 {
+                margin-left: 0 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Contact Info Bar -->
+    <div class="contact-bar">
+        <div class="header-container">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <span><img src="images/phone-icon.png" alt="Phone" class="icon me-2" style="width:16px;"> +234 806 058 1501</span>
+                <span class="ms-3"><img src="images/email-icon.png" alt="Email" class="icon me-2" style="width:16px;"> info@mecconsulting.com</span>
+            </div>
+            <div>
+                <a href="#"><img src="images/facebook-icon.png" alt="Facebook" class="icon" style="width:18px;"></a>
+                <a href="#"><img src="images/twitter-icon.png" alt="Twitter" class="icon" style="width:18px;"></a>
+                <a href="#"><img src="images/linkedin-icon.png" alt="LinkedIn" class="icon" style="width:18px;"></a>
+                <a href="#"><img src="images/instagram-icon.png" alt="Instagram" class="icon" style="width:18px;"></a>                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Header with Menu from Reference Code -->
+    <header class="main-header">
+        <div class="header-container">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="logo-container">
+                    <img src="images/logo.png" alt="MEC Logo" class="main-logo">
+                    <div class="accreditation-badge">
+                        <div>An Accredited</div>
+                        <div>Educational Agent</div>
+                        <div>Home & Abroad</div>
+                    </div>
+                </div>
+                <div class="tagline d-none d-xl-block">...your direct pathway to quality education</div>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">HOME</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="about.html">ABOUT US</a>
+                        </li>
+                         <li class="nav-item dropdown">
+                            <a class="nav-link active dropdown-toggle" href="services.html" id="servicesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                OUR SERVICES
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
+                                <li><a class="dropdown-item" href="admission-processing.html">Admission Processing</a></li>
+                                <li><a class="dropdown-item" href="foreign-exam-registration.html">Foreign Exam Registration & Coaching</a></li>
+                                <li><a class="dropdown-item" href="local-exam-registration.html">Local Exam Registration & Coaching</a></li>
+                                <li><a class="dropdown-item" href="resource-platform.html">Resource Platform</a></li>
+                                <li><a class="dropdown-item" href="visa-guidance.html">Visa Guidance and Application</a></li>
+                                <li><a class="dropdown-item" href="sevis-payment.html">SEVIS Fee Payment</a></li>
+                                <li><a class="dropdown-item" href="scratch-cards.html">Sales of WAEC, NECO, JAMB Scratch Cards</a></li>
+                                <li><a class="dropdown-item" href="foreign-textbooks.html">Sales of Foreign Exam Textbooks</a></li>
+                                <li><a class="dropdown-item" href="private-coaching.html">Private Coaching</a></li>
+                                <li><a class="dropdown-item" href="fund-transfer.html">Fund Transfer</a></li>
+                            </ul>
+                        </li>
+                        </li>
+                       <li class="nav-item dropdown">
+    <a class="nav-link active dropdown-toggle" href="destinations.html" id="studyAbroadDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        STUDY ABROAD
+    </a>
+    <ul class="dropdown-menu scrollable-dropdown" aria-labelledby="studyAbroadDropdown" style="max-height: 400px; overflow-y: auto;">
+        <li><a class="dropdown-item" href="canada.html">Canada</a></li>
+        <li><a class="dropdown-item" href="uk.html">United Kingdom</a></li>
+        <li><a class="dropdown-item" href="usa.html">United States</a></li>
+        <li><a class="dropdown-item" href="cyprus.html">Cyprus</a></li>
+        <li><a class="dropdown-item" href="australia.html">Australia</a></li>
+        <li><a class="dropdown-item" href="austria.html">Austria</a></li>
+        <li><a class="dropdown-item" href="india.html">India</a></li>
+        <li><a class="dropdown-item" href="ireland.html">Ireland</a></li>
+        <li><a class="dropdown-item" href="germany.html">Germany</a></li>
+        <li><a class="dropdown-item" href="france.html">France</a></li>
+        <li><a class="dropdown-item" href="mauritius.html">Mauritius</a></li>
+        <li><a class="dropdown-item" href="lithuania.html">Lithuania</a></li>
+        <li><a class="dropdown-item" href="uae.html">Dubai, UAE</a></li>
+        <li><a class="dropdown-item" href="netherlands.html">Netherlands</a></li>
+        <li><a class="dropdown-item" href="poland.html">Poland</a></li>
+        <li><a class="dropdown-item" href="belgium.html">Belgium</a></li>
+        <li><a class="dropdown-item" href="greece.html">Greece</a></li>
+        <li><a class="dropdown-item" href="turkey.html">Turkey</a></li>
+        <li><a class="dropdown-item" href="malaysia.html">Malaysia</a></li>
+        <li><a class="dropdown-item" href="malta.html">Malta</a></li>
+    </ul>
+</li>                        <li class="nav-item">
+                            <a class="nav-link active" href="gallery.html">GALLERY</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">CONTACT</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="tagline d-xl-none text-center mt-2">...your direct pathway to quality education</div>
+        </div>
+    </header>
+
+    <!-- Gallery Hero Section -->
+    <section class="gallery-hero">
+        <div class="container text-center">
+            <h1 class="display-4 fw-bold mb-4">Our Gallery</h1>
+            <p class="lead">Capturing moments of success and educational journeys</p>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery-section">
+        <div class="container">
+            <h2 class="section-title text-center mb-5">Student Success Stories</h2>
+            
+            <div class="text-center mb-5">
+                <button class="btn btn-outline-primary mx-2 active" data-filter="all">All</button>
+                <button class="btn btn-outline-primary mx-2" data-filter="graduation">Graduations</button>
+                <button class="btn btn-outline-primary mx-2" data-filter="visa">Visa Approvals</button>
+                <button class="btn btn-outline-primary mx-2" data-filter="event">Events</button>
+                <button class="btn btn-outline-primary mx-2" data-filter="testimonial">Testimonials</button>
+            </div>
+            
+            <div class="gallery-container">
+                <!-- Gallery Item 1 -->
+                <div class="gallery-item" data-category="graduation">
+                    <img src="images/graduation1.jpg" alt="Graduation ceremony">
+                    <div class="gallery-caption">
+                        <h5>University of London Graduation</h5>
+                        <p>Our student receiving first class honors</p>
+                    </div>
+                </div>
+                
+                <!-- Gallery Item 2 -->
+                <div class="gallery-item" data-category="visa">
+                    <img src="images/visa.jpg" alt="Visa approval">
+                    <div class="gallery-caption">
+                        <h5>Canadian Visa Approval</h5>
+                        <p>Celebrating another successful visa application</p>
+                    </div>
+                </div>
+                
+                <!-- Gallery Item 3 -->
+                <div class="gallery-item" data-category="event">
+                    <img src="images/fair.jpg" alt="Education fair">
+                    <div class="gallery-caption">
+                        <h5>International Education Fair</h5>
+                        <p>Connecting students with global opportunities</p>
+                    </div>
+                </div>
+                
+                <!-- Gallery Item 4 -->
+                <div class="gallery-item" data-category="graduation">
+                    <img src="images/toronto.jpg" alt="Graduation ceremony">
+                    <div class="gallery-caption">
+                        <h5>University of Toronto Graduates</h5>
+                        <p>Three of our students graduating together</p>
+                    </div>
+                </div>
+                
+                <!-- Gallery Item 5 -->
+                <div class="gallery-item" data-category="testimonial">
+                    <img src="images/testimonial.jpg" alt="Student testimonial">
+                    <div class="gallery-caption">
+                        <h5>Student Testimonial</h5>
+                        <p>Hear from our successful applicants</p>
+                    </div>
+                </div>
+                
+                <!-- Gallery Item 6 -->
+                <div class="gallery-item" data-category="event">
+                    <img src="images/work.jpg" alt="Workshop">
+                    <div class="gallery-caption">
+                        <h5>IELTS Workshop</h5>
+                        <p>Preparing students for language proficiency tests</p>
+                    </div>
+                </div>
+                
+                <!-- Gallery Item 7 -->
+                <div class="gallery-item" data-category="visa">
+                    <img src="images/visa1.jpg" alt="Visa approval">
+                    <div class="gallery-caption">
+                        <h5>UK Visa Success</h5>
+                        <p>Another student ready for their UK education</p>
+                    </div>
+                </div>
+                
+                <!-- Gallery Item 8 -->
+                <div class="gallery-item" data-category="graduation">
+                    <img src="images/aus.jpg" alt="Graduation ceremony">
+                    <div class="gallery-caption">
+                        <h5>Australian Graduation</h5>
+                        <p>Our student at University of Sydney graduation</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section">
+        <div class="container">
+            <h2 class="section-title text-center mb-5">What Our Students Say</h2>
+            <p class="text-center mb-5 lead">Hear from students who have successfully pursued their educational dreams with our guidance.</p>
+            
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <p>MEC made my dream of studying in Canada a reality. Their guidance through the entire process was exceptional, from choosing the right program to visa application. I couldn't have done it without them!</p>
+                        </div>
+                        <div class="testimonial-author">
+                            &nbsp;<div class="author-info">
+                                <h5>Adebayo Johnson</h5>
+                                <p>University of Toronto, Canada</p>
+                                <div class="testimonial-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <p>The scholarship assistance I received from MEC was invaluable. They helped me secure a 50% tuition waiver at my dream university in the UK. Their expertise and attention to detail are unmatched.</p>
+                        </div>
+                        <div class="testimonial-author">
+                            &nbsp;<div class="author-info">
+                                <h5>Chioma Okonkwo</h5>
+                                <p>University of Manchester, UK</p>
+                                <div class="testimonial-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <p>As a parent, I was skeptical about sending my daughter abroad. MEC's transparent process and regular updates gave me confidence. Now she's thriving at her university in Australia. Thank you!</p>
+                        </div>
+                        <div class="testimonial-author">
+                            &nbsp;<div class="author-info">
+                                <h5>Mr. Olatunji</h5>
+                                <p>Parent of University of Sydney student</p>
+                                <div class="testimonial-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row mt-4">
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <p>MEC's test preparation classes were game-changing for my IELTS score. I improved by 1.5 bands in just 4 weeks! Their personalized approach made all the difference.</p>
+                        </div>
+                        <div class="testimonial-author">
+                            &nbsp;<div class="author-info">
+                                <h5>Funke Adeleke</h5>
+                                <p>IELTS Student, Band 8.0</p>
+                                <div class="testimonial-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <p>I had almost given up on my dream of studying in the US after two visa rejections. MEC's thorough preparation and mock interviews helped me secure my visa on the third attempt!</p>
+                        </div>
+                        <div class="testimonial-author">
+                            &nbsp;<div class="author-info">
+                                <h5>Emeka Nwachukwu</h5>
+                                <p>New York University, USA</p>
+                                <div class="testimonial-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <p>The career counseling I received helped me choose the perfect course that aligned with my skills and job market demands. Now I have multiple job offers before graduation!</p>
+                        </div>
+                        <div class="testimonial-author">
+                            &nbsp;<div class="author-info">
+                                <h5>Amina Mohammed</h5>
+                                <p>University of Melbourne, Australia</p>
+                                <div class="testimonial-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-5">
+                <a href="contact.html" class="btn btn-primary btn-lg">Share Your Success Story</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <img src="images/logo.png" alt="MEC Logo" class="mb-3" height="50">
+                    <p>Multinational Educational Consulting (MEC) is dedicated to helping students achieve their academic dreams through expert guidance and personalized support.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="index.html">Home</a></li>
+                        <li class="mb-2"><a href="about.html">About Us</a></li>
+                        <li class="mb-2"><a href="services.html">Services</a></li>
+                        <li class="mb-2"><a href="gallery.html">Gallery</a></li>
+                        <li class="mb-2"><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5>Services</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="services.html">University Admissions</a></li>
+                        <li class="mb-2"><a href="services.html">Test Preparation</a></li>
+                        <li class="mb-2"><a href="services.html">Visa Assistance</a></li>
+                        <li class="mb-2"><a href="services.html">Scholarship Help</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5>Contact Us</h5>
+                    <ul class="list-unstyled">
+                         <li class="mb-3">
+            <img src="images/address-icon.png" alt="Address" class="footer-icon me-2">
+            123 Education Ave, Lagos, Nigeria
+        </li>
+        <li class="mb-3">
+            <img src="images/phone-icon.png" alt="Phone" class="footer-icon me-2">
+            +234 806 058 1501
+        </li>
+        <li class="mb-3">
+            <img src="images/email-icon.png" alt="Email" class="footer-icon me-2">
+            info@mecconsulting.com
+        </li>                     </ul>
+                </div>
+            </div>
+            <hr class="my-4 bg-light opacity-25">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0">&copy; 2023 Multinational Educational Consulting. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="#" class="me-3">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="bootstrap.bundle.min.js"></script>
+    <script>
+        // Simple gallery filter functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterButtons = document.querySelectorAll('[data-filter]');
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Update active button
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const filterValue = this.getAttribute('data-filter');
+                    
+                    // Filter items
+                    galleryItems.forEach(item => {
+                        if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

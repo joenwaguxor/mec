@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Multinational Educational Consulting</title>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+
+    <link href="bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --mec-red: #d32f2f;
+            --mec-yellow: #f9a825;
+            --mec-green: #2e8540;
+            --mec-dark: #2d2d2d;
+            --mec-light: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            line-height: 1.6;
+            color: var(--mec-dark);
+            padding-top: 140px;
+            background-color: #f9f9f9;
+        }
+
+        /* Contact Info Bar - Green Background */
+        .contact-bar {
+            background: var(--mec-green);
+            color: white;
+            font-size: 0.9rem;
+            padding: 8px 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 2000;
+        }
+
+        .contact-bar a {
+            color: white;
+            margin: 0 8px;
+            transition: opacity 0.3s;
+        }
+
+        .contact-bar a:hover {
+            opacity: 0.8;
+        }
+
+        /* Improved Header */
+        .main-header {
+            background: white;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 40px;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .header-container {
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            margin-right: 15px;
+        }
+
+        .main-logo {
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .accreditation-badge {
+            border-left: 2px solid var(--mec-yellow);
+            padding-left: 8px;
+            font-size: 0.75rem;
+            line-height: 1.2;
+            color: var(--mec-red);
+        }
+
+        .tagline {
+            font-size: 0.85rem;
+            color: var(--mec-green);
+            font-weight: 600;
+            margin-top: 3px;
+            white-space: nowrap;
+        }
+
+        /* Navigation - Made Larger */
+        .navbar-nav {
+            gap: 12px;
+        }
+
+        .nav-link {
+            color: var(--mec-dark);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.95rem;
+            padding: 8px 12px !important;
+            white-space: nowrap;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--mec-red);
+        }
+
+        /* Branch Navigation */
+        .branch-nav {
+            background: var(--mec-light);
+            padding: 15px 0;
+            margin-bottom: 40px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .branch-nav .nav-link {
+            color: var(--mec-dark);
+            font-weight: 600;
+            padding: 8px 15px;
+            border-radius: 5px;
+        }
+
+        .branch-nav .nav-link.active {
+            background: var(--mec-red);
+            color: white;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 60px 0;
+        }
+
+        .branch-info {
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+
+        .branch-info h3 {
+            color: var(--mec-red);
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--mec-yellow);
+            padding-bottom: 10px;
+        }
+
+        .contact-method {
+            margin-bottom: 20px;
+        }
+
+        .contact-method i {
+            color: var(--mec-green);
+            font-size: 1.2rem;
+            margin-right: 10px;
+            width: 25px;
+        }
+
+        .whatsapp-link {
+            color: #25D366;
+        }
+
+        .google-map {
+            height: 300px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .google-map iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Contact Form */
+        .contact-form {
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .contact-form h3 {
+            color: var(--mec-red);
+            margin-bottom: 20px;
+        }
+
+        .form-control:focus {
+            border-color: var(--mec-green);
+            box-shadow: 0 0 0 0.25rem rgba(46, 133, 64, 0.25);
+        }
+
+        .btn-primary {
+            background-color: var(--mec-red);
+            border-color: var(--mec-red);
+        }
+
+        .btn-primary:hover {
+            background-color: #b71c1c;
+            border-color: #b71c1c;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: var(--mec-red) !important;
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        footer a:hover {
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding-top: 120px;
+            }
+            
+            .main-header {
+                top: 40px;
+            }
+            
+            .contact-bar .d-flex {
+                flex-direction: column;
+                text-align: center;
+                gap: 5px;
+            }
+            
+            .contact-bar span {
+                display: block;
+                margin: 0 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Contact Info Bar - Green Background -->
+    <div class="contact-bar">
+        <div class="header-container">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <span><img src="images/phone-icon.png" alt="Phone" class="icon me-2" style="width:16px;"> +234 806 058 1501</span>
+                <span class="ms-3"><img src="images/email-icon.png" alt="Email" class="icon me-2" style="width:16px;"> info@mecconsulting.com</span>
+            </div>
+            <div>
+                <a href="#"><img src="images/facebook-icon.png" alt="Facebook" class="icon" style="width:18px;"></a>
+                <a href="#"><img src="images/twitter-icon.png" alt="Twitter" class="icon" style="width:18px;"></a>
+                <a href="#"><img src="images/linkedin-icon.png" alt="LinkedIn" class="icon" style="width:18px;"></a>
+                <a href="#"><img src="images/instagram-icon.png" alt="Instagram" class="icon" style="width:18px;"></a>                  </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Header with Larger Menu -->
+    <header class="main-header">
+        <div class="header-container">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="logo-container">
+                    <img src="images/logo.png" alt="MEC Logo" class="main-logo">
+                    <div class="accreditation-badge">
+                        <div>An Accredited</div>
+                        <div>Educational Agent</div>
+                        <div>Home & Abroad</div>
+                    </div>
+                </div>
+                <div class="tagline d-none d-xl-block">...your direct pathway to quality education</div>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">HOME</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="about.html">ABOUT US</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link active dropdown-toggle" href="services.html" id="servicesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                OUR SERVICES
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
+                                <li><a class="dropdown-item" href="admission-processing.html">Admission Processing</a></li>
+                                <li><a class="dropdown-item" href="foreign-exam-registration.html">Foreign Exam Registration & Coaching</a></li>
+                                <li><a class="dropdown-item" href="local-exam-registration.html">Local Exam Registration & Coaching</a></li>
+                                <li><a class="dropdown-item" href="resource-platform.html">Resource Platform</a></li>
+                                <li><a class="dropdown-item" href="visa-guidance.html">Visa Guidance and Application</a></li>
+                                <li><a class="dropdown-item" href="sevis-payment.html">SEVIS Fee Payment</a></li>
+                                <li><a class="dropdown-item" href="scratch-cards.html">Sales of WAEC, NECO, JAMB Scratch Cards</a></li>
+                                <li><a class="dropdown-item" href="foreign-textbooks.html">Sales of Foreign Exam Textbooks</a></li>
+                                <li><a class="dropdown-item" href="private-coaching.html">Private Coaching</a></li>
+                                <li><a class="dropdown-item" href="fund-transfer.html">Fund Transfer</a></li>
+                            </ul>
+                        </li>
+                       <li class="nav-item dropdown">
+    <a class="nav-link active dropdown-toggle" href="destinations.html" id="studyAbroadDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        STUDY ABROAD
+    </a>
+    <ul class="dropdown-menu scrollable-dropdown" aria-labelledby="studyAbroadDropdown" style="max-height: 400px; overflow-y: auto;">
+        <li><a class="dropdown-item" href="canada.html">Canada</a></li>
+        <li><a class="dropdown-item" href="uk.html">United Kingdom</a></li>
+        <li><a class="dropdown-item" href="usa.html">United States</a></li>
+        <li><a class="dropdown-item" href="cyprus.html">Cyprus</a></li>
+        <li><a class="dropdown-item" href="australia.html">Australia</a></li>
+        <li><a class="dropdown-item" href="austria.html">Austria</a></li>
+        <li><a class="dropdown-item" href="india.html">India</a></li>
+        <li><a class="dropdown-item" href="ireland.html">Ireland</a></li>
+        <li><a class="dropdown-item" href="germany.html">Germany</a></li>
+        <li><a class="dropdown-item" href="france.html">France</a></li>
+        <li><a class="dropdown-item" href="mauritius.html">Mauritius</a></li>
+        <li><a class="dropdown-item" href="lithuania.html">Lithuania</a></li>
+        <li><a class="dropdown-item" href="uae.html">Dubai, UAE</a></li>
+        <li><a class="dropdown-item" href="netherlands.html">Netherlands</a></li>
+        <li><a class="dropdown-item" href="poland.html">Poland</a></li>
+        <li><a class="dropdown-item" href="belgium.html">Belgium</a></li>
+        <li><a class="dropdown-item" href="greece.html">Greece</a></li>
+        <li><a class="dropdown-item" href="turkey.html">Turkey</a></li>
+        <li><a class="dropdown-item" href="malaysia.html">Malaysia</a></li>
+        <li><a class="dropdown-item" href="malta.html">Malta</a></li>
+    </ul>
+</li>                        <li class="nav-item">
+                            <a class="nav-link" href="gallery.html">GALLERY</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="contact.html">CONTACT</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="tagline d-xl-none text-center mt-2">...your direct pathway to quality education</div>
+        </div>
+    </header>
+
+    <!-- Branch Navigation -->
+    <div class="branch-nav">
+        <div class="container">
+            <ul class="nav nav-pills justify-content-center">
+                <li class="nav-item">
+                    <a class="nav-link active" data-bs-toggle="pill" href="#okota">Okota Branch</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="pill" href="#festac">Festac Branch</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="pill" href="#remote1">Remote Office 1</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="pill" href="#remote2">Remote Office 2</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Contact Content -->
+    <div class="container contact-section">
+        <div class="tab-content">
+            <!-- Okota Branch -->
+            <div class="tab-pane fade show active" id="okota">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="branch-info">
+                            <h3><i class="fas fa-map-marker-alt"></i> Okota Branch</h3>
+                            <div class="contact-method">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>27, Ago Palace Way, Opposite Shadia Memorial School, By Ali Dada Bus Stop, Okota, Lagos</span>
+                            </div>
+                            <div class="contact-method">
+                                <i class="fas fa-phone-alt"></i>
+                                <span>07046736448 / 07077975931</span>
+                            </div>
+                            <div class="contact-method">
+                                <i class="fab fa-whatsapp whatsapp-link"></i>
+                                <span>07046736448 / 07077975931</span>
+                            </div>
+                            <div class="contact-method">
+                                <i class="fas fa-envelope"></i>
+                                <span>okota@mecconsulting.com</span>
+                            </div>
+                            <div class="contact-method">
+                                <i class="fas fa-envelope"></i>
+                                <span>admissions@mecconsulting.com</span>
+                            </div>
+                            <div class="contact-method">
+                                <i class="fas fa-clock"></i>
+                                <span>Monday - Friday: 8:30am - 5:30pm<br>Saturday: 10:00am - 4:00pm</span>
+                            </div>
+                        </div>
+                        <div class="google-map">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3964.123456789012!2d3.1234567890123456!3d6.123456789012345!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwMDcnMjQuNCJOIDPCsDA3JzI0LjQiRQ!5e0!3m2!1sen!2sng!4v1234567890123!5m2!1sen!2sng" allowfullscreen="" loading="lazy"></iframe>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="contact-form">
+                            <h3>Send Us a Message</h3>
+                            <form>
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Full Name</label>
+                                    <input type="text" class="form-control" id="name" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email Address</label>
+                                    <input type="email" class="form-control" id="email" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="phone" class="form-label">Phone Number</label>
+                                    <input type="tel" class="form-control" id="phone">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="subject" class="form-label">Subject</label>
+                                    <select class="form-select" id="subject">
+                                        <option>General Inquiry</option>
+                                        <option>Admission Processing</option>
+                                        <option>Visa Assistance</option>
+                                        <option>Test Preparation</option>
+                                        <option>Other</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="message" class="form-label">Message</label>
+                                    <textarea class="form-control" id="message" rows="5" required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Send Message</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Festac Branch -->
+            <div class="tab-pane fade" id="festac">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="branch-info">
+                            <h3><i class="fas fa-map-marker-alt"></i> Festac Branch</h3>
+                            <div class="contact-method">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Plot 925-926, 13th Cavera Road, Beside MRS Filling Station, Off 6th Avenue Road, Festac Town, Lagos</span>
+                            </div>
+                            <div class="contact-method">
+                                <i class="fas fa-phone-alt"></i>
+                                <span>08060581501 / 07032835643</span>
+                            </div>
+                            <div class="contact-method">
+                                <i class="fab fa-whatsapp whatsapp-link"></i>
+                                <span>08060581501</span>
+                            </div>
+                            <div class="contact-method">
+                                <i class="fas fa-envelope"></i>
+                                <span>festac@mecconsulting.com</span>
+                            </div>
+                            <div class="contact-method">
+                                <i class="fas fa-envelope"></i>
+                                <span>admissions@mecconsulting.com</span>
+                            </div>
+                            <div class="contact-method">
+                                <i class="fas fa-clock"></i>
+                                <span>Monday - Friday: 8:30am - 5:30pm<br>Saturday: 10:00am - 4:00pm</span>
+                            </div>
+                        </div>
+                        <div class="google-map">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3964.9876543210987!2d3.9876543210987654!3d6.987654321098765!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwNTknMTUuNiJOIDPCsDU5JzE1LjYiRQ!5e0!3m2!1sen!2sng!4v1234567890123!5m2!1sen!2sng" allowfullscreen="" loading="lazy"></iframe>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="contact-form">
+                            <h3>Send Us a Message</h3>
+                            <form>
+                                <div class="mb-3">
+                                    <label for="name-festac" class="form-label">Full Name</label>
+                                    <input type="text" class="form-control" id="name-festac" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="email-festac" class="form-label">Email Address</label>
+                                    <input type="email" class="form-control" id="email-festac" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="phone-festac" class="form-label">Phone Number</label>
+                                    <input type="tel" class="form-control" id="phone-festac">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="subject-festac" class="form-label">Subject</label>
+                                    <select class="form-select" id="subject-festac">
+                                        <option>General Inquiry</option>
+                                        <option>Admission Processing</option>
+                                        <option>Visa Assistance</option>
+                                        <option>Test Preparation</option>
+                                        <option>Other</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="message-festac" class="form-label">Message</label>
+                                    <textarea class="form-control" id="message-festac" rows="5" required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Send Message</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Remote Office 1 -->
+            <div class="tab-pane fade" id="remote1">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="branch-info">
+                            <h3><i class="fas fa-map-marker-alt"></i> Remote Office 1</h3>
+                            <div class="contact-method">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Virtual Office - Serving Clients Nationwide</span>
+                            </div>
+                            <div class="contact-method">
+                                <i class="fab fa-whatsapp whatsapp-link"></i>
+                                <span>07077975931 (WhatsApp only)</span>
+                            </div>
+                            <div class="contact-method">
+                                <i class="fas fa-envelope"></i>
+                                <span>enquiries@mecconsulting.com</span>
+                            </div>
+                            <div class="contact-method">
+                                <i class="fas fa-envelope"></i>
+                                <span>admissions@mecconsulting.com</span>
+                            </div>
+                            <div class="contact-method">
+                                <i class="fas fa-clock"></i>
+                                <span>Monday - Friday: 9:00am - 6:00pm<br>Saturday: 11:00am - 3:00pm</span>
+                            </div>
+                        </div>
+                        <div class="google-map">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3964.0000000000005!2d3.0000000000000004!3d6.000000000000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwMDAnMDAnMCJOIDPCsDAwJzAwJzAiRQ!5e0!3m2!1sen!2sng!4v1234567890123!5m2!1sen!2sng" allowfullscreen="" loading="lazy"></iframe>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="contact-form">
+                            <h3>Send Us a Message</h3>
+                            <form>
+                                <div class="mb-3">
+                                    <label for="name-remote1" class="form-label">Full Name</label>
+                                    <input type="text" class="form-control" id="name-remote1" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="email-remote1" class="form-label">Email Address</label>
+                                    <input type="email" class="form-control" id="email-remote1" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="phone-remote1" class="form-label">Phone Number</label>
+                                    <input type="tel" class="form-control" id="phone-remote1">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="subject-remote1" class="form-label">Subject</label>
+                                    <select class="form-select" id="subject-remote1">
+                                        <option>General Inquiry</option>
+                                        <option>Admission Processing</option>
+                                        <option>Visa Assistance</option>
+                                        <option>Test Preparation</option>
+                                        <option>Other</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="message-remote1" class="form-label">Message</label>
+                                    <textarea class="form-control" id="message-remote1" rows="5" required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Send Message</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Remote Office 2 -->
+            <div class="tab-pane fade" id="remote2">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="branch-info">
+                            <h3><i class="fas fa-map-marker-alt"></i> Remote Office 2</h3>
+                            <div class="contact-method">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Virtual Office - Serving International Clients</span>
+                            </div>
+                            <div class="contact-method">
+                                <i class="fab fa-whatsapp whatsapp-link"></i>
+                                <span>07032835643 (WhatsApp only)</span>
+                            </div>
+                            <div class="contact-method">
+                                <i class="fas fa-envelope"></i>
+                                <span>enquiries@mecconsulting.com</span>
+                            </div>
+                            <div class="contact-method">
+                                <i class="fas fa-envelope"></i>
+                                <span>admissions@mecconsulting.com</span>
+                            </div>
+                            <div class="contact-method">
+                                <i class="fas fa-clock"></i>
+                                <span>Monday - Friday: 10:00am - 7:00pm (GMT+1)<br>Saturday: 12:00pm - 4:00pm</span>
+                            </div>
+                        </div>
+                        <div class="google-map">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3964.0000000000005!2d3.0000000000000004!3d6.000000000000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwMDAnMDAnMCJOIDPCsDAwJzAwJzAiRQ!5e0!3m2!1sen!2sng!4v1234567890123!5m2!1sen!2sng" allowfullscreen="" loading="lazy"></iframe>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="contact-form">
+                            <h3>Send Us a Message</h3>
+                            <form>
+                                <div class="mb-3">
+                                    <label for="name-remote2" class="form-label">Full Name</label>
+                                    <input type="text" class="form-control" id="name-remote2" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="email-remote2" class="form-label">Email Address</label>
+                                    <input type="email" class="form-control" id="email-remote2" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="phone-remote2" class="form-label">Phone Number</label>
+                                    <input type="tel" class="form-control" id="phone-remote2">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="subject-remote2" class="form-label">Subject</label>
+                                    <select class="form-select" id="subject-remote2">
+                                        <option>General Inquiry</option>
+                                        <option>Admission Processing</option>
+                                        <option>Visa Assistance</option>
+                                        <option>Test Preparation</option>
+                                        <option>Other</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="message-remote2" class="form-label">Message</label>
+                                    <textarea class="form-control" id="message-remote2" rows="5" required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Send Message</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer (Restored to original style) -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <img src="images/logo.png" alt="MEC Logo" class="mb-3" height="50">
+                    <p>Multinational Educational Consulting (MEC) is dedicated to helping students achieve their academic dreams through expert guidance and personalized support.</p>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="index.html">Home</a></li>
+                        <li class="mb-2"><a href="about.html">About Us</a></li>
+                        <li class="mb-2"><a href="services.html">Services</a></li>
+                        <li class="mb-2"><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5>Services</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="services.html">University Admissions</a></li>
+                        <li class="mb-2"><a href="services.html">Test Preparation</a></li>
+                        <li class="mb-2"><a href="services.html">Visa Assistance</a></li>
+                        <li class="mb-2"><a href="services.html">Scholarship Help</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5>Contact Us</h5>
+                    <ul class="list-unstyled">
+                         <li class="mb-3">
+            <img src="images/address-icon.png" alt="Address" class="footer-icon me-2">
+            123 Education Ave, Lagos, Nigeria
+        </li>
+        <li class="mb-3">
+            <img src="images/phone-icon.png" alt="Phone" class="footer-icon me-2">
+            +234 806 058 1501
+        </li>
+        <li class="mb-3">
+            <img src="images/email-icon.png" alt="Email" class="footer-icon me-2">
+            info@mecconsulting.com
+        </li>                     </ul>
+                </div>
+            </div>
+            <hr class="my-4 bg-light opacity-25">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0">&copy; 2023 Multinational Educational Consulting. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="#" class="me-3">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle with Popper CDN -->
+    <script src="bootstrap.bundle.min.js"></script>
+</body>
+</html>

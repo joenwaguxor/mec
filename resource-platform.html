@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resource Platform - Multinational Educational Consulting</title>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+
+    <!-- Bootstrap CSS CDN -->
+    <link href="bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome CSS CDN -->
+    <link rel="stylesheet" href="all.min.css">
+    <style>
+        :root {
+            --mec-red: #d32f2f;
+            --mec-yellow: #f9a825;
+            --mec-green: #2e8540;
+            --mec-dark: #2d2d2d;
+            --mec-light: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            line-height: 1.6;
+            color: var(--mec-dark);
+            padding-top: 140px;
+            background-color: #f9f9f9;
+        }
+
+        /* Contact Info Bar - Matching services page */
+        .contact-bar {
+            background: var(--mec-green);
+            color: white;
+            font-size: 0.9rem;
+            padding: 8px 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 2000;
+        }
+
+        .contact-bar a {
+            color: white;
+            margin: 0 8px;
+            transition: opacity 0.3s;
+        }
+
+        .contact-bar a:hover {
+            opacity: 0.8;
+        }
+
+        /* Main Header with Menu - Exact match to services page */
+        .main-header {
+            background: white;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 40px;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .header-container {
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            margin-right: 15px;
+        }
+
+        .main-logo {
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .accreditation-badge {
+            border-left: 2px solid var(--mec-yellow);
+            padding-left: 8px;
+            font-size: 0.75rem;
+            line-height: 1.2;
+            color: var(--mec-red);
+        }
+
+        .tagline {
+            font-size: 0.85rem;
+            color: var(--mec-green);
+            font-weight: 600;
+            margin-top: 3px;
+            white-space: nowrap;
+        }
+
+        .navbar-nav {
+            gap: 12px;
+        }
+
+        .nav-link {
+            color: var(--mec-dark);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.95rem;
+            padding: 8px 12px !important;
+            white-space: nowrap;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--mec-red);
+        }
+
+        /* Resource Platform Hero Section */
+        .resource-hero {
+            height: 50vh;
+            min-height: 300px;
+            background: linear-gradient(rgba(0,0,0,0.0), rgba(0,0,0,0.0)), 
+                        url('images/resource.jpg') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            color: white;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .resource-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+        .resource-hero .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .content-section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+            color: var(--mec-dark);
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--mec-red);
+            margin: 20px auto 0;
+        }
+
+        .resource-card {
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+            background: white;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .resource-icon {
+            font-size: 2.5rem;
+            color: var(--mec-green);
+            margin-bottom: 20px;
+        }
+
+        .benefits-container {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .benefits-header {
+            background: var(--mec-green);
+            color: white;
+            padding: 20px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .benefits-body {
+            padding: 30px;
+        }
+
+        .benefits-body h4 {
+            color: var(--mec-red);
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--mec-yellow);
+            padding-bottom: 8px;
+        }
+
+        .faq-item {
+            margin-bottom: 15px;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .faq-question {
+            padding: 20px;
+            background: var(--mec-light);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--mec-dark);
+        }
+
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-answer.show {
+            padding: 20px;
+            max-height: 500px;
+        }
+
+        .contact-cta {
+            background: linear-gradient(rgba(45, 45, 45, 0.9), rgba(45, 45, 45, 0.9)), url('https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80');
+            background-size: cover;
+            color: white;
+            padding: 60px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 40px;
+            position: relative;
+        }
+
+        .contact-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(45, 45, 45, 0.8);
+            border-radius: 8px;
+            z-index: 1;
+        }
+
+        .contact-cta .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .resource-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .resource-list li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 10px;
+        }
+
+        .resource-list li::before {
+            content: "•";
+            color: var(--mec-green);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Footer - Matching services page */
+        footer {
+            background-color: var(--mec-red) !important;
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        footer a:hover {
+            opacity: 0.8;
+        }
+
+        .social-icons {
+            margin-top: 15px;
+        }
+
+        .social-icons a {
+            display: inline-block;
+            margin-right: 15px;
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding-top: 120px;
+            }
+            
+            .navbar-nav {
+                gap: 8px;
+            }
+            
+            .nav-link {
+                font-size: 0.9rem;
+                padding: 6px 10px !important;
+            }
+            
+            .main-logo {
+                height: 40px;
+            }
+            
+            .accreditation-badge {
+                font-size: 0.65rem;
+            }
+            
+            .contact-bar .d-flex {
+                flex-direction: column;
+                text-align: center;
+                gap: 5px;
+            }
+            
+            .contact-bar span {
+                display: block;
+                margin: 0 !important;
+            }
+
+            .resource-hero {
+                height: 40vh;
+            }
+            
+            .content-section {
+                padding: 60px 0;
+            }
+            
+            .benefits-body {
+                padding: 20px;
+            }
+            
+            .contact-cta {
+                padding: 40px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Contact Info Bar - Matching services page -->
+    <div class="contact-bar">
+        <div class="header-container">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <span><img src="images/phone-icon.png" alt="Phone" class="icon me-2" style="width:16px;"> +234 806 058 1501</span>
+                <span class="ms-3"><img src="images/email-icon.png" alt="Email" class="icon me-2" style="width:16px;"> info@mecconsulting.com</span>
+            </div>
+            <div>
+                <a href="#"><img src="images/facebook-icon.png" alt="Facebook" class="icon" style="width:18px;"></a>
+                <a href="#"><img src="images/twitter-icon.png" alt="Twitter" class="icon" style="width:18px;"></a>
+                <a href="#"><img src="images/linkedin-icon.png" alt="LinkedIn" class="icon" style="width:18px;"></a>
+                <a href="#"><img src="images/instagram-icon.png" alt="Instagram" class="icon" style="width:18px;"></a>                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Header - Matching services page -->
+    <header class="main-header">
+        <div class="header-container">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="logo-container">
+                    <img src="images/logo.png" alt="MEC Logo" class="main-logo">
+                    <div class="accreditation-badge">
+                        <div>An Accredited</div>
+                        <div>Educational Agent</div>
+                        <div>Home & Abroad</div>
+                    </div>
+                </div>
+                <div class="tagline d-none d-xl-block">...your direct pathway to quality education</div>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">HOME</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="about.html">ABOUT US</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="services.html" id="servicesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                OUR SERVICES
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
+                                <li><a class="dropdown-item" href="admission-processing.html">Admission Processing</a></li>
+                                <li><a class="dropdown-item" href="foreign-exam-registration.html">Foreign Exam Registration & Coaching</a></li>
+                                <li><a class="dropdown-item" href="local-exam-registration.html">Local Exam Registration & Coaching</a></li>
+                                <li><a class="dropdown-item active" href="resource-platform.html">Resource Platform</a></li>
+                                <li><a class="dropdown-item" href="visa-guidance.html">Visa Guidance and Application</a></li>
+                                <li><a class="dropdown-item" href="sevis-payment.html">SEVIS Fee Payment</a></li>
+                                <li><a class="dropdown-item" href="scratch-cards.html">Sales of WAEC, NECO, JAMB Scratch Cards</a></li>
+                                <li><a class="dropdown-item" href="foreign-textbooks.html">Sales of Foreign Exam Textbooks</a></li>
+                                <li><a class="dropdown-item" href="private-coaching.html">Private Coaching</a></li>
+                                <li><a class="dropdown-item" href="fund-transfer.html">Fund Transfer</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="destinations.html" id="studyAbroadDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                STUDY ABROAD
+                            </a>
+                            <ul class="dropdown-menu scrollable-dropdown" aria-labelledby="studyAbroadDropdown" style="max-height: 400px; overflow-y: auto;">
+                                <li><a class="dropdown-item" href="canada.html">Canada</a></li>
+                                <li><a class="dropdown-item" href="uk.html">United Kingdom</a></li>
+                                <li><a class="dropdown-item" href="usa.html">United States</a></li>
+                                <li><a class="dropdown-item" href="cyprus.html">Cyprus</a></li>
+                                <li><a class="dropdown-item" href="australia.html">Australia</a></li>
+                                <li><a class="dropdown-item" href="austria.html">Austria</a></li>
+                                <li><a class="dropdown-item" href="india.html">India</a></li>
+                                <li><a class="dropdown-item" href="ireland.html">Ireland</a></li>
+                                <li><a class="dropdown-item" href="germany.html">Germany</a></li>
+                                <li><a class="dropdown-item" href="france.html">France</a></li>
+                                <li><a class="dropdown-item" href="mauritius.html">Mauritius</a></li>
+                                <li><a class="dropdown-item" href="lithuania.html">Lithuania</a></li>
+                                <li><a class="dropdown-item" href="uae.html">Dubai, UAE</a></li>
+                                <li><a class="dropdown-item" href="netherlands.html">Netherlands</a></li>
+                                <li><a class="dropdown-item" href="poland.html">Poland</a></li>
+                                <li><a class="dropdown-item" href="belgium.html">Belgium</a></li>
+                                <li><a class="dropdown-item" href="greece.html">Greece</a></li>
+                                <li><a class="dropdown-item" href="turkey.html">Turkey</a></li>
+                                <li><a class="dropdown-item" href="malaysia.html">Malaysia</a></li>
+                                <li><a class="dropdown-item" href="malta.html">Malta</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="gallery.html">GALLERY</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">CONTACT</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="tagline d-xl-none text-center mt-2">...your direct pathway to quality education</div>
+        </div>
+    </header>
+
+    <!-- Resource Platform Hero Section -->
+    <section class="resource-hero">
+        <div class="container text-center">
+            <h1 class="display-4 fw-bold mb-4">Resource Platform</h1>
+            <p class="lead">Your complete solution for learning, working, and studying in a conducive environment</p>
+        </div>
+    </section>
+
+    <!-- All other sections remain exactly the same -->
+    <section class="content-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 mx-auto text-center">
+                    <p class="lead">At Multinational Educational Consulting (MEC), we provide comprehensive resource solutions to meet your educational and professional needs. Our platform combines e-learning facilities, shared office spaces, and study rooms to create the perfect environment for productivity and success.</p>
+                    <p>With locations in Festac and Okota, Lagos, we offer flexible, affordable, and fully serviced spaces equipped with all the amenities you need to focus on what matters most - your work, studies, or research.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+            <h2 class="section-title">Our Resource Solutions</h2>
+            
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="resource-card">
+                        <div class="resource-icon">
+                            <i class="fas fa-laptop"></i>
+                        </div>
+                        <h3>E-Learning Center</h3>
+                        <p>A fully equipped digital learning environment with uninterrupted power supply, fast internet, and IT support for all your online learning and research needs.</p>
+                        <a href="#e-learning" class="btn btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="resource-card">
+                        <div class="resource-icon">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <h3>Shared Office Space</h3>
+                        <p>Professional, fully serviced work spaces for entrepreneurs, freelancers, and businesses looking for flexible, cost-effective office solutions.</p>
+                        <a href="#shared-office" class="btn btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="resource-card">
+                        <div class="resource-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <h3>Study Rooms/Mini Library</h3>
+                        <p>Serene, distraction-free study environments with all necessary amenities to enhance focus and productivity for students and professionals.</p>
+                        <a href="#study-rooms" class="btn btn-outline-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- E-Learning Center Section -->
+    <section id="e-learning" class="content-section bg-light">
+        <div class="container">
+            <h2 class="section-title">E-Learning Center</h2>
+            
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="benefits-container">
+                        <div class="benefits-header">
+                            <h3 class="mb-0">Who Can Benefit?</h3>
+                        </div>
+                        <div class="benefits-body">
+                            <ul class="resource-list">
+                                <li>Students working on thesis or research projects</li>
+                                <li>Professionals preparing for seminars or presentations</li>
+                                <li>Individuals needing a credible environment for video interviews</li>
+                                <li>Students taking online courses who need a better study environment</li>
+                                <li>Exam candidates (JAMB/UTME, professional certifications) needing practice</li>
+                                <li>Researchers and lifelong learners exploring new information</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <div class="benefits-container">
+                        <div class="benefits-header">
+                            <h3 class="mb-0">Key Features</h3>
+                        </div>
+                        <div class="benefits-body">
+                            <ul class="resource-list">
+                                <li>100% guaranteed power supply with standby generator</li>
+                                <li>High-speed WiFi internet at no extra cost</li>
+                                <li>Secure, peaceful environment conducive for learning</li>
+                                <li>Flexible payment options (hourly, daily, weekly, monthly)</li>
+                                <li>IT support available for technical assistance</li>
+                                <li>Access to some study materials at no extra cost</li>
+                                <li>Convenient parking space available</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-4 text-center">
+                <p><strong>Operating Hours:</strong> 9:00am to 5:00pm on weekdays. Weekend bookings available with 24-hour notice.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shared Office Space Section -->
+    <section id="shared-office" class="content-section">
+        <div class="container">
+            <h2 class="section-title">Shared Office Space</h2>
+            
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="benefits-container">
+                        <div class="benefits-header">
+                            <h3 class="mb-0">Ideal For</h3>
+                        </div>
+                        <div class="benefits-body">
+                            <ul class="resource-list">
+                                <li>Entrepreneurs and startups needing affordable office space</li>
+                                <li>Professionals who need occasional meeting spaces</li>
+                                <li>Businesses establishing a presence in Lagos</li>
+                                <li>Freelancers wanting professional work environments</li>
+                                <li>Teams needing temporary project spaces</li>
+                                <li>Small businesses that have outgrown home offices</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <div class="benefits-container">
+                        <div class="benefits-header">
+                            <h3 class="mb-0">What You Get</h3>
+                        </div>
+                        <div class="benefits-body">
+                            <ul class="resource-list">
+                                <li>Fully serviced work spaces with reliable power</li>
+                                <li>High-speed internet included</li>
+                                <li>Office furniture and basic amenities</li>
+                                <li>Clean restrooms with constant water supply</li>
+                                <li>Professional reception area</li>
+                                <li>Flexible "Pay As You Use" payment options</li>
+                                <li>Office cleaning services included</li>
+                                <li>Space for 3-5 people per office</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Study Rooms Section -->
+    <section id="study-rooms" class="content-section bg-light">
+        <div class="container">
+            <h2 class="section-title">Study Rooms/Mini Library</h2>
+            
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="benefits-container">
+                        <div class="benefits-header">
+                            <h3 class="mb-0">Perfect For</h3>
+                        </div>
+                        <div class="benefits-body">
+                            <ul class="resource-list">
+                                <li>Students preparing for exams (WAEC, NECO, JAMB, etc.)</li>
+                                <li>Teachers conducting small group sessions</li>
+                                <li>Professionals working on intensive projects</li>
+                                <li>Researchers needing quiet workspaces</li>
+                                <li>Individuals who need separation between study and home life</li>
+                                <li>Anyone needing a library-like environment for focused work</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <div class="benefits-container">
+                        <div class="benefits-header">
+                            <h3 class="mb-0">Study Room Benefits</h3>
+                        </div>
+                        <div class="benefits-body">
+                            <ul class="resource-list">
+                                <li>Enhanced focus and concentration in distraction-free environment</li>
+                                <li>Improved organization of study materials</li>
+                                <li>Better academic performance through dedicated study space</li>
+                                <li>Clear separation between study time and leisure time</li>
+                                <li>Increased motivation through goal-oriented environment</li>
+                                <li>Access to some exam preparation materials (SAT, GRE, IELTS, etc.)</li>
+                                <li>Flexible payment options to suit your schedule</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-4 text-center">
+                <p><strong>Operating Hours:</strong> Typically 9:00am to 5:00pm on weekdays. Weekend availability with prior booking.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Locations Section -->
+    <section class="content-section">
+        <div class="container">
+            <h2 class="section-title">Our Locations</h2>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="resource-card">
+                        <h3><i class="fas fa-map-marker-alt text-danger me-2"></i> Festac Office</h3>
+                        <p>Plot 925-926, 13th Cavera Road, Beside MRS Filling Station,<br>
+                        Off 6th Avenue Road, Festac Town, Lagos, Nigeria.</p>
+                        <p><strong>Phone:</strong> 08060581501 / 07032835643</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="resource-card">
+                        <h3><i class="fas fa-map-marker-alt text-danger me-2"></i> Okota Office</h3>
+                        <p>27, Ago Palace Way, Opposite Shadia Memorial School,<br>
+                        By Ali Dada Bus Stop, Okota, Lagos, Nigeria.</p>
+                        <p><strong>Phone:</strong> 07077975931 / 07046736448</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="content-section bg-light">
+        <div class="container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span><i class="fas fa-question-circle me-2"></i> What are your operating hours?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Our standard operating hours are 9:00am to 5:00pm on weekdays for all our resource platforms. Weekend and holiday access may be available with prior booking (at least 24 hours notice).</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span><i class="fas fa-question-circle me-2"></i> How does the payment system work?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>We offer flexible "Pay As You Use" options - you can pay hourly, daily, weekly, or monthly depending on your needs. You only pay for the time you actually use the facilities.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span><i class="fas fa-question-circle me-2"></i> Is internet access included?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes, high-speed WiFi internet is included at no extra cost in all our resource platforms - e-learning center, shared office spaces, and study rooms.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span><i class="fas fa-question-circle me-2"></i> Can I bring my own device?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes, we encourage users to bring their personal devices (laptops, tablets, etc.) as we have limited computers available. Our facilities are designed to accommodate personal devices with ample workspace and power outlets.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span><i class="fas fa-question-circle me-2"></i> Are there any restrictions on usage?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>We maintain a professional, academic environment. Loud noises, boisterous activities, and inappropriate use of facilities are not permitted. Specific restrictions apply to each space - for example, study rooms maintain quiet zones, while shared offices allow for professional meetings.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span><i class="fas fa-question-circle me-2"></i> Do you offer referral bonuses?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes! We offer attractive referral bonuses for anyone who refers new clients to our resource platforms. Contact our offices for details on our referral program.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+            <div class="contact-cta">
+                <h2 class="mb-4">Ready to Experience Our Resource Platforms?</h2>
+                <p class="mb-4">Book a visit or get more information about our e-learning center, shared office spaces, or study rooms</p>
+                <div class="d-flex justify-content-center gap-4 flex-wrap">
+                    <a href="contact.html" class="btn btn-primary btn-lg"><i class="fas fa-envelope me-2"></i> Contact Us</a>
+                    <a href="tel:+2348060581501" class="btn btn-outline-light btn-lg"><i class="fas fa-phone-alt me-2"></i> Call Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer - Matching services page -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <img src="images/logo.png" alt="MEC Logo" class="mb-3" height="50">
+                    <p>Multinational Educational Consulting (MEC) is dedicated to helping students achieve their academic dreams through expert guidance and personalized support.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="index.html">Home</a></li>
+                        <li class="mb-2"><a href="about.html">About Us</a></li>
+                        <li class="mb-2"><a href="services.html">Services</a></li>
+                        <li class="mb-2"><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5>Services</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="admission-processing.html">University Admissions</a></li>
+                        <li class="mb-2"><a href="resource-platform.html">Resource Platform</a></li>
+                        <li class="mb-2"><a href="visa-guidance.html">Visa Assistance</a></li>
+                        <li class="mb-2"><a href="foreign-exam-registration.html">Exam Preparation</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5>Contact Us</h5>
+                    <ul class="list-unstyled">
+                         <li class="mb-3">
+            <img src="images/address-icon.png" alt="Address" class="footer-icon me-2">
+            123 Education Ave, Lagos, Nigeria
+        </li>
+        <li class="mb-3">
+            <img src="images/phone-icon.png" alt="Phone" class="footer-icon me-2">
+            +234 806 058 1501
+        </li>
+        <li class="mb-3">
+            <img src="images/email-icon.png" alt="Email" class="footer-icon me-2">
+            info@mecconsulting.com
+        </li>                     </ul>
+                </div>
+            </div>
+            <hr class="my-4 bg-light opacity-25">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0">&copy; 2023 Multinational Educational Consulting. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="privacy-policy.html">Privacy Policy</a>
+                    <span class="mx-2">|</span>
+                    <a href="terms.html">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle with Popper CDN -->
+    <script src="bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // FAQ Toggle Functionality
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const icon = question.querySelector('i.fa-chevron-down, i.fa-chevron-up');
+                
+                // Toggle answer visibility
+                answer.classList.toggle('show');
+                
+                // Toggle icon
+                if (icon.classList.contains('fa-chevron-down')) {
+                    icon.classList.remove('fa-chevron-down');
+                    icon.classList.add

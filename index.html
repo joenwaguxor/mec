@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEC - Multinational Educational Consulting</title>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <!-- Bootstrap CSS CDN -->
+    <link href="bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome CSS CDN -->
+    <link rel="stylesheet" href="all.min.css">
+    <style>
+        :root {
+            --mec-red: #d32f2f;
+            --mec-yellow: #f9a825;
+            --mec-green: #2e8540;
+            --mec-dark: #2d2d2d;
+            --mec-light: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            line-height: 1.6;
+            color: var(--mec-dark);
+            padding-top: 140px;
+        }
+
+        /* Contact Info Bar - Green Background */
+        .contact-bar {
+            background: var(--mec-green);
+            color: white;
+            font-size: 0.9rem;
+            padding: 8px 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 2000;
+        }
+
+        .contact-bar a {
+            color: white;
+            margin: 0 8px;
+            transition: opacity 0.3s;
+        }
+
+        .contact-bar a:hover {
+            opacity: 0.8;
+        }
+
+        /* Improved Header */
+        .main-header {
+            background: white;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 40px;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .header-container {
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            margin-right: 15px;
+        }
+
+        .main-logo {
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .accreditation-badge {
+            border-left: 2px solid var(--mec-yellow);
+            padding-left: 8px;
+            font-size: 0.75rem;
+            line-height: 1.2;
+            color: var(--mec-red);
+        }
+
+        .tagline {
+            font-size: 0.85rem;
+            color: var(--mec-green);
+            font-weight: 600;
+            margin-top: 3px;
+            white-space: nowrap;
+        }
+
+        /* Navigation - Made Larger */
+        .navbar-nav {
+            gap: 12px;
+        }
+
+        .nav-link {
+            color: var(--mec-dark);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.95rem;
+            padding: 8px 12px !important;
+            white-space: nowrap;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--mec-red);
+        }
+
+        /* Hero Slider */
+        .hero-slider {
+            height: 500px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .hero-slide {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            position: absolute;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .hero-slide.active {
+            opacity: 1;
+        }
+
+        .hero-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            width: 80%;
+            z-index: 2;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.4);
+            z-index: 1;
+        }
+
+        /* Service Cards */
+        .service-card {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            height: 100%;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            margin-bottom: 20px;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-bottom-color: var(--mec-red);
+        }
+
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--mec-red);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        /* Section Styling */
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            position: relative;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: var(--mec-yellow);
+        }
+
+        /* Button Styles */
+        .btn-primary {
+            background-color: var(--mec-red);
+            border-color: var(--mec-red);
+            padding: 10px 25px;
+        }
+
+        .btn-primary:hover {
+            background-color: #b71c1c;
+            border-color: #b71c1c;
+        }
+
+        /* Vision & Mission - Green Background */
+        .vision-mission {
+            background: var(--mec-green);
+            color: white;
+            padding: 80px 0;
+            position: relative;
+        }
+        
+        .vision-box, .mission-box {
+            background: rgba(255,255,255,0.15);
+            border-radius: 8px;
+            padding: 30px;
+            height: 100%;
+            border-left: 4px solid var(--mec-yellow);
+        }
+
+        /* MEC at a Glance - Updated Cards */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            border-top: 4px solid var(--mec-green);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--mec-red);
+            margin-bottom: 5px;
+            line-height: 1;
+        }
+        
+        .stat-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--mec-dark);
+            margin-bottom: 5px;
+        }
+        
+        .stat-description {
+            font-size: 0.9rem;
+            color: var(--mec-dark);
+            opacity: 0.8;
+        }
+
+        /* Footer - Red Background */
+        footer {
+            background-color: var(--mec-red) !important;
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        footer h5 {
+            color: white;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        footer a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        footer a:hover {
+            color: white;
+        }
+        
+        footer .list-unstyled li {
+            margin-bottom: 10px;
+        }
+
+        .social-icons {
+            margin-top: 15px;
+        }
+
+        .social-icons a {
+            display: inline-block;
+            margin-right: 15px;
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        @media (max-width: 1200px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .tagline {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            body {
+                padding-top: 120px;
+            }
+            
+            .main-header {
+                top: 40px;
+            }
+            
+            .navbar-nav {
+                gap: 8px;
+            }
+            
+            .hero-slider {
+                height: 400px;
+            }
+            
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .logo-container {
+                margin-right: 5px;
+            }
+            
+            .main-logo {
+                height: 40px;
+                margin-right: 5px;
+            }
+            
+            .accreditation-badge {
+                font-size: 0.65rem;
+                padding-left: 5px;
+            }
+            
+            .hero-slider {
+                height: 350px;
+            }
+            
+            .hero-content h1 {
+                font-size: 1.8rem;
+            }
+
+            .contact-bar .d-flex {
+                flex-direction: column;
+                text-align: center;
+                gap: 5px;
+            }
+            
+            .contact-bar span {
+                display: block;
+                margin: 0 !important;
+            }
+            
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Contact Info Bar - Green Background -->
+    <div class="contact-bar">
+        <div class="header-container">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <span><img src="images/phone-icon.png" alt="Phone" class="icon me-2" style="width:16px;"> +234 806 058 1501</span>
+                <span class="ms-3"><img src="images/email-icon.png" alt="Email" class="icon me-2" style="width:16px;"> info@mecconsulting.com</span>
+            </div>
+            <div>
+                <a href="#"><img src="images/facebook-icon.png" alt="Facebook" class="icon" style="width:18px;"></a>
+                <a href="#"><img src="images/twitter-icon.png" alt="Twitter" class="icon" style="width:18px;"></a>
+                <a href="#"><img src="images/linkedin-icon.png" alt="LinkedIn" class="icon" style="width:18px;"></a>
+                <a href="#"><img src="images/instagram-icon.png" alt="Instagram" class="icon" style="width:18px;"></a>                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Header with Larger Menu -->
+    <header class="main-header">
+        <div class="header-container">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="logo-container">
+                    <img src="images/logo.png" alt="MEC Logo" class="main-logo">
+                    <div class="accreditation-badge">
+                        <div>An Accredited</div>
+                        <div>Educational Agent</div>
+                        <div>Home & Abroad</div>
+                    </div>
+                </div>
+                <div class="tagline d-none d-xl-block">...your direct pathway to quality education</div>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="index.html">HOME</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="about.html">ABOUT US</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link active dropdown-toggle" href="services.html" id="servicesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                OUR SERVICES
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
+                                <li><a class="dropdown-item" href="admission-processing.html">Admission Processing</a></li>
+                                <li><a class="dropdown-item" href="foreign-exam-registration.html">Foreign Exam Registration & Coaching</a></li>
+                                <li><a class="dropdown-item" href="local-exam-registration.html">Local Exam Registration & Coaching</a></li>
+                                <li><a class="dropdown-item" href="resource-platform.html">Resource Platform</a></li>
+                                <li><a class="dropdown-item" href="visa-guidance.html">Visa Guidance and Application</a></li>
+                                <li><a class="dropdown-item" href="sevis-payment.html">SEVIS Fee Payment</a></li>
+                                <li><a class="dropdown-item" href="scratch-cards.html">Sales of WAEC, NECO, JAMB Scratch Cards</a></li>
+                                <li><a class="dropdown-item" href="foreign-textbooks.html">Sales of Foreign Exam Textbooks</a></li>
+                                <li><a class="dropdown-item" href="private-coaching.html">Private Coaching</a></li>
+                                <li><a class="dropdown-item" href="fund-transfer.html">Fund Transfer</a></li>
+                            </ul>
+                        </li>
+                         </li>
+                       <li class="nav-item dropdown">
+    <a class="nav-link active dropdown-toggle" href="destinations.html" id="studyAbroadDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        STUDY ABROAD
+    </a>
+    <ul class="dropdown-menu scrollable-dropdown" aria-labelledby="studyAbroadDropdown" style="max-height: 400px; overflow-y: auto;">
+        <li><a class="dropdown-item" href="canada.html">Canada</a></li>
+        <li><a class="dropdown-item" href="uk.html">United Kingdom</a></li>
+        <li><a class="dropdown-item" href="usa.html">United States</a></li>
+        <li><a class="dropdown-item" href="cyprus.html">Cyprus</a></li>
+        <li><a class="dropdown-item" href="australia.html">Australia</a></li>
+        <li><a class="dropdown-item" href="austria.html">Austria</a></li>
+        <li><a class="dropdown-item" href="india.html">India</a></li>
+        <li><a class="dropdown-item" href="ireland.html">Ireland</a></li>
+        <li><a class="dropdown-item" href="germany.html">Germany</a></li>
+        <li><a class="dropdown-item" href="france.html">France</a></li>
+        <li><a class="dropdown-item" href="mauritius.html">Mauritius</a></li>
+        <li><a class="dropdown-item" href="lithuania.html">Lithuania</a></li>
+        <li><a class="dropdown-item" href="uae.html">Dubai, UAE</a></li>
+        <li><a class="dropdown-item" href="netherlands.html">Netherlands</a></li>
+        <li><a class="dropdown-item" href="poland.html">Poland</a></li>
+        <li><a class="dropdown-item" href="belgium.html">Belgium</a></li>
+        <li><a class="dropdown-item" href="greece.html">Greece</a></li>
+        <li><a class="dropdown-item" href="turkey.html">Turkey</a></li>
+        <li><a class="dropdown-item" href="malaysia.html">Malaysia</a></li>
+        <li><a class="dropdown-item" href="malta.html">Malta</a></li>
+    </ul>
+</li>                        <li class="nav-item">
+                            <a class="nav-link" href="gallery.html">GALLERY</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">CONTACT</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="tagline d-xl-none text-center mt-2">...your direct pathway to quality education</div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Slider -->
+        <section class="hero-slider">
+            <!-- Slide 1 -->
+            <div class="hero-slide active" style="background-image: url('images/slide1.jpg');">
+                <div class="hero-overlay"></div>
+                <div class="hero-content">
+                    <h1 class="display-4 mb-4">Your Gateway to Global Education</h1>
+                    <p class="lead mb-4">Comprehensive educational services to help you achieve your academic dreams</p>
+                    <a href="contact.html" class="btn btn-primary btn-lg">Get Started</a>
+                </div>
+            </div>
+            
+            <!-- Slide 2 -->
+            <div class="hero-slide" style="background-image: url('images/slide2.jpg');">
+                <div class="hero-overlay"></div>
+                <div class="hero-content">
+                    <h1 class="display-4 mb-4">Study at World-Class Institutions</h1>
+                    <p class="lead mb-4">Partnered with 500+ universities across 25+ countries</p>
+                    <a href="destinations.html" class="btn btn-primary btn-lg">Explore Destinations</a>
+                </div>
+            </div>
+            
+            <!-- Slide 3 -->
+            <div class="hero-slide" style="background-image: url('images/slide3.jpg');">
+                <div class="hero-overlay"></div>
+                <div class="hero-content">
+                    <h1 class="display-4 mb-4">98% Visa Success Rate</h1>
+                    <p class="lead mb-4">Expert guidance through the entire visa application process</p>
+                    <a href="services.html" class="btn btn-primary btn-lg">Our Services</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- What We Do Section - Full List of Services -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">What We Do</h2>
+                <p class="text-center mb-5">Comprehensive educational services tailored to your needs</p>
+                
+                <div class="row g-4">
+                    <!-- Admission Processing -->
+                    <div class="col-md-6 col-lg-3">
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-university"></i>
+                            </div>
+                            <h3>Admission Processing</h3>
+                            <p>Complete assistance with university applications, document preparation, and submission.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Funds Transfer -->
+                    <div class="col-md-6 col-lg-3">
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-money-bill-transfer"></i>
+                            </div>
+                            <h3>Funds Transfer</h3>
+                            <p>Secure international payment solutions for tuition and educational expenses.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Private Coaching -->
+                    <div class="col-md-6 col-lg-3">
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-chalkboard-user"></i>
+                            </div>
+                            <h3>Private Coaching</h3>
+                            <p>Personalized tutoring for TOEFL, IELTS, GRE, GMAT, SAT and other exams.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- SEVIS Fee Payment -->
+                    <div class="col-md-6 col-lg-3">
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-credit-card"></i>
+                            </div>
+                            <h3>SEVIS Fee Payment</h3>
+                            <p>Assistance with SEVIS fee payment and documentation for U.S. student visas.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Visa Guidance -->
+                    <div class="col-md-6 col-lg-3">
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-passport"></i>
+                            </div>
+                            <h3>Visa Guidance</h3>
+                            <p>Expert advice and preparation for student visa interviews.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Visa Applications -->
+                    <div class="col-md-6 col-lg-3">
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-file-signature"></i>
+                            </div>
+                            <h3>Visa Applications</h3>
+                            <p>Complete handling of visa application processes worldwide.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Sales of Books -->
+                    <div class="col-md-6 col-lg-3">
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <h3>Sales of Books</h3>
+                            <p>Educational materials and textbooks for various examinations.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- WAEC/NECO/JAMB Forms -->
+                    <div class="col-md-6 col-lg-3">
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                            <h3>Exam Forms</h3>
+                            <p>WAEC, NECO, and JAMB form purchase and registration assistance.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Vision & Mission Section - Updated Content -->
+        <section class="vision-mission">
+            <div class="container">
+                <h2 class="section-title text-white">Our Vision & Mission</h2>
+                
+                <div class="row g-4">
+                    <div class="col-lg-6">
+                        <div class="vision-box">
+                            <h3 class="mb-4"><i class="fas fa-eye me-2"></i> OUR VISION</h3>
+                            <p>To bring quality education to the doorstep of all aspiring students, thereby making our name a household name.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-6">
+                        <div class="mission-box">
+                            <h3 class="mb-4"><i class="fas fa-bullseye me-2"></i> OUR MISSION</h3>
+                            <p>To safeguard the interest of our clients at all times through best practice ethics as professionals in the industry.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MEC at a Glance Section - Updated Cards -->
+        <section class="section bg-light">
+            <div class="container">
+                <h2 class="section-title">MEC at a Glance</h2>
+                <p class="text-center mb-5">Our achievements and milestones in numbers</p>
+                
+                <div class="stats-container">
+                    <!-- Card 1 -->
+                    <div class="stat-card">
+                        <div class="stat-number">17+</div>
+                        <div class="stat-title">Unique Study Destinations</div>
+                        <div class="stat-description">Countries we can help you study in</div>
+                    </div>
+                    
+                    <!-- Card 2 -->
+                    <div class="stat-card">
+                        <div class="stat-number">4000+</div>
+                        <div class="stat-title">Satisfied Clients</div>
+                        <div class="stat-description">Over the years of excellent service</div>
+                    </div>
+                    
+                    <!-- Card 3 -->
+                    <div class="stat-card">
+                        <div class="stat-number">Unlimited</div>
+                        <div class="stat-title">Institutions</div>
+                        <div class="stat-description">Locally & internationally partnered</div>
+                    </div>
+                    
+                    <!-- Card 4 -->
+                    <div class="stat-card">
+                        <div class="stat-number">15+</div>
+                        <div class="stat-title">Experienced Staff</div>
+                        <div class="stat-description">Dedicated team members</div>
+                    </div>
+                    
+                    <!-- Card 5 -->
+                    <div class="stat-card">
+                        <div class="stat-number">3000+</div>
+                        <div class="stat-title">Students Trained</div>
+                        <div class="stat-description">For local & foreign exams</div>
+                    </div>
+                    
+                    <!-- Card 6 -->
+                    <div class="stat-card">
+                        <div class="stat-number">850+</div>
+                        <div class="stat-title">Graduates</div>
+                        <div class="stat-description">Success stories locally & internationally</div>
+                    </div>
+                    
+                    <!-- Card 7 -->
+                    <div class="stat-card">
+                        <div class="stat-number">98.99%</div>
+                        <div class="stat-title">Success Rate</div>
+                        <div class="stat-description">Proven track record</div>
+                    </div>
+                    
+                    <!-- Card 8 -->
+                    <div class="stat-card">
+                        <div class="stat-number">2500+</div>
+                        <div class="stat-title">SEVIS Fee Paid</div>
+                        <div class="stat-description">Processed seamlessly</div>
+                    </div>
+                    
+                    <!-- Card 9 -->
+                    <div class="stat-card">
+                        <div class="stat-number">15 years+</div>
+                        <div class="stat-title">Industry Experience</div>
+                        <div class="stat-description">Trusted since 2009</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action Section -->
+        <section class="py-5" style="background-color: var(--mec-green); color: white;">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-8">
+                        <h2 class="mb-3">Ready to Start Your Educational Journey?</h2>
+                        <p class="mb-lg-0">Contact us today for a free consultation and take the first step toward your academic dreams.</p>
+                    </div>
+                    <div class="col-lg-4 text-lg-end">
+                        <a href="contact.html" class="btn btn-light btn-lg">Get in Touch</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer - Red Background -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <img src="images/logo.png" alt="MEC Logo" class="mb-3" height="50">
+                    <p>Multinational Educational Consulting (MEC) is dedicated to helping students achieve their academic dreams through expert guidance and personalized support.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="index.html">Home</a></li>
+                        <li class="mb-2"><a href="about.html">About Us</a></li>
+                        <li class="mb-2"><a href="services.html">Services</a></li>
+                        <li class="mb-2"><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5>Services</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="services.html">University Admissions</a></li>
+                        <li class="mb-2"><a href="services.html">Test Preparation</a></li>
+                        <li class="mb-2"><a href="services.html">Visa Assistance</a></li>
+                        <li class="mb-2"><a href="services.html">Scholarship Help</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5>Contact Us</h5>
+                    <ul class="list-unstyled">
+                         <li class="mb-3">
+            <img src="images/address-icon.png" alt="Address" class="footer-icon me-2">
+            123 Education Ave, Lagos, Nigeria
+        </li>
+        <li class="mb-3">
+            <img src="images/phone-icon.png" alt="Phone" class="footer-icon me-2">
+            +234 806 058 1501
+        </li>
+        <li class="mb-3">
+            <img src="images/email-icon.png" alt="Email" class="footer-icon me-2">
+            info@mecconsulting.com
+        </li>                     </ul>
+                </div>
+            </div>
+            <hr class="my-4 bg-light opacity-25">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0">&copy; 2023 Multinational Educational Consulting. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="#">Privacy Policy</a>
+                    <span class="mx-2">|</span>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle with Popper CDN -->
+    <script src="bootstrap.bundle.min.js"></script>
+    <script>
+        // Simple slideshow functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const slides = document.querySelectorAll('.hero-slide');
+            let currentSlide = 0;
+            
+            function showSlide(n) {
+                slides.forEach(slide => slide.classList.remove('active'));
+                currentSlide = (n + slides.length) % slides.length;
+                slides[currentSlide].classList.add('active');
+            }
+            
+            function nextSlide() {
+                showSlide(currentSlide + 1);
+            }
+            
+            // Change slide every 5 seconds
+            setInterval(nextSlide, 5000);
+        });
+    </script>
+</body>
+</html>
